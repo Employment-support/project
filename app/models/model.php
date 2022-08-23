@@ -42,7 +42,7 @@ class DB
             // echo '接続に成功しました。';
             // return $this->pdo;
         } catch (PDOException $e) {
-            return $e->getMessage();
+            return false;
         }
     }
 
@@ -60,7 +60,7 @@ class DB
             $data = $stmt->fetch(PDO::FETCH_ASSOC);
             return $data;
         } catch (PDOException $e) {
-            return $e->getMessage();
+            return false;
         }
     }
 
@@ -75,7 +75,7 @@ class DB
             $data = $stmt->fetchAll(PDO::FETCH_ASSOC);
             return $data;
         } catch (PDOException $e) {
-            return $e->getMessage();
+            return false;
         }
     }
 
@@ -88,7 +88,7 @@ class DB
             $stmt->execute();
             return true;
         } catch (PDOException $e) {
-            return $e->getMessage();
+            return false;
         }
     }
 
@@ -103,7 +103,7 @@ class DB
             $stmt->execute();
             return true;
         } catch (PDOException $e) {
-            return $e->getMessage();
+            return false;
         }
     }
 
@@ -113,6 +113,8 @@ class DB
 
 
 // 企業説明会まとめ
+// ファイル名を保存するカラムを作ってフォルダに保存されるファイル名をかぶらないようにする
+// もしくはファイル名の日付と時間をくっつける
 class Briefings extends DB
 {
     public const sqlSelect = "SELECT * FROM briefings WHERE id = ?";
@@ -165,14 +167,14 @@ class Briefings extends DB
             echo '登録完了'; // テスト用
             return true;
         } catch (PDOException $e) {
-            return $e->getMessage();
+            return false;
         }
     }
     // 変更
     function update(int $id, string $corporate, string $contents, string $corporate_url, string $info, string $img_path, int $corporation_id, int $user_id)
     {
         /*
-        $id:int型 ID
+        $id:int型 コンテンツID
         $corporate:string型 企業名
         $contents:string型 内容
         $corporate_url:string型 企業URL
@@ -207,7 +209,7 @@ class Briefings extends DB
             echo '変更完了'; // テスト用
             return true;
         } catch (PDOException $e) {
-            return $e->getMessage();
+            return false;
         }
     }
 
@@ -252,7 +254,7 @@ class Shares extends DB
             $stmt->execute();
             echo '登録完了'; // テスト用
         } catch (PDOException $e) {
-            return $e->getMessage();
+            return false;
         }
 
         // 最後にINSERTした数字の取得
@@ -277,7 +279,7 @@ class Shares extends DB
             echo '登録完了'; // テスト用
             return true;
         } catch (PDOException $e) {
-            return $e->getMessage();
+            return false;
         }
 
     }
@@ -287,7 +289,7 @@ class Shares extends DB
         /*
         $title:string タイトル
         $contents:string 内容
-        $id:int id
+        $id:int コンテンツid
         $user_id:int ユーザID
         */
         $sql = "UPDATE shares
@@ -305,7 +307,7 @@ class Shares extends DB
             echo '変更完了'; // テスト用
             return true;
         } catch (PDOException $e) {
-            return $e->getMessage();
+            return false;
         }
     }
 
@@ -462,11 +464,11 @@ class Resumes extends DB
 
             return true;
         } catch (PDOException $e) {
-            return $e->getMessage();
+            return false;
         }
     }
     // 変更
-    function update($year, $month, $day, 
+    function update(int $id, $year, $month, $day, 
     $postal_code, $address, $address_furigana, 
     $home_tel, $mobile_tel, $email, 
     $address2, $address2_furigana, $tel, 
@@ -474,6 +476,9 @@ class Resumes extends DB
     $hope, $desire, $pr, 
     $personality, $hobby, $other, int $user_id)
     {
+        /*
+        $id : コンテンツid
+        */
         $sql = "UPDATE `resumes`
                     SET year = :year,
                         month = :month,
@@ -523,11 +528,12 @@ class Resumes extends DB
             $stmt -> bindValue(":hobby", $hobby, PDO::PARAM_STR);
             $stmt -> bindValue(":other", $other, PDO::PARAM_STR);
             $stmt -> bindValue(":user_id", $user_id, PDO::PARAM_INT);
+            $stmt -> bindValue(":id", $id, PDO::PARAM_INT);
             $stmt->execute();
             echo '変更完了'; // テスト用
             return true;
         } catch (PDOException $e) {
-            return $e->getMessage();
+            return false;
         }
     }
 }
@@ -576,11 +582,11 @@ class Portfolio extends DB
             echo '登録完了'; // テスト用
             return true;
         } catch (PDOException $e) {
-            return $e->getMessage();
+            return false;
         }
     }
     // 変更
-    function update($title, $contents, $item_url, $img_path, $user_id)
+    function update($id, $title, $contents, $item_url, $img_path, $user_id)
     {
         $sql = "UPDATE portfolio 
                     SET title = :title,
@@ -599,11 +605,12 @@ class Portfolio extends DB
             $stmt -> bindValue(":item_url", $item_url, PDO::PARAM_STR);
             $stmt -> bindValue(":img_path", $img_path, PDO::PARAM_STR);
             $stmt -> bindValue(":user_id", $user_id, PDO::PARAM_INT);
+            $stmt -> bindValue(":id", $id, PDO::PARAM_INT);
             $stmt->execute();
             echo '登録完了'; // テスト用
             return true;
         } catch (PDOException $e) {
-            return $e->getMessage();
+            return false;
         }
     }
 }
