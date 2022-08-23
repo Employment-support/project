@@ -28,13 +28,8 @@ function signUp($password, $student_number)
 }
 
 // post送信か確認
-if($_SERVER["REQUEST_METHOD"] !== "POST"){
-        echo "postじゃない";
-    } else if(count($_POST) == 0) {
-        echo "postだけど値がない";
-    } else {
+if($_SERVER["REQUEST_METHOD"] == "POST"){
       	signUp($_POST[''], $_POST['']);
-       
     }
 
 // require_once "../views/.php";
