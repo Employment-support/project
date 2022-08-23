@@ -24,9 +24,11 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
         // ファイルの名前にランダムの文字列の結合
         $savefile = "../media/imgs/". uniqid(mt_rand(), true). '-'. $_FILES["upload_file"]["name"];
         move_uploaded_file($_FILES["upload_file"]["tmp_name"], $savefile);
-    } else {
-        $savefile = '';
+    } elseif (isset($_POST[''])) {
+        $savefile = $_POST[''];
     }
+
+    $contents_id = $_GET['edit'];
     $corporate = $_POST[''];
     $contents = $_POST[''];
     $corporate_url = $_POST[''];
@@ -35,24 +37,39 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
     $corporation_id = $_POST[''];
     $user_id = $user['id'];
     // 登録
-    // $briefings->create($corporate, $contents, $corporate_url, $info, $img_path, $corporation_id, $user_id);
+    // $briefings->update($contents_id, $corporate, $contents, $corporate_url, $info, $img_path, $corporation_id, $user_id);
     // header('Location:con_briefings_list.php');
 }
 
-// 学生以外だけが入れる処理
-if (is_admin_teacher($user['type'], $user['admin'])){
+// 学生以外だけが入れる処理＆getがあるとき
+if (is_admin_teacher($user['type'], $user['admin']) && isset($_GET['edit']) && is_numeric($_GET['edit'])){
     $date = date('Y-m-d');
     $corporation_lists = $corporations->selectAll($corporations::sqlSelectAll);
+
+    // 編集するデータ
+    $contents_id = $_GET['edit'];
+    $briefing_data = $briefings->select($contents_id, $briefings::sqlSelect);
+
+    // falseなら一覧ページに戻る
+    if (!$briefing_data) {
+        header('Location:con_briefings_list.php');    
+    }
+    print_r($briefing_data);
+
     // require_once "../views/.php";
 } else {
     header('Location:con_briefings_list.php');
 }
+
 
 ?>
 <!-- コンボックスサンプル -->
 <!-- 実際はviewsの方におく -->
 <select name="genre" id="genre">
     <?php foreach ($corporation_lists as $corporation_list):?>
+        <?php if ($briefing_data['corporation_id'] == $corporation_list['id']): ?>
+        <option value="<?=$corporation_list['id']?>" selected><?=$corporation_list['genre']?></option>
+        <?php endif?>
     <option value="<?=$corporation_list['id']?>"><?=$corporation_list['genre']?></option>
     <?php endforeach;?>
 </select>
