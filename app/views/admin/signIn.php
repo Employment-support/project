@@ -45,23 +45,23 @@
         </tr>
         <tr>
             <th>学科</th>
-            <?php foreach ($department_lists as $department_list):?>
-                <td>
-                    <label>
-                        <input type="radio" name="department" value="<?= $department_list["id"]?>" required><?= $department_list["department"]?>
-                    </label>
-                </td>
-            <?php endforeach;?>
+            <td>
+                <select name="major" id="department">
+                    <?php foreach ($department_lists as $department_list):?>
+                        <option value="<?=$department_list['id']?>"><?=$department_list['department']?></option>
+                    <?php endforeach;?>
+                </select>
+            </td>
         </tr>
         <tr>
             <th>専攻</th>
-            <?php foreach ($major_lists as $major_list):?>
-                <td>
-                    <label>
-                        <input type="radio" name="major" value="<?= $major_list["id"]?>" required><?= $major_list["major"]?>
-                    </label>
-                </td>
-            <?php endforeach;?>
+            <td>
+                <select name="major" id="major">
+                    <?php foreach ($major_lists as $major_list):?>
+                        <option value="<?=$major_list['id']?>"><?=$major_list['major']?></option>
+                    <?php endforeach;?>
+                </select>
+            </td>
         </tr>
         <tr>
             <th>タイプ</th>

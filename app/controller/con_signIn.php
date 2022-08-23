@@ -6,11 +6,7 @@ include_once "..\models\user.php";
 // print_r($_POST);
 
 // post送信か確認
-if($_SERVER["REQUEST_METHOD"] !== "POST"){
-        echo "postじゃない";
-    } else if(count($_POST) == 0) {
-        echo "postだけど値がない";
-    } else {
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $user = new User();
         $name = $_POST["last_name"]. " ". $_POST["first_name"];
         $name_hiragan = $_POST["last_name_hiragana"]. " ". $_POST["first_name_hiragana"];
