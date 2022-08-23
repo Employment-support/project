@@ -32,5 +32,5 @@ $majors = new Majors();
 $major_lists = $majors->selectAll($majors::sqlSelectAll);
 // print_r($major_lists);
 
-require_once "../views/admin/con_signIn.php";
+require_once "../views/admin/signIn.php";
 ?>
