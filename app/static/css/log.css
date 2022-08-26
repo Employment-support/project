@@ -1,0 +1,27 @@
+
+body {
+    margin: 0;
+    text-align: center;
+}
+.form {
+    width: 400px;
+    margin: 0px auto;
+    margin-top: 250px ;
+    padding: 50px;
+    border: 1px solid #555;
+  }
+.email{
+    padding : 0px 0px 20px;
+} 
+.sub{
+    font-size: 200%;
+}
+
+
+input[type="email"],
+input[type="password"] {
+  width: 250px;
+  padding: 10px;
+  font-size: 10px;
+}
+
