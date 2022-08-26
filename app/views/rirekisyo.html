@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./css/rirekisyo.css">
+    <title>履歴書</title>
+</head>
+<body>
+    <p><label for="name">名前<br><input type="text" id="name" required></label></p>
+    <p><label for="furigana">ふりがな<br><input type="text" id="furigana" required></label></p>
+    <p><label for="email">メールアドレス<br><input type="email" id="email" required></label></p>
+    <p><label for="date">生年月日<br><input type="date" id="date" required></label></p>
+    <!-- 年齢を自動計算で入れたい -->
+    <p>性別<br><label for="male">男性<input type="radio" id="male" name="gender" required></label>
+        <label for="female">女性<input type="radio" id="female" name="gender"></label></p>
+    <p><label for="address">住所<br><input type="text" id="address" required></label></p>
+    <p><label for="addressname">住所ふりがな<br><input type="text" id="addressname" required></label></p>
+    <p><label for="Photo">証明写真<br><input type="file" id="Photo" required></label></p>
+
+
+    <p><label for="post">郵便番号<br><input type="text" id="post" required></label></p>
+    <p><label for="Prefectures">都道府県・市区町村・番地<br><input type="text" id="Prefectures" required></label></p>
+    <p><label for="apartment">マンション・建物名等<br><input type="text" id="apartment" required></label></p>
+    <p><label for="phone">電話番号<br><input type="text" id="phone" required></label></p>
+    <p><label for="Educational">学歴<br><input type="text" id="Educational" required></label></p>
+    
+    <p>免許・資格<br>
+        <label for="Qualification"><input type="checkbox" name="Qualification" id="Qualification" required>ITパスポート</label>
+        <label for="a"><input type="checkbox" name="Qualification" id="a">基本情報技術者試験</label>
+        <label for="b"><input type="checkbox" name="Qualification" id="b">応用情報技術者</label>
+        <label for="c"><input type="checkbox" name="Qualification" id="c">Aws Cloud Practitioner</label>
+        <label for="d"><input type="checkbox" name="Qualification" id="d">Azure Fundamentals</label>
+        <label for="e"><input type="checkbox" name="Qualification" id="e">普通運転第一種</label>
+        <label for="others"><br>その他資格<input type="text" id="others"></label>
+    </p>
+    
+    <p><label for="Motivation">志望動機<br><input type="text" id="Motivation" required></label></p>
+    <p><label for="Hope">本人希望欄<br><input type="text" id="Hope" required></label></p>
+    <p><label for="Create">履歴書作成日<br><input type="text" id="Create" required></label></p><br>
+    
+    <input type="submit">
+
+
+
+
+    
+</body>
+</html>
