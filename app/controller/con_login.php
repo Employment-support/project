@@ -19,20 +19,18 @@ function signUp($student_number, $password)
 
 
     if (password_verify($password, $data["password"]) && $student_number == $data["student_number"]) {
-        // $_SESSION["user_id"] = $data["id"];
-        // $_SESSION["user_name"] = $data["name"];
-        // $_SESSION["user_number"] = $data["student_number"];
-        setcookie('user_id', $data["id"]);
-        setcookie('user_name', $data["name"]);
-        setcookie('user_name_hiragana', $data["name_hiragana"]);
-        setcookie('user_number', $data["student_number"]);
-        setcookie('user_gender', $data["gender"]);
-        setcookie('user_type_id', $data["type_id"]);
-        setcookie('user_type', $data["type"]);
-        setcookie('user_department_id', $data["department_id"]);
-        setcookie('user_department', $data["department"]);
-        setcookie('user_major_id', $data["major_id"]);
-        setcookie('user_major', $data["major"]);
+        setcookie('user_id', $data["id"]); // 
+        setcookie('user_name', $data["name"]); // 
+        setcookie('user_name_hiragana', $data["name_hiragana"]); // 
+        setcookie('user_number', $data["student_number"]); // 
+        setcookie('user_admin', $data["admin"]); // 
+        setcookie('user_gender', $data["gender"]); // 
+        setcookie('user_type_id', $data["type_id"]); // 
+        setcookie('user_type', $data["type"]); // 
+        setcookie('user_department_id', $data["department_id"]); // 
+        setcookie('user_department', $data["department"]); // 
+        setcookie('user_major_id', $data["major_id"]); // 
+        setcookie('user_major', $data["major"]); // 
         echo "成功"; // テスト用
         print_r($_COOKIE);
         // header('Location:my_page.php');
