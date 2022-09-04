@@ -46,7 +46,7 @@
         <tr>
             <th>学科</th>
             <td>
-                <select name="major" id="department">
+                <select name="department" id="department">
                     <?php foreach ($department_lists as $department_list):?>
                         <option value="<?=$department_list['id']?>"><?=$department_list['department']?></option>
                     <?php endforeach;?>
