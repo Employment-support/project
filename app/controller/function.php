@@ -28,10 +28,35 @@ function is_token_valid($session_token){
     }
 }
 
-function is_admin_teacher($user, $admin)
+// 管理者か
+function is_admin($admin)
 {
-    // 学生ではない時は入れないただし、管理者権限があれば入れる
-    if ($user !== '学生' || !$admin !== 0){
+    // 管理者権限があれば入れる
+    if ($admin !== 0){
+        return true;
+    } else {
+        return false;
+    }
+
+}
+
+// 担任か
+function is_teacher($user)
+{
+    // 担任なら入れる
+    if ($user == '担任'){
+        return true;
+    } else {
+        return false;
+    }
+
+}
+
+// 学生か
+function is_student($user)
+{
+    // 学生なら入れる
+    if ($user == '学生'){
         return true;
     } else {
         return false;
@@ -46,16 +71,20 @@ function pagination($db_data, $max_display_num, $get_page)
     $max_display_num : 表示させる最大数
     $get_page : ページの番号
     */
-    $num_count = count($db_data);
 
+    $num_count = count($db_data);
+    
+    // 最大ページの取得
     $max_page = ceil($num_count / $max_display_num);
 
+    // ページ数の取得
     if (isset($get_page) && is_numeric($get_page)) {
         $page = $get_page;
     } else {
         $page = 1;
     }
-    
+
+    // ページ番号
     if($page == 1 || $page == $max_page) {
         $range = 4;
     } elseif ($page == 2 || $page == $max_page - 1) {
@@ -69,6 +98,7 @@ function pagination($db_data, $max_display_num, $get_page)
     // 表示アイテム
     $disp_data = array_slice($db_data, $start_no, $max_display_num, true);
 
+    // 取得ページ番号, ページ番号,　最大ページ, 表示データ
     return array($page, $range, $max_page, $disp_data);
     
 }
