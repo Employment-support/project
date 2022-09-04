@@ -10,6 +10,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $user = new User();
         $name = $_POST["last_name"]. " ". $_POST["first_name"];
         $name_hiragan = $_POST["last_name_hiragana"]. " ". $_POST["first_name_hiragana"];
+
+        // print_r($_POST);
         $user->create($_POST["email"], $name, $name_hiragan, $_POST["password"], $_POST["gender"], $_POST["student_number"], $_POST["department"], $_POST["major"], $_POST["type"]);
     }
 
@@ -28,5 +30,5 @@ $majors = new Majors();
 $major_lists = $majors->selectAll($majors::sqlSelectAll);
 // print_r($major_lists);
 
-require_once "../views/admin/signIn.php";
+require_once "../views/admin/singIn.php";
 ?>
