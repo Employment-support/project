@@ -9,11 +9,11 @@ include_once "function.php";
 // 二重送信対策
 list($session_token, $new_token) = generate_token();
 
-$user = new User();
+// $user = new User();
 $briefings = new Briefings(); // 企業説明会
 $corporations = new Corporations(); // 企業ジャンル
 
-$user = $user->select(1, $user::sqlSelect2);
+// $user = $user->select(1, $user::sqlSelect2);
 // $user->select($_SESSION["user_id"], $sql);
 // print_r($user);
 // print_r($_POST);
@@ -35,14 +35,14 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
     $info = $_POST[''];
     $img_path = $savefile;
     $corporation_id = $_POST[''];
-    $user_id = $user['id'];
+    // $user_id = $_COOKIE['id'];
     // 登録
-    // $briefings->update($contents_id, $corporate, $contents, $corporate_url, $info, $img_path, $corporation_id, $user_id);
+    // $briefings->update($contents_id, $corporate, $contents, $corporate_url, $info, $img_path, $corporation_id, $_COOKIE['user_id']);
     // header('Location:con_briefings_list.php');
 }
 
 // 学生以外だけが入れる処理＆getがあるとき
-if (is_admin_teacher($user['type'], $user['admin']) && isset($_GET['edit']) && is_numeric($_GET['edit'])){
+if (is_admin($_COOKIE['user_admin']) && is_teacher($_COOKIE['user_type']) && isset($_GET['edit']) && is_numeric($_GET['edit'])){
     $date = date('Y-m-d');
     $corporation_lists = $corporations->selectAll($corporations::sqlSelectAll);
 
