@@ -1,18 +1,28 @@
 <?php
 
-setcookie('user_id', '', time()-10); // 
-setcookie('user_name', '', time()-10); // 
-setcookie('user_name_hiragana', '', time()-10); // 
-setcookie('user_number', '', time()-10); // 
-setcookie('user_admin', '', time()-10); // 
-setcookie('user_gender', '', time()-10); // 
-setcookie('user_type_id', '', time()-10); // 
-setcookie('user_type', '', time()-10); // 
-setcookie('user_department_id', '', time()-10); // 
-setcookie('user_department', '', time()-10); // 
-setcookie('user_major_id', '', time()-10); // 
-setcookie('user_major', '', time()-10); // 
+function reset_cookie($name){
+    if (isset($_COOKIE[$name])) {
+        setcookie($name, '', time()-10); //     
+        echo $name. 'cookie削除';
+    }
+}
 
-echo 'cookie削除';
+$cookie_names = [
+    'user_id',
+    'user_name',
+    'user_name_hiragana',
+    'user_number',
+    'user_admin',
+    'user_gender',
+    'user_type_id',
+    'user_type',
+    'user_department_id',
+    'user_department',
+    'user_major_id',
+    'user_major'];
+
+foreach($cookie_names as $name) {
+    reset_cookie($name);
+}
 
 // header('Location:index');
