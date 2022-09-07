@@ -12,6 +12,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $name_hiragan = $_POST["last_name_hiragana"]. " ". $_POST["first_name_hiragana"];
 
         // print_r($_POST);
+        // メールアドレスがかぶっているときの処理
         $user->create($_POST["email"], $name, $name_hiragan, $_POST["password"], $_POST["gender"], $_POST["student_number"], $_POST["department"], $_POST["major"], $_POST["type"]);
     }
 

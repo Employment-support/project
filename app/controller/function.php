@@ -32,9 +32,10 @@ function is_token_valid($session_token){
 function is_admin($admin)
 {
     // 管理者権限があれば入れる
-    if ($admin !== 0){
+    if ($admin != 0){
         return true;
     } else {
+        // echo '管理者ではない';
         return false;
     }
 
@@ -45,6 +46,7 @@ function is_teacher($user)
 {
     // 担任なら入れる
     if ($user == '担任'){
+        // echo '担任だ';
         return true;
     } else {
         return false;
