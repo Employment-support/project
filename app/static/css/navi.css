@@ -1,0 +1,40 @@
+body{
+    min-width:960px;
+    background:#f3f3f3;
+    font-size:15px;
+    
+  }
+  nav{
+    display:flex;
+    align-items:center;
+    height:140px;
+    width:87.5%;
+    margin:0 auto;
+    
+  }
+  a{
+    margin-right:40px;
+    color:#000;
+    text-decoration:none;
+    letter-spacing:.1em;
+    
+  }
+  .logo{
+    height:20px;
+    margin-right:auto;
+    margin-left:0;
+    	
+    
+  }
+ .logo img{
+    width:100%;
+    height:auto;
+  }
+  .contact{
+    margin-left:auto;
+    margin-right:0;
+    padding:.5em 1.5em;
+    background:rgb(113, 111, 206);
+    font-size:14px;
+    border-radius:30px 30px 30px 30px;
+  }
