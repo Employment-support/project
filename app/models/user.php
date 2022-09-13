@@ -1,4 +1,7 @@
 <?php
+
+require_once __DIR__ . '/config.php';
+
 // include "model.php";
 
 // ユーザーに関するもの

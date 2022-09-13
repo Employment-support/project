@@ -1,7 +1,8 @@
 <?php
-// include "model.php";
-// エラー処理を書く
 
+require_once __DIR__ . '/config.php';
+
+// エラー処理を書く
 // sqlが違うだけで処理が同じだから一緒できる
 // 所属
 class Belongs extends DB
