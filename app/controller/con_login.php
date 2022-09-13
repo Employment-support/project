@@ -1,15 +1,14 @@
 <?php
-include_once "..\models\model.php";
-include_once "..\models\masters.php";
-include_once "..\models\user.php";
+include_once __DIR__ . "/../models/model.php";
+include_once __DIR__ . "/../models/masters.php";
+include_once __DIR__ . "/../models/user.php";
 
 function create_cookie($name, $data){
     if (isset($_COOKIE[$name])) {
         // cookieリセット
-        create_cookie($name, '', time()-10); //     
+        setcookie($name, '', time()-10); //     
         echo $name. 'cookie削除';
     } else {
-        // cookie生成
         setcookie($name, $data);
     }
 }
@@ -17,19 +16,30 @@ function create_cookie($name, $data){
 // ログイン
 function signUp($student_number, $password)
 {
-    $sql = "SELECT * FROM users 
-                INNER JOIN belongs ON users.type_id = belongs.id 
-                INNER JOIN departments ON users.department_id = departments.id 
-                INNER JOIN majors ON users.major_id = majors.id 
-                WHERE users.student_number = ?";
+    $sql = "SELECT users.id,
+    users.name,
+    users.password,
+    users.name_hiragana,
+    users.student_number,
+    users.admin,
+    users.gender,
+    users.type_id,
+    be.type,
+    users.department_id,
+    de.department,
+    users.major_id,
+    ma.major
+    FROM users 
+    INNER JOIN belongs as be ON users.type_id = be.id 
+    INNER JOIN departments as de ON users.department_id = de.id 
+    INNER JOIN majors as ma ON users.major_id = ma.id 
+    WHERE users.student_number = ?";
 
     $obj = new DB();
 
     $data = $obj->select($student_number, $sql);
-    // print_r($data);
-    // echo $student_number. '<br>';
-    // echo $data["id"]. '<br>';
-    // echo $data["student_number"]. '<br>';
+    print_r($data); // テスト用
+
     if (password_verify($password, $data["password"]) && $student_number == $data["student_number"]) {
         // cookieリセット
 
@@ -47,10 +57,10 @@ function signUp($student_number, $password)
         create_cookie('user_major_id', $data["major_id"]); // 
         create_cookie('user_major', $data["major"]); // 
         echo "成功"; // テスト用
-        print_r($_COOKIE);
-        header('Location:con_briefing_list.php');
+        header('Location:/');
     } else {
         array_push($obj->error_message, 'ユーザー名またはパスワードが違います');
+        // print_r($obj->error_message);
         return $obj->error_message;
     }
     
@@ -61,4 +71,4 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
       	signUp($_POST['num'], $_POST['pass']);
     }
 
-require_once __DIR__ . "/../views/login.html";
+require_once __DIR__ . "/../views/vie_login.php";
