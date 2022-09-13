@@ -1,8 +1,8 @@
 <?php
-include_once "..\models\model.php";
-include_once "..\models\masters.php";
-include_once "..\models\user.php";
-include_once "function.php";
+include_once __DIR__ . "/../models/model.php";
+include_once __DIR__ . "/../models/masters.php";
+include_once __DIR__ . "/../models/user.php";
+include_once __DIR__ . "/function.php";
 
 // 登録したらページ移動させる
 
@@ -36,12 +36,12 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
 }
 
 // 学生以外だけが入れる処理＆getがあるとき
-if (is_admin($_COOKIE['user_admin']) || is_teacher($_COOKIE['user_type']) && isset($_GET['create']) && is_numeric($_GET['create'])){
+if (is_admin($_COOKIE['user_admin']) || is_teacher($_COOKIE['user_type']) && isset($_GET['id']) && is_numeric($_GET['id'])){
     $date = date('Y-m-d');
     $corporation_lists = $corporations->selectAll($corporations::sqlSelectAll);
 
     // 編集するデータ
-    $contents_id = $_GET['create'];
+    $contents_id = $_GET['id'];
     $briefing_data = $briefings->select($contents_id, $briefings::sqlSelect);
 
     // データが無ければ一覧ページに戻る

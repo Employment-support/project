@@ -1,20 +1,24 @@
 <?php
-include_once "..\models\model.php";
-include_once "..\models\masters.php";
-include_once "..\models\user.php";
-include_once "function.php";
+include_once __DIR__ . "/../models/model.php";
+include_once __DIR__ . "/../models/masters.php";
+include_once __DIR__ . "/../models/user.php";
+include_once __DIR__ . "/function.php";
 
 
 $briefings = new Briefings(); // 企業説明会
 $corporations = new Corporations(); // 企業ジャンル
 
 // vies側で学生/担任で表示される内容の変更
+$type = false;
+// ログイン状態で担任か管理者か判断
 if (isset($_COOKIE['user_type'])) {
-    $type = is_teacher($_COOKIE['user_type']);
+    if (is_teacher($_COOKIE['user_type']) || is_admin($_COOKIE['user_type'])){
+        $type = true;
+    }
 } else {
     $type = false;
 }
-// echo $type; // test
+echo $type; // test
 
 $corporation_lists = $corporations->selectAll($corporations::sqlSelectAll);
 
@@ -27,37 +31,32 @@ if (isset($_GET['page']) && is_numeric($_GET['page'])) {
     $get_page = 1;
 }
 
-list($page, $range, $max_page, $disp_data) = pagination($briefing_lists, 3, $get_page);
+list($page, $range, $max_page, $disp_data) = pagination($briefing_lists, 1, $get_page);
 
-// 自身のファイルのファイル名
-$url = $_SERVER['REQUEST_URI'];
+// 自身のスクリプト名
+$url = $_SERVER['SCRIPT_NAME'];
+// ここまでページネーション処理
 
-echo $_COOKIE['user_id'];
-echo $_COOKIE['user_name_hiragana'];
-echo $_COOKIE['user_number'];
-echo $_COOKIE['user_admin'];
-echo $_COOKIE['user_gender'];
-echo $_COOKIE['user_type_id'];
-echo $_COOKIE['user_type'];
-echo $_COOKIE['user_department_id'];
-echo $_COOKIE['user_department'];
-echo $_COOKIE['user_major_id'];
-echo $_COOKIE['user_major'];
+
 // print_r($disp_data); // テスト用
 
 // 試作
 foreach ($disp_data as $data) {
     // print_r($data). '<br>';
-    echo "<p><a href=con_briefing_create.php?create=" . $data['id']. ">". 'create_url' . "</a></p>"; // てすと
-    echo "<p><a href=con_briefing_edit.php?edit=" . $data['id']. ">". 'edit_url' . "</a></p>"; // てすと
-    echo "<p><a href=con_briefing_inf.php?inf=" . $data['id']. ">". 'inf_url' . "</a></p>"; // てすと
+    echo "<p><a href=/briefing/create?id=" . $data['id']. ">". 'create_url' . "</a></p>"; // てすと
+    echo "<p><a href=/briefing/edit?id=" . $data['id']. ">". 'edit_url' . "</a></p>"; // てすと
+    echo "<p><a href=/briefing/inf?id=" . $data['id']. ">". 'inf_url' . "</a></p>"; // てすと
     foreach ($data as $key => $value) {
         echo $key. '=>' . $value. '<br>';
+    }
+    // 作ったユーザだけで編集可能
+    if ($type && $_COOKIE['user_id'] == $data['user_id']) {
+        echo '<button>編集</button>';
     }
     echo str_repeat('-', 10). '<br>';
 }
 // viewsでtmp_pagination.phpを呼び出す
-// require_once "../template/tmp_pagination.php";
+require_once __DIR__ . "/../template/tmp_pagination.php";
 // require_once "../views/.php";
 ?>
 
