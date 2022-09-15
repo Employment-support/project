@@ -1,23 +1,18 @@
 <?php
-include_once "..\models\model.php";
-include_once "..\models\masters.php";
-include_once "..\models\user.php";
-include_once "function.php";
+include_once __DIR__ . "/../models/model.php";
+include_once __DIR__ . "/../models/masters.php";
+include_once __DIR__ . "/../models/user.php";
+include_once __DIR__ . "/function.php";
 
 // 登録したらページ移動させる
 
 // 二重送信対策
 list($session_token, $new_token) = generate_token();
 
-$user = new User(); // ユーザー
 $shares = new Shares(); // 共有情報
 $departments = new Departments(); // 学科
 $majors = new Majors(); // 専攻
 
-$user = $user->select(1, $user::sqlSelect2);
-// $user = $user->select($_SESSION["user_id"], $sql);
-// print_r($user);
-// print_r($_POST);
 
 // post送信か確認
 if($_SERVER["REQUEST_METHOD"] == "POST"){
@@ -31,22 +26,22 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
     $title = $_POST[''];
     $contents = $_POST[''];
     $file_path = $savefile;
-    $user_id = $user['id'];
+    $user_id = $_COOKIE['user_id'];
     // 登録
     // $shares->create($title, $contents, $user_id, $file_path);
-    // header('Location:con_shares_list.php');
+    // header('Location:/shares');
 } else {
     echo "何もない";
 }
 
 // 学生以外だけが入れる処理
-if (is_admin_teacher($user['type'], $user['admin'])){
+if (is_admin($_COOKIE['user_admin']) || is_teacher($_COOKIE['user_type'])){
     $date = date('Y-m-d');
     $major_lists = $majors->selectAll($majors::sqlSelectAll);
     $department_lists = $departments->selectAll($departments::sqlSelectAll);
     // require_once "../views/.php";
 } else {
-    header('Location:con_shares_list.php');
+    header('Location:/shares');
 }
 
 ?>
