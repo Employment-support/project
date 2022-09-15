@@ -66,6 +66,7 @@ function is_student($user)
 
 }
 
+// ページネーション
 function pagination($db_data, $max_display_num, $get_page)
 {
     /*
@@ -103,4 +104,16 @@ function pagination($db_data, $max_display_num, $get_page)
     // 取得ページ番号, ページ番号,　最大ページ, 表示データ
     return array($page, $range, $max_page, $disp_data);
     
+}
+
+// ログインのチェック
+// ログイン状態で担任か管理者か判断
+function is_login(){
+    if (isset($_COOKIE['user_type'])) {
+        if (is_teacher($_COOKIE['user_type']) || is_admin($_COOKIE['user_type'])){
+            return true;
+        }
+    } else {
+        return false;
+    }
 }
