@@ -36,31 +36,13 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
 }
 
 // 学生以外だけが入れる処理＆getがあるとき
-if (is_admin($_COOKIE['user_admin']) || is_teacher($_COOKIE['user_type']) && isset($_GET['id']) && is_numeric($_GET['id'])){
+if (is_admin($_COOKIE['user_admin']) || is_teacher($_COOKIE['user_type'])){
     $date = date('Y-m-d');
     $corporation_lists = $corporations->selectAll($corporations::sqlSelectAll);
 
-    // 編集するデータ
-    $contents_id = $_GET['id'];
-    $briefing_data = $briefings->select($contents_id, $briefings::sqlSelect);
-
-    // データが無ければ一覧ページに戻る
-    if (!$briefing_data) {
-        header('Location:con_briefing_list.php');
-    }
-
-    echo $briefing_data['user_id'];
-    echo $_COOKIE['user_id'];
-    // 作成ユーザではない時の処理
-    // if ($briefing_data['user_id'] !== $_COOKIE['user_id']) {
-    //     header('Location:con_briefing_list.php');
-    // }
-
-    print_r($briefing_data);
-
     // require_once "../views/.php";
 } else {
-    header('Location:con_briefing_list.php');
+    header('Location:/briefing');
 }
 ?>
 <!-- コンボックスサンプル -->
