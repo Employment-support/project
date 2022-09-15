@@ -48,19 +48,19 @@ if (is_admin($_COOKIE['user_admin']) || is_teacher($_COOKIE['user_type']) && iss
 
     // falseなら一覧ページに戻る
     if (!$briefing_data) {
-        header('Location:con_briefing_list.php');    
+        header('Location:\briefing');    
     }
 
     // 作成ユーザではない時の処理
     if ($briefing_data['user_id'] != $_COOKIE['user_id']) {
-        header('Location:con_briefing_list.php');
+        header('Location:\briefing');
     }
     
     print_r($briefing_data);
 
     // require_once "../views/.php";
 } else {
-    header('Location:con_briefing_list.php');
+    header('Location:\briefing');
 }
 
 

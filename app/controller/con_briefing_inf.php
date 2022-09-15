@@ -12,11 +12,11 @@ if (isset($_GET['id']) && is_numeric($_GET['id'])){
     $briefing_data = $briefings->select($contents_id, $briefings::sqlSelect);
 
     if (!$briefing_data) {
-        header('Location:con_briefing_list.php');
+        header('Location:/briefing');
     }
     print_r($briefing_data);
     
 // require_once "../views/.php";
 } else {
-    header('Location:con_briefing_list.php');
+    header('Location:/briefing');
 }
