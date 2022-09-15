@@ -1,7 +1,7 @@
 <?php
-include_once "..\models\model.php";
-include_once "..\models\masters.php";
-include_once "..\models\user.php";
+include_once __DIR__ . "/../models/model.php";
+include_once __DIR__ . "/../models/masters.php";
+include_once __DIR__ . "/../models/user.php";
 
 // print_r($_POST);
 
