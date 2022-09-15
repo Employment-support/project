@@ -6,9 +6,13 @@ require_once __DIR__ . '/../vendor/autoload.php';
 
 $router = new AltoRouter();
 
-// $router->setBasePath('/システムエンジニアリング');
+// $router->setBasePath('/system');
 
 // スクリプトを直で呼び出す
+// test
+$router->map('GET|POST', '/phpinfo', function () {
+    echo phpinfo();
+});
 // ホーム
 $router->map('GET|POST', '/', function () {
     require_once __DIR__ . '/controller/con_home.php';
@@ -24,14 +28,30 @@ $router->map('GET|POST', '/logout', function () {
     require_once __DIR__ . '/controller/con_out.php';
 });
 
-// ポートフォリオ
+// ポートフォリオ　一覧
 $router->map('GET|POST', '/portfolio', function () {
-    require_once __DIR__ . '/controller/';
+    require_once __DIR__ . '/controller/con_portfolio_list.php';
 });
+
+// ポートフォリオ　作成
+$router->map('GET|POST', '/portfolio/create', function () {
+    require_once __DIR__ . '/controller/con_portfolio_create.php';
+});
+
+// ポートフォリオ　作成
+$router->map('GET|POST', '/portfolio/edit', function () {
+    require_once __DIR__ . '/controller/con_portfolio_edit.php';
+});
+
 
 // 企業説明会まとめ　一覧
 $router->map('GET|POST', '/briefing', function () {
     require_once __DIR__ . '/controller/con_briefing_list.php';
+});
+
+// 企業説明会まとめ　詳細
+$router->map('GET|POST', '/briefing/inf', function () {
+    require_once __DIR__ . '/controller/con_briefing_inf.php';
 });
 
 // 企業説明会まとめ　新規作成
@@ -46,17 +66,32 @@ $router->map('GET|POST', '/briefing/edit', function () {
 
 // 企業説明会まとめ　削除
 $router->map('GET|POST', '/briefing/inf', function () {
-    require_once __DIR__ . '/controller/con_briefing_inf.php';
+    // require_once __DIR__ . '/controller/';
 });
+
 
 // 共有情報
-$router->map('GET|POST', '/briefing', function () {
-    require_once __DIR__ . '/controller/';
+$router->map('GET|POST', '/share', function () {
+    require_once __DIR__ . '/controller/con_share_list.php';
 });
 
-// 履歴書
-$router->map('GET','../static/css/','resume.css','bootstrapcss');
+// 共有情報　新規作成
+$router->map('GET|POST', '/share/create', function () {
+    require_once __DIR__ . '/controller/con_share_create.php';
+});
 
+// 共有情報　編集
+$router->map('GET|POST', '/share/edit', function () {
+    require_once __DIR__ . '/controller/con_share_edit.php';
+});
+
+// 共有情報　削除
+$router->map('GET|POST', '/share/inf', function () {
+    // require_once __DIR__ . '/controller/';
+});
+
+
+// 履歴書
 $router->map('GET|POST', '/resume', function () {
     // global $router;
     // echo $router->generate('bootstrapcss');
