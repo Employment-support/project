@@ -9,19 +9,13 @@ $briefings = new Briefings(); // 企業説明会
 $corporations = new Corporations(); // 企業ジャンル
 
 // vies側で学生/担任で表示される内容の変更
-$type = false;
-// ログイン状態で担任か管理者か判断
-if (isset($_COOKIE['user_type'])) {
-    if (is_teacher($_COOKIE['user_type']) || is_admin($_COOKIE['user_type'])){
-        $type = true;
-    }
-} else {
-    $type = false;
-}
+$type = is_login();
 echo $type; // test
 
+// 分類コンボックス
 $corporation_lists = $corporations->selectAll($corporations::sqlSelectAll);
 
+// 企業データ
 $briefing_lists = $briefings->selectAll($briefings::sqlSelectAll);
 
 // ページネーション
@@ -31,7 +25,7 @@ if (isset($_GET['page']) && is_numeric($_GET['page'])) {
     $get_page = 1;
 }
 
-list($page, $range, $max_page, $disp_data) = pagination($briefing_lists, 1, $get_page);
+list($page, $range, $max_page, $disp_data) = pagination($briefing_lists, 2, $get_page);
 
 // 自身のスクリプト名
 $url = $_SERVER['SCRIPT_NAME'];
@@ -41,16 +35,20 @@ $url = $_SERVER['SCRIPT_NAME'];
 // print_r($disp_data); // テスト用
 
 // 試作
+if ($type) {
+    echo "<p><a href=/briefing/create>". 'create_url' . "</a></p>"; // てすと
+}
+
+// 試作
 foreach ($disp_data as $data) {
     // print_r($data). '<br>';
-    echo "<p><a href=/briefing/create?id=" . $data['id']. ">". 'create_url' . "</a></p>"; // てすと
-    echo "<p><a href=/briefing/edit?id=" . $data['id']. ">". 'edit_url' . "</a></p>"; // てすと
     echo "<p><a href=/briefing/inf?id=" . $data['id']. ">". 'inf_url' . "</a></p>"; // てすと
     foreach ($data as $key => $value) {
         echo $key. '=>' . $value. '<br>';
     }
     // 作ったユーザだけで編集可能
     if ($type && $_COOKIE['user_id'] == $data['user_id']) {
+        echo "<p><a href=/briefing/edit?id=" . $data['id']. ">". 'edit_url' . "</a></p>"; // てすと
         echo '<button>編集</button>';
     }
     echo str_repeat('-', 10). '<br>';
