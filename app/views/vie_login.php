@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="../static/css/log.css">
     <link rel="stylesheet" href="../static/css/navi.css">
+    <link rel="stylesheet" href="../static/css/footer.css"> 
 
 
     <title>ログイン</title>
@@ -13,10 +14,10 @@
 <body>
 <?php include ("../template/navi.html"); ?>
     <div class="form">
-        <p clss="form-title">ログイン</p>
+        <h3 clss="form-title">ログイン</h3>
         <form action="post">
             <div class="email">
-                <input type="email" placeholder="メールアドレス" required><br>
+                <input class="email1"type="email" placeholder="メールアドレス" required><br>
             </div>
             <div>
                 <input type="password" placeholder="パスワード" required><br>
@@ -24,9 +25,8 @@
             <p class="check">
                 <input type="checkbox" name="checkbox" />ログイン状態を保存する
             </p>
-            <div class="sub">
-                <input type="submit" value="ログイン">
-            </div>
+            <input class="sub" type="submit" value="ログイン">
+
 
         </form>
         
@@ -34,6 +34,8 @@
     <div class="url">
         <a href="リンク先のＵＲＬ" target="_blank">アカウントをお持ちではない方</a>
     </div>
+    
 </body>
+<?php include ("../template/footer.html"); ?>
 </html>
 
