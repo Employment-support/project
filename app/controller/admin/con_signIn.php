@@ -1,7 +1,7 @@
 <?php
-include_once __DIR__ . "/../models/model.php";
-include_once __DIR__ . "/../models/masters.php";
-include_once __DIR__ . "/../models/user.php";
+include_once __DIR__ . "/../../models/model.php";
+include_once __DIR__ . "/../../models/masters.php";
+include_once __DIR__ . "/../../models/user.php";
 
 // print_r($_POST);
 
@@ -31,5 +31,7 @@ $majors = new Majors();
 $major_lists = $majors->selectAll($majors::sqlSelectAll);
 // print_r($major_lists);
 
-require_once "../views/admin/singIn.php";
+$password_rand = mt_rand();
+
+require_once __DIR__ . "/../../views/admin/singIn.php";
 ?>
