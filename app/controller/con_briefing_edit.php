@@ -16,21 +16,23 @@ $corporations = new Corporations(); // 企業ジャンル
 
 // post送信か確認
 if($_SERVER["REQUEST_METHOD"] == "POST"){
-    if (isset($_FILES['upload_file'])) {
+    if (isset($_FILES['gazou'])) {
         // ファイルの名前にランダムの文字列の結合
-        $savefile = "../media/imgs/". uniqid(mt_rand(), true). '-'. $_FILES["upload_file"]["name"];
-        move_uploaded_file($_FILES["upload_file"]["tmp_name"], $savefile);
-    } elseif (isset($_POST[''])) {
-        $savefile = $_POST[''];
+        // s3 にアップできるように
+        // https://tech.gootablog.com/article/s3-php/
+        $save_db_name = "../media/imgs/". uniqid(mt_rand(), true). '-'. $_FILES["gazou"]["name"];
+        $savefile = __DIR__ . '/' . $save_db_name;
+        move_uploaded_file($_FILES["gazou"]["tmp_name"], $savefile);
+    } else {
+        $save_db_name = '';
     }
-
-    $contents_id = $_GET['edit'];
-    $corporate = $_POST[''];
-    $contents = $_POST[''];
-    $corporate_url = $_POST[''];
-    $info = $_POST[''];
-    $img_path = $savefile;
-    $corporation_id = $_POST[''];
+    $corporate = $_POST['Enterprise']; // 企業名
+    $contents = $_POST['text']; // 説明会内容
+    $corporate_url = $_POST['idurl']; // 企業URL
+    $info = $_POST['information']; // 企業情報
+    $img_path = $save_db_name;
+    $corporation_id = (int) $_POST['genre']; // 企業ジャンル
+    $user_id = (int) $_COOKIE['user_id']; // 投稿者ID
     // $user_id = $_COOKIE['id'];
     // 登録
     // $briefings->update($contents_id, $corporate, $contents, $corporate_url, $info, $img_path, $corporation_id, $_COOKIE['user_id']);
