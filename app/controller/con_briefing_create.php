@@ -14,25 +14,41 @@ $briefings = new Briefings(); // 企業説明会
 $corporations = new Corporations(); // 企業ジャンル
 
 
-// post送信か確認
+// post送信確認とDB保存処理
 if($_SERVER["REQUEST_METHOD"] == "POST"){
-    if (isset($_FILES['upload_file'])) {
+    if (isset($_FILES['gazou'])) {
         // ファイルの名前にランダムの文字列の結合
-        $savefile = "../media/imgs/". uniqid(mt_rand(), true). '-'. $_FILES["upload_file"]["name"];
-        move_uploaded_file($_FILES["upload_file"]["tmp_name"], $savefile);
+        // s3 にアップできるように
+        // https://tech.gootablog.com/article/s3-php/
+        $save_db_name = "../media/imgs/". uniqid(mt_rand(), true). '-'. $_FILES["gazou"]["name"];
+        $savefile = __DIR__ . '/' . $save_db_name;
+        move_uploaded_file($_FILES["gazou"]["tmp_name"], $savefile);
     } else {
-        $savefile = '';
+        $save_db_name = '';
     }
-    $corporate = $_POST[''];
-    $contents = $_POST[''];
-    $corporate_url = $_POST[''];
-    $info = $_POST[''];
-    $img_path = $savefile;
-    $corporation_id = $_POST[''];
-    $user_id = $_COOKIE['user_id'];
+    $corporate = $_POST['Enterprise']; // 企業名
+    $contents = $_POST['text']; // 説明会内容
+    $corporate_url = $_POST['idurl']; // 企業URL
+    $info = $_POST['information']; // 企業情報
+    $img_path = $save_db_name;
+    $corporation_id = (int) $_POST['genre']; // 企業ジャンル
+    $user_id = (int) $_COOKIE['user_id']; // 投稿者ID
+
+    // var_dump($corporate); // test
+    // var_dump($contents); // test
+    // var_dump($corporate_url); // test
+    // var_dump($info); // test
+    // var_dump($img_path); // test
+    // var_dump($corporation_id); // test
+    // var_dump($user_id); // test
     // 登録
-    // $briefings->create($corporate, $contents, $corporate_url, $info, $img_path, $corporation_id, $user_id);
-    // header('Location:con_briefings_list.php');
+    $return_type = $briefings->create($corporate, $contents, $corporate_url, $info, $img_path, $corporation_id, $user_id);
+
+    if ($return_type) {
+        header('Location:/briefing');
+    } else {
+        echo '投稿できていない';
+    }
 }
 
 // 学生以外だけが入れる処理＆getがあるとき
@@ -40,18 +56,18 @@ if (is_admin($_COOKIE['user_admin']) || is_teacher($_COOKIE['user_type'])){
     $date = date('Y-m-d');
     $corporation_lists = $corporations->selectAll($corporations::sqlSelectAll);
 
-    // require_once "../views/.php";
+    require_once __DIR__ . "/../views/vie_create_briefing.php";
 } else {
     header('Location:/briefing');
 }
 ?>
 <!-- コンボックスサンプル -->
 <!-- 実際はviewsの方におく -->
-<select name="genre" id="genre">
+<!-- <select name="genre" id="genre">
     <?php foreach ($corporation_lists as $corporation_list):?>
     <option value="<?=$corporation_list['id']?>"><?=$corporation_list['genre']?></option>
     <?php endforeach;?>
-</select>
+</select> -->
 
 
 <?php
