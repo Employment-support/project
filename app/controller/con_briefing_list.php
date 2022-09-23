@@ -9,8 +9,8 @@ $briefings = new Briefings(); // 企業説明会
 $corporations = new Corporations(); // 企業ジャンル
 
 // vies側で学生/担任で表示される内容の変更
-$type = is_login();
-echo $type; // test
+$type = is_editor();
+// echo $type; // test
 
 // 分類コンボックス
 $corporation_lists = $corporations->selectAll($corporations::sqlSelectAll);
@@ -27,8 +27,10 @@ if (isset($_GET['page']) && is_numeric($_GET['page'])) {
 
 list($page, $range, $max_page, $disp_data) = pagination($briefing_lists, 2, $get_page);
 
-// 自身のスクリプト名
-$url = $_SERVER['SCRIPT_NAME'];
+// 現在のURL取得
+$now_url = (empty($_SERVER['HTTPS']) ? 'http://' : 'https://') . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'];
+$url = parse_url($now_url , PHP_URL_PATH);
+
 // ここまでページネーション処理
 
 
