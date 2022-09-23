@@ -65,7 +65,7 @@ $router->map('GET|POST', '/briefing/edit', function () {
 });
 
 // 企業説明会まとめ　削除
-$router->map('GET|POST', '/briefing/inf', function () {
+$router->map('GET|POST', '/briefing/delete', function () {
     // require_once __DIR__ . '/controller/';
 });
 
@@ -86,7 +86,7 @@ $router->map('GET|POST', '/share/edit', function () {
 });
 
 // 共有情報　削除
-$router->map('GET|POST', '/share/inf', function () {
+$router->map('GET|POST', '/share/delete', function () {
     // require_once __DIR__ . '/controller/';
 });
 
@@ -96,6 +96,13 @@ $router->map('GET|POST', '/resume', function () {
     // global $router;
     // echo $router->generate('bootstrapcss');
     require_once __DIR__ . '/controller/con_resume.php';
+});
+
+// ユーザ作成
+$router->map('GET|POST', '/admin/sigin', function () {
+    // global $router;
+    // echo $router->generate('bootstrapcss');
+    require_once __DIR__ . '/controller/admin/con_signIn.php';
 });
 
 
