@@ -108,7 +108,7 @@ function pagination($db_data, $max_display_num, $get_page)
 
 // ログインのチェック
 // ログイン状態で担任か管理者か判断
-function is_login(){
+function is_editor(){
     if (isset($_COOKIE['user_type'])) {
         if (is_teacher($_COOKIE['user_type']) || is_admin($_COOKIE['user_type'])){
             return true;
