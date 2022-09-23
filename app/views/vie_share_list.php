@@ -18,8 +18,8 @@
     </select>
     <hr>
     <!--  -->
-    <?php if($is_data) {?>
-        <?php foreach ($disp_data as $data) {?>
+    <?php if($is_data):?>
+        <?php foreach ($disp_data as $data):?>
             <?php
             $path_data = [];
             foreach ($file_lists as $file_list) {
@@ -39,7 +39,7 @@
             <table>
                 <!-- ファイルダウンロード -->
                 <tr>
-                    <?php foreach($data['path'] as $d){?>
+                    <?php foreach($data['path'] as $d):?>
                         <th>
                             <?php
                             preg_match("/(?<=-)(.*)/", $d, $match);
@@ -47,17 +47,17 @@
                             ?>
                         </th>
                         <td><input type="button" value="ダウンロード"></td>
-                    <?php }?>
+                    <?php endforeach?>
                 </tr>
             </table>
             <!-- 作ったユーザだけで編集可能 -->
-            <?php if ($type && $_COOKIE['user_id'] == $data['user_id']) { ?>
+            <?php if ($type && $_COOKIE['user_id'] == $data['user_id']): ?>
                 <p><a href=/share/edit?id="<?= $data['id'] ?>">edit_url</a></p>
                 <button>編集</button>
-            <?php } ?>
+            <?php endif ?>
             <hr>
-        <?php } ?>
-    <?php } ?>
+        <?php endforeach ?>
+    <?php endif ?>
     <p>データがありません</p>
     <!-- 新規仮 -->
     <?php if ($type){?>
