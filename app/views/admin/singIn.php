@@ -76,7 +76,7 @@
         <tr>
             <label>
                 <th>パスワード</th>
-                <td><input type="password" name="password" required></td>
+                <td><input type="password" name="password" value="<?= $password_rand ?>" required><?= $password_rand ?></td>
             </label>
         </tr>
         <tr>
