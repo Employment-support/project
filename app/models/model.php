@@ -15,37 +15,37 @@ class Briefings extends DB
     public const sqlDeleteTime = "UPDATE briefings SET delete_at = NOW() WHERE id = ?";
     // 登録    
     function create(string $corporate, string $contents, string $corporate_url, string $info, string $img_path, int $corporation_id, int $user_id)
-    /*
-    $corporate:string型 型企業名
-    $contents:string型 型内容
-    $corporate_url:string型 型企業URL
-    $info:string型 型企業情報
-    $img_path:string型 型画像
-    $corporation_id:int型 企業ジャンル一覧ID
-    $user_id:int型 ユーザID
-    */
     {
+        /*
+        $corporate:string型 型企業名
+        $contents:string型 型内容
+        $corporate_url:string型 型企業URL
+        $info:string型 型企業情報
+        $img_path:string型 型画像
+        $corporation_id:int型 企業ジャンル一覧ID
+        $user_id:int型 ユーザID
+        */
 
-        $sql = "INSERT INTO briefings(
-                    corporate,
-                    contents,
-                    corporate_url,
-                    info,
-                    img_path,
-                    corporation_id,
-                    user_id,
-                    created_at,
-                    update_at
-                VALUES (
-                    :corporate,
-                    :contents,
-                    :corporate_url,
-                    :info,
-                    :img_path,
-                    :corporation_id,
-                    :user_id,
-                    NOW(),
-                    NOW())";
+        $sql = 'INSERT INTO briefings(
+                                corporate,
+                                contents,
+                                corporate_url,
+                                info,
+                                img_path,
+                                corporation_id,
+                                user_id,
+                                created_at,
+                                update_at)
+                            VALUES (
+                                :corporate,
+                                :contents,
+                                :corporate_url,
+                                :info,
+                                :img_path,
+                                :corporation_id,
+                                :user_id,
+                                NOW(),
+                                NOW())';
 
         try {
             $stmt = $this->pdo->prepare($sql);
@@ -60,6 +60,7 @@ class Briefings extends DB
             echo '登録完了'; // テスト用
             return true;
         } catch (PDOException $e) {
+            print('Error:'.$e->getMessage());
             return false;
         }
     }
@@ -151,16 +152,26 @@ class Shares extends DB
         }
 
         // 最後にINSERTした数字の取得
-        $share_id = $this->pdo->lastInsertId();
+        if (isset($file_path)) {
+            $share_id = $this->pdo->lastInsertId();
+            return $share_id;
+        } else {
+            return true;
+        }
 
+        
+    }
+    
+    function fileCreate($share_id, $file_path)
+    {
         // ファイルの保存
         $sql = "INSERT INTO files(
                                 file_path, 
                                 share_id)
                             VALUES (
-                                :file_path
+                                :file_path,
                                 :share_id)";
-
+    
         try {
             $stmt = $this->pdo->prepare($sql);
             // ファイルが複数の処理を考える　
@@ -174,8 +185,8 @@ class Shares extends DB
         } catch (PDOException $e) {
             return false;
         }
-
     }
+
     // 変更
     function update($title, $contents, $id, $user_id)
     {
