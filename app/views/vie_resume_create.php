@@ -4,8 +4,13 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>履歴書</title>
+    <link rel="stylesheet" href="../static/css/log.css">
+    <link rel="stylesheet" href="../static/css/navi.css">
+    <link rel="stylesheet" href="../static/css/footer.css"> 
     <link rel="stylesheet" href="../static/css/resume.css">
+    <link rel="stylesheet" href="../static/css/butto.css"> 
 </head>
+<?php __DIR__ .include ("../template/navi.php"); ?>
 <body>
     <form action="" method="POST">
         <table>
@@ -30,7 +35,8 @@
                     <label for="female"><input type="radio" name="gender" value="female" id="female">女</label> -->
                 </td>
                 <td rowspan="3" class="td15">
-                    <img src="https://koyamachuya.com/wp-content/uploads/2016/11/character-mutta-1.png">
+                    <!-- <img src="https://koyamachuya.com/wp-content/uploads/2016/11/character-mutta-1.png"> -->
+                    <input type="file">
                 </td>
             </tr>
             <tr>
@@ -268,10 +274,11 @@
         </table>
         <table>
             <tr>
-                <td class="td50"><p><input type="button" value="PDF保存"></p></td>
-                <td><p><input type="submit" value="保存"></p></td>
+                <td class="td50"><p><input class="yellow" type="button" value="PDF保存"></p></td>
+                <td><p><input class="blue" type="submit" value="保存"></p></td>
             </tr>
         </table>
     </form>
 </body>
+<?php __DIR__ .include ("../template/footer.html"); ?>
 </html>

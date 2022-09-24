@@ -6,18 +6,20 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="../static/css/log.css">
     <link rel="stylesheet" href="../static/css/navi.css">
-    <link rel="stylesheet" href="../static/css/footer.css"> 
+    <link rel="stylesheet" href="../static/css/footer.css">
+    <link rel="stylesheet" href="../static/css/butto.css"> 
+
 
 
     <title>ログイン</title>
 </head>
 <body>
-<?php include ("../template/navi.html"); ?>
+<?php __DIR__ .include ("../template/navi.php"); ?>
     <div class="form">
         <h3 clss="form-title">ログイン</h3>
         <form action="post">
             <div class="email">
-                <input class="email1"type="email" placeholder="メールアドレス" required><br>
+                <input type="number" placeholder="ID" autofocus required><br>
             </div>
             <div>
                 <input type="password" placeholder="パスワード" required><br>
@@ -25,7 +27,7 @@
             <p class="check">
                 <input type="checkbox" name="checkbox" />ログイン状態を保存する
             </p>
-            <input class="sub" type="submit" value="ログイン">
+            <input class="yellow" type="submit" value="ログイン">
 
 
         </form>
@@ -36,6 +38,7 @@
     </div>
     
 </body>
-<?php include ("../template/footer.html"); ?>
+<?php __DIR__ .include ("../template/footer.html"); ?>
 </html>
 
+<!-- <p><label for="Enterprise">企業名<br><input type="text"style="width: 500px; height: 20px;" id="Enterprise" name="Enterprise" required></label></p> -->
