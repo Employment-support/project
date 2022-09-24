@@ -40,5 +40,3 @@
 </body>
 <?php __DIR__ .include ("../template/footer.html"); ?>
 </html>
-
-<!-- <p><label for="Enterprise">企業名<br><input type="text"style="width: 500px; height: 20px;" id="Enterprise" name="Enterprise" required></label></p> -->

@@ -9,7 +9,7 @@
     <link rel="stylesheet" href="../static/css/navi.css">
     <link rel="stylesheet" href="../static/css/footer.css"> 
 </head>
-    <?php include (__DIR__ . "/../template/navi.php"); ?>
+    <?php __DIR__ .include (__DIR__ . "/../template/navi.php"); ?>
 
     <select name="genre" id="genre">
         <?php foreach ($major_lists as $major_list):?>
