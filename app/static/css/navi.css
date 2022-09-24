@@ -55,7 +55,46 @@ li.right {
   margin-right:0;
   padding:.5em 1.5em;
   background:rgb(11, 11, 247);
-  font-size:14px;
+  /* font-size:14px; */
   border-radius:30px 30px 30px 30px;
   color: antiquewhite;
+}
+
+@media screen and (max-width: 428px) {
+  nav {
+    font-size: 10%;
+  white-space: nowrap;
+
+  }
+}
+
+@media screen and (max-width: 834px) {
+  nav {
+    font-size: 60%;
+  white-space: nowrap;
+
+  }
+}
+
+@media screen and (min-width: 769px) {
+  nav {
+    font-size: 70%;
+  white-space: nowrap;
+
+  }
+}
+
+@media screen and (min-width: 1025px) {
+  nav {
+    font-size: 80%;
+  white-space: nowrap;
+
+  }
+}
+
+@media screen and (min-width: 1441px) {
+  nav {
+    font-size: 100%;
+  white-space: nowrap;
+  }
 }
