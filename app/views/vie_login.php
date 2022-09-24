@@ -15,7 +15,7 @@
 <?php include ("../template/navi.html"); ?>
     <div class="form">
         <h3 clss="form-title">ログイン</h3>
-        <form action="" method="POST">
+        <form action="post">
             <div class="email">
                 <input class="email1"type="email" placeholder="メールアドレス" required><br>
             </div>
