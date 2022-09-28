@@ -58,8 +58,10 @@ class User extends DB
                 $stmt -> bindValue(":admin", FALSE, PDO::PARAM_BOOL);
                 $stmt->execute();
                 echo '登録完了';
+                return true;
             } catch (PDOException $e) {
-                return $e->getMessage();
+                echo $e->getMessage();
+                return false;
             }
         } else {
             return $error_message;

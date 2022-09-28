@@ -368,6 +368,7 @@ class Resumes extends DB
 
             return true;
         } catch (PDOException $e) {
+            print('Error:'.$e->getMessage());
             return false;
         }
     }
@@ -489,6 +490,7 @@ class Portfolio extends DB
             echo '登録完了'; // テスト用
             return true;
         } catch (PDOException $e) {
+            print('Error:'.$e->getMessage());
             return false;
         }
     }
