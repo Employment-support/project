@@ -8,6 +8,7 @@
     <link rel="stylesheet" href="../static/css/log.css">
 </head>
 <body>
+<?php include (__DIR__ . "/../template/navi.php"); ?>
     <form action="" method="post" enctype="multipart/form-data">
 
         <p><label for="title">タイトル<br><input type="text" style="width: 500px; height: 20px;" id="title" name="title" required></label></p>
@@ -28,5 +29,6 @@
         <br>
         <input type="submit" value="投稿">
     </form>
+    <?php include ( __DIR__ . "/../template/footer.html"); ?>
 </body>
 </html>
