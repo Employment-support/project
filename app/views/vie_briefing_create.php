@@ -14,7 +14,7 @@
 
 </head>
 <body>
-<?php include (__DIR__ . "../template/navi.php"); ?>
+<?php include (__DIR__ . "/../template/navi.php"); ?>
 
 <form action="" method="POST" enctype="multipart/form-data">
         <p>日付自動</p>
@@ -32,7 +32,7 @@
         </p>
         <input class="blue" type="submit" value="投稿">
     </form>
-    <?php include ( __DIR__ . "../template/footer.html"); ?>
+    <?php include ( __DIR__ . "/../template/footer.html"); ?>
 </body>
 
 </html>
