@@ -60,7 +60,7 @@ if (is_admin($_COOKIE['user_admin']) || is_teacher($_COOKIE['user_type']) && iss
     
     print_r($briefing_data);
 
-    // require_once "../views/.php";
+    // require_once __DIR__ . "/../views/.php";
 } else {
     header('Location:\briefing');
 }
