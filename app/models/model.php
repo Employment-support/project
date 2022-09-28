@@ -445,6 +445,9 @@ class Resumes extends DB
 // ポートフォリオ
 class Portfolio extends DB
 {
+    public const sqlSelect = "SELECT * FROM portfolio WHERE id = ?";
+    public const sqlSelectAll = "SELECT * FROM portfolio";
+    public const sqlDeleteTime = "UPDATE portfolio SET delete_at = NOW() WHERE id = ?";
     // 登録    
     function create($title, $contents, $item_url, $img_path, $user_id)
     {
