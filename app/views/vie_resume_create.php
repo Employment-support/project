@@ -279,6 +279,6 @@
             </tr>
         </table>
     </form>
-    <?php __DIR__ .include ("../template/footer.html"); ?>
+    <?php include (__DIR__ . "/../template/footer.html"); ?>
 </body>
 </html>
