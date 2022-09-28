@@ -14,15 +14,15 @@
     <title>ログイン</title>
 </head>
 <body>
-<?php __DIR__ .include ("../template/navi.php"); ?>
+<?php include (__DIR__ . "/../template/navi.php"); ?>
     <div class="form">
         <h3 clss="form-title">ログイン</h3>
-        <form action="post">
+        <form action="" method="post">
             <div class="email">
-                <input type="number" placeholder="ID" autofocus required><br>
+                <input type="number" id="num" name="num" placeholder="ID" autofocus required><br>
             </div>
             <div>
-                <input type="password" placeholder="パスワード" required><br>
+                <input type="password" id="pass" name="pass" placeholder="パスワード" required><br>
             </div>
             <p class="check">
                 <input type="checkbox" name="checkbox" />ログイン状態を保存する
@@ -37,6 +37,6 @@
         <a href="リンク先のＵＲＬ" target="_blank">アカウントをお持ちではない方</a>
     </div>
     
+    <?php include ( __DIR__ . "/../template/footer.html"); ?>
 </body>
-<?php __DIR__ .include ("../template/footer.html"); ?>
 </html>
