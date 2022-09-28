@@ -10,9 +10,9 @@
     <link rel="stylesheet" href="../static/css/resume.css">
     <link rel="stylesheet" href="../static/css/butto.css"> 
 </head>
-<?php __DIR__ .include ("../template/navi.php"); ?>
 <body>
-    <form action="" method="POST">
+    <?php include ( __DIR__ . "/../template/navi.php"); ?>
+    <form action="" method="POST" enctype="multipart/form-data">
         <table>
             <td colspan="2" class="td85"><input type="date" name="creation" required></td>
             <td></td>
@@ -279,6 +279,6 @@
             </tr>
         </table>
     </form>
+    <?php __DIR__ .include ("../template/footer.html"); ?>
 </body>
-<?php __DIR__ .include ("../template/footer.html"); ?>
 </html>
