@@ -56,7 +56,7 @@ if (is_admin($_COOKIE['user_admin']) || is_teacher($_COOKIE['user_type'])){
     $date = date('Y-m-d');
     $corporation_lists = $corporations->selectAll($corporations::sqlSelectAll);
 
-    require_once __DIR__ . "/../views/vie_create_briefing.php";
+    require_once __DIR__ . "/../views/vie_briefing_create.php";
 } else {
     header('Location:/briefing');
 }
