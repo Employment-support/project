@@ -10,7 +10,7 @@
     <title>学生画面　ポートフォリオ初期画面</title>
 </head>
 <body>
-    <?php __DIR__ .include ("../template/navi.php"); ?>
+    <?php include (__DIR__ ."/../template/navi.php"); ?>
 <table>
     <tr>
         <td colspan="3">
@@ -29,12 +29,12 @@
                 <line x1="12" y1="5" x2="12" y2="19"></line>
                 <line x1="5" y1="12" x2="19" y2="12"></line>
             </svg>
-            <p><a class="a" href="">新たに追加</a></p>
+            <p><a class="a" href="/portfolio/create">新たに追加</a></p>
         </td>
         <td class="td33"></td>
         <td class="td33"></td>
     </tr>
-    </table>
+</table>
+    <?php include (__DIR__ ."/../template/footer.html"); ?>
 </body>
-<?php __DIR__ .include ("../template/footer.html"); ?>
 </html>
