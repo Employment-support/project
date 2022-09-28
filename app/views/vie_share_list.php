@@ -9,18 +9,21 @@
     <link rel="stylesheet" href="../static/css/navi.css">
     <link rel="stylesheet" href="../static/css/footer.css"> 
 </head>
-    <?php __DIR__ .include (__DIR__ . "/../template/navi.php"); ?>
-
+<body>
+    <?php include (__DIR__ . "/../template/navi.php"); ?>
+    <!-- 専攻コンボックス -->
+    <div class="tte">
     <select name="genre" id="genre">
         <?php foreach ($major_lists as $major_list):?>
         <option value="<?=$major_list['id']?>"><?=$major_list['major']?></option>
         <?php endforeach;?>
     </select>
     <hr>
-    <!--  -->
+    <!-- データがあるか判断 -->
     <?php if($is_data):?>
         <?php foreach ($disp_data as $data):?>
             <?php
+            // ファイルがあればコンテンツに結合
             $path_data = [];
             foreach ($file_lists as $file_list) {
                 if ($file_list['share_id'] == $data['id']) {
@@ -67,5 +70,8 @@
     <?php }?>
     <!--  -->
     <?= require_once __DIR__ . "/../template/tmp_pagination.php"; ?>
+    </div>
+    
+    <?php include (__DIR__ . "/../template/footer.html"); ?>
 </body>
 </html>
