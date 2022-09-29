@@ -40,8 +40,8 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
     }
 }
 
-// 学生以外だけが入れる処理＆getがあるとき
-if (is_admin($_COOKIE['user_admin']) || is_teacher($_COOKIE['user_type'])){
+// 担任以外だけが入れる処理
+if (is_admin($_COOKIE['user_admin']) || is_student($_COOKIE['user_type'])){
     $date = date('Y-m-d');
 
     require_once __DIR__ . "/../views/vie_create_portfolio.php";
