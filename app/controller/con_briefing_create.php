@@ -16,16 +16,8 @@ $corporations = new Corporations(); // 企業ジャンル
 
 // post送信確認とDB保存処理
 if($_SERVER["REQUEST_METHOD"] == "POST"){
-    if (isset($_FILES['gazou'])) {
-        // ファイルの名前にランダムの文字列の結合
-        // s3 にアップできるように
-        // https://tech.gootablog.com/article/s3-php/
-        $save_db_name = "../media/imgs/". uniqid(mt_rand(), true). '-'. $_FILES["gazou"]["name"];
-        $savefile = __DIR__ . '/' . $save_db_name;
-        move_uploaded_file($_FILES["gazou"]["tmp_name"], $savefile);
-    } else {
-        $save_db_name = '';
-    }
+    $save_db_name = uploaded_file($_FILES['gazou']);
+    
     $corporate = $_POST['Enterprise']; // 企業名
     $contents = $_POST['text']; // 説明会内容
     $corporate_url = $_POST['idurl']; // 企業URL
