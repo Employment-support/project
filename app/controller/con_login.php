@@ -68,7 +68,7 @@ function signUp($student_number, $password)
 
 // post送信か確認
 if($_SERVER["REQUEST_METHOD"] == "POST"){
-      	signUp($_POST['num'], $_POST['pass']);
+      	$errors = signUp($_POST['num'], $_POST['pass']);
     }
 
 require_once __DIR__ . "/../views/vie_login.php";
