@@ -82,9 +82,13 @@ include_once __DIR__ . "/function.php";
 // [network] => スキルセット - ネットワーク
 // [other] => スキルセット - その他
 
+$resumes = new Resumes();
+
 // 保存処理
 if($_SERVER["REQUEST_METHOD"] == "POST"){
-    print_r($_POST);
+
+    // db登録
+    // $resumes->create();
 }
 
 // PDF出力処理

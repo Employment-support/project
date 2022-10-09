@@ -12,16 +12,7 @@ $portfolio = new Portfolio(); // ポートフォリオ
 
 // post送信確認とDB保存処理
 if($_SERVER["REQUEST_METHOD"] == "POST"){
-    if (isset($_FILES['image'])) {
-        // ファイルの名前にランダムの文字列の結合
-        // s3 にアップできるように
-        // https://tech.gootablog.com/article/s3-php/
-        $save_db_name = "../media/imgs/". uniqid(mt_rand(), true). '-'. $_FILES["image"]["name"];
-        $savefile = __DIR__ . '/' . $save_db_name;
-        move_uploaded_file($_FILES["image"]["tmp_name"], $savefile);
-    } else {
-        $save_db_name = '';
-    }
+    $save_db_name = uploaded_file($_FILES['image']);
 
     $title = $_POST['title'];
     $contents = $_POST['text'];

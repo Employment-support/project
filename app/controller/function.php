@@ -108,7 +108,8 @@ function pagination($db_data, $max_display_num, $get_page)
 
 // ログインのチェック
 // ログイン状態で担任か管理者か判断
-function is_editor(){
+function is_editor()
+{
     if (isset($_COOKIE['user_type'])) {
         if (is_teacher($_COOKIE['user_type']) || is_admin($_COOKIE['user_type'])){
             return true;
@@ -116,4 +117,22 @@ function is_editor(){
     } else {
         return false;
     }
+}
+
+// ファイル保存処理
+function uploaded_file($files)
+{
+    // $files $_FILESのname
+    if (isset($files)) {
+        // ファイルの名前にランダムの文字列の結合
+        // s3 にアップできるように
+        // https://tech.gootablog.com/article/s3-php/
+        $save_db_name = "../media/imgs/". uniqid(mt_rand(), true). '-'. $files["name"];
+        $savefile = __DIR__ . '/' . $save_db_name;
+        move_uploaded_file($files["tmp_name"], $savefile);
+    } else {
+        $save_db_name = '';
+    }
+
+    return $save_db_name;
 }
