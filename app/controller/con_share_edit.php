@@ -43,6 +43,10 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
     $user_id = $_COOKIE['user_id'];
     $file_path = $save_name_list;
     // ファイルが複数再登録されたときの処理を考える
+    /**
+     * 新たにファイル登録があれば元あったファイルを物理削除またはbooleanを追加して理論削除
+     * してからインサートする
+     */
     print_r($file_path);
     
     // print_r($file_path);
