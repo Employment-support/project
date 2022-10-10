@@ -21,7 +21,7 @@
     <hr>
     <!-- データがあるか判断 -->
     <?php if($is_data):?>
-        <?php foreach ($disp_data as $data):?>
+        <?php foreach ($disp_data_share as $data):?>
             <?php
             // ファイルがあればコンテンツに結合
             $path_data = [];
@@ -55,13 +55,14 @@
             </table>
             <!-- 作ったユーザだけで編集可能 -->
             <?php if ($type && $_COOKIE['user_id'] == $data['user_id']): ?>
-                <p><a href=/share/edit?id="<?= $data['id'] ?>">edit_url</a></p>
+                <p><a href=/share/edit?id=<?= $data['id'] ?>>edit_url</a></p>
                 <button>編集</button>
             <?php endif ?>
             <hr>
         <?php endforeach ?>
+    <?php else: ?>
+        <p>データがありません</p>
     <?php endif ?>
-    <p>データがありません</p>
     <!-- 新規仮 -->
     <?php if ($type){?>
         <div>
