@@ -188,7 +188,7 @@ class Shares extends DB
     }
 
     // 変更
-    function update($title, $contents, $id, $user_id)
+    function update($title, $contents, $id, $user_id, $file_path)
     {
         /*
         $title:string タイトル
