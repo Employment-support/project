@@ -21,4 +21,10 @@ $user = new User();
 $briefings = new Briefings();
 $shares = new Shares();
 
+// test
+echo "<p><a href=/briefing>". '企業説明会' . "</a></p>";
+echo "<p><a href=/share>". '共有情報' . "</a></p>";
+echo "<p><a href=/resume>". '履歴書' . "</a></p>";
+echo "<p><a href=/portfolio>". 'ポートフォリオ' . "</a></p>";
+
 // require_once "../views/.php";
