@@ -17,6 +17,11 @@
 <?php include (__DIR__ . "/../template/navi.php"); ?>
     <div class="form">
         <h3 clss="form-title">ログイン</h3>
+        <?php if(!empty($errors)): ?>
+            <?php foreach($errors as $error): ?>
+                <p><?= $error ?></p>
+            <?php endforeach ?>
+        <?php endif ?>
         <form action="" method="post">
             <div class="email">
                 <input type="number" id="num" name="num" placeholder="ID" autofocus required><br>
