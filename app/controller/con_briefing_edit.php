@@ -40,7 +40,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
 }
 
 // 学生以外だけが入れる処理＆getがあるとき
-if (is_admin($_COOKIE['user_admin']) || is_teacher($_COOKIE['user_type']) && isset($_GET['id']) && is_numeric($_GET['id'])){
+if (is_admin($_COOKIE['user_admin']) || is_teacher($_COOKIE['user_type']) || isset($_GET['id']) && is_numeric($_GET['id'])){
     $date = date('Y-m-d');
     $corporation_lists = $corporations->selectAll($corporations::sqlSelectAll);
 
