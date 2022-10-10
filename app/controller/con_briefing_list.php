@@ -25,7 +25,7 @@ if (isset($_GET['page']) && is_numeric($_GET['page'])) {
     $get_page = 1;
 }
 
-list($page, $range, $max_page, $disp_data) = pagination($briefing_lists, 2, $get_page);
+list($page, $range, $max_page, $disp_data_briefing) = pagination($briefing_lists, 2, $get_page);
 
 // 現在のURL取得
 $now_url = (empty($_SERVER['HTTPS']) ? 'http://' : 'https://') . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'];
@@ -34,7 +34,7 @@ $url = parse_url($now_url , PHP_URL_PATH);
 // ここまでページネーション処理
 
 
-// print_r($disp_data); // テスト用
+// print_r($disp_data_briefing); // テスト用
 
 // 試作
 if ($type) {
@@ -42,7 +42,7 @@ if ($type) {
 }
 
 // 試作
-foreach ($disp_data as $data) {
+foreach ($disp_data_briefing as $data) {
     // print_r($data). '<br>';
     echo "<p><a href=/briefing/inf?id=" . $data['id']. ">". 'inf_url' . "</a></p>"; // てすと
     foreach ($data as $key => $value) {

@@ -29,7 +29,7 @@ if (isset($_GET['page']) && is_numeric($_GET['page'])) {
     $get_page = 1;
 }
 
-list($page, $range, $max_page, $disp_data) = pagination($shares_lists, 5, $get_page);
+list($page, $range, $max_page, $disp_data_share) = pagination($shares_lists, 5, $get_page);
 
 // 現在のURL取得
 $now_url = (empty($_SERVER['HTTPS']) ? 'http://' : 'https://') . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'];
@@ -37,7 +37,7 @@ $url = parse_url($now_url , PHP_URL_PATH);
 // ここまでページネーション処理
 
 // データがあるか判断
-if (!empty($disp_data)) {
+if (!empty($disp_data_share)) {
     $is_data = true;
 } else {
     $is_data = false;
