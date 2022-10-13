@@ -121,18 +121,21 @@ class Shares extends DB
     // 登録    
     function create(string $title, string $contents, int $user_id, $file_path)
     {
+
         /*
         $title:string型 タイトル
         $contents:string型 内容
         $user_id:int型 ユーザID
         */
         $sql = "INSERT INTO shares(
+                                id,
                                 title, 
                                 contents, 
                                 user_id, 
                                 created_at, 
                                 update_at)
                             VALUES (
+                                :id,
                                 :title,
                                 :contents,
                                 :user_id,
@@ -140,21 +143,42 @@ class Shares extends DB
                                 NOW()
                             )";
 
+        // id乱数生成
+        $unique_id = 0;
+        while (true){
+            $unique_id = random_int(1, 999999999);
+            // echo $unique_id;
+
+            $is_id = $this->pdo->query('SELECT COUNT(*) FROM shares WHERE id = '. $unique_id);
+            $is_id->execute();
+            $data = $is_id->fetch(PDO::FETCH_ASSOC);
+            // print_r($data);
+            // if (!empty($data)){
+            if (!in_array(0, $data)){
+                break;
+            }
+        }
+        // print_r(!empty($data));
+        // print_r($data);
+        
         try {
             $stmt = $this->pdo->prepare($sql);
+            $stmt -> bindValue(":id", $unique_id, PDO::PARAM_INT);
             $stmt -> bindValue(":title", $title, PDO::PARAM_STR);
             $stmt -> bindValue(":contents", $contents, PDO::PARAM_STR);
             $stmt -> bindValue(":user_id", $user_id, PDO::PARAM_STR);
             $stmt->execute();
-            echo '登録完了'; // テスト用
+            // echo '登録完了'; // テスト用
         } catch (PDOException $e) {
+            print('Error:'.$e->getMessage());
             return false;
         }
-
+        
+        print_r($file_path);
+        
         // 最後にINSERTした数字の取得
         if (isset($file_path)) {
-            $share_id = $this->pdo->lastInsertId();
-            return $share_id;
+            return $unique_id;
         } else {
             return true;
         }

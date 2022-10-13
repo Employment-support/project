@@ -42,7 +42,10 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
 
     // 登録
     $return_type = $shares->create($title, $contents, $user_id, $file_path);
+    // 画像名が登録できない
     
+    // print_r($return_type);
+
     if ($return_type !== true) {
         // print_r($save_name_list);
         foreach ($save_name_list as $save_name) {
@@ -51,9 +54,9 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
         }
     }
 
-    if ($return_type) {
-        // echo '投稿成功';
-        header('Location:/share');
+    if ($return_type || $shares) {
+        echo '投稿成功';
+        // header('Location:/share');
     } else {
         echo '投稿できていない';
     }
@@ -66,7 +69,7 @@ if (is_admin($_COOKIE['user_admin']) || is_teacher($_COOKIE['user_type'])){
     $department_lists = $departments->selectAll($departments::sqlSelectAll);
     require_once __DIR__ . "/../views/vie_create_share.php";
 } else {
-    header('Location:/shares');
+    header('Location:/share');
 }
 
 ?>
