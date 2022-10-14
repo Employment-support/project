@@ -51,6 +51,20 @@ li.right {
   height:auto;
 }
 
+.flex {
+  display: flex;
+}
+
+.flexblue{
+  margin-right:0;
+  padding:.5em 1.5em;
+  background:rgb(11, 11, 247);
+  font-size:14px;
+  border-radius:30px 30px 30px 30px;
+  color: antiquewhite;
+  border:none
+}
+
 
 @media screen and (max-width: 428px) {
   nav {
