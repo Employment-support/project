@@ -22,7 +22,7 @@ ul{
   margin:0 auto;
   
 }
-a{
+a.link{
   margin-right:40px;
   color:rgb(67, 30, 204);
   text-decoration:none;
