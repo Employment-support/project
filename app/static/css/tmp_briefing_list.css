@@ -27,7 +27,7 @@ div.test{
     border: 1.5px solid;
     box-shadow: 0px 10px 20px -15px #000000;
     background-color: white;
-    transition: 0.5s;
+    transition: 0.5s; /* ディレイ */
 }
 
 div.test:hover {
