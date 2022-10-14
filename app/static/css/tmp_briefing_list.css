@@ -27,6 +27,11 @@ div.test{
     border: 1.5px solid;
     box-shadow: 0px 10px 20px -15px #000000;
     background-color: white;
+    transition: 0.5s;
+}
+
+div.test:hover {
+    box-shadow: 0 10px 20px #999;
 }
 
 /* 追加 */
@@ -56,10 +61,11 @@ p.genre{
     text-align: center;
 }
 
-p.card_edit{
+/* なくてもいい */
+/* p.card_edit{
     margin: 0;
     padding: 6%;
-}
+} */
 
 a.card{
     display: flex;
