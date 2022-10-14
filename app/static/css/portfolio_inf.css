@@ -43,6 +43,7 @@ a.a {
     color: #333;
     text-decoration: none;
     transition: 0.5s;
+    box-shadow: 0px 10px 20px -15px #000000;
 }
 
 /* 画像設定 */
@@ -62,24 +63,6 @@ a.a {
     padding: 1em ;
     padding-top: 0px;
 }
-
-/* タイトルデザイン */
-.card-title {
-    margin-bottom: 0.5rem;
-    font-size: 1.2rem;
-    font-weight: bold;
-}
-
-/* 文章デザイン */
-.card-description {
-    margin-bottom: 0.5rem;
-    line-height: 1.5;
-}
-
-.card:hover {
-    box-shadow: 0 10px 20px #999;
-}
-
 
 /* トップ作品 */
 /* レイアウト */
@@ -104,6 +87,7 @@ a.a {
     color: #333;
     text-decoration: none;
     transition: 0.5s;
+    box-shadow: 0px 10px 20px -15px #000000;
 }
 
 /* 画像設定 */
@@ -123,7 +107,9 @@ a.a {
     padding: 1rem ;
 }
 
+/* 共通 */
 /* タイトルデザイン */
+.card-title,
 .card-title-big {
     margin-bottom: 0.5rem;
     font-size: 1.2rem;
@@ -131,16 +117,49 @@ a.a {
 }
 
 /* 文章デザイン */
+.card-description,
 .card-description-big {
     margin-bottom: 0.5rem;
     line-height: 1.5;
 }
 
-.card-big:hover {
+.card:hover,
+.card-big:hover,
+.card-create:hover {
     box-shadow: 0 10px 20px #999;
+}
+
+
+
+
+.card-create {
+    display: flex;
+/*   https://webukatu.com/wordpress/blog/16614/ */
+    flex-grow: 0;
+    flex-direction: column;
+    flex-basis: 30%;
+    /* padding: 0rem; */
+    word-wrap: break-word;
+    background-color: #fff;
+    box-sizing: border-box;
+    border-radius: 0.25rem;
+    border: 1px solid #cdcdcd;
+    color: #333;
+    text-decoration: none;
+    transition: 0.5s;
+
+    height: 15rem;
+    box-shadow: 0px 10px 20px -15px #000000;
+    
+}
+
+.icon {
+    /* width:100px; */
+    color: #297cdd;
 }
 
 .plus {
   text-align: center;
-
+  margin:  auto;
+  font-size: 1.2rem;
 }
