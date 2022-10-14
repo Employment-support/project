@@ -14,3 +14,133 @@ td.td33 {
 a.a {
     margin: 0;
 }
+
+/* レイアウト */
+.wrapper {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 3rem;
+    padding: 1rem;
+/*   https://knowledge.cpi.ad.jp/tech/169/ */
+/*     justify-content: flex-start; */
+/*     justify-content: space-between; */
+/*     align-items: center; */
+}
+
+/* cardデザイン */
+.card {
+    display: flex;
+/*   https://webukatu.com/wordpress/blog/16614/ */
+    flex-grow: 0;
+    flex-direction: column;
+    flex-basis: 30%;
+/*     padding: 0rem; */
+    word-wrap: break-word;
+    background-color: #fff;
+    box-sizing: border-box;
+    border-radius: 0.25rem;
+    border: 1px solid #cdcdcd;
+    color: #333;
+    text-decoration: none;
+    transition: 0.5s;
+}
+
+/* 画像設定 */
+.card-image {
+    width: 100%;
+    object-fit: contain;
+}
+
+/* url設定 */
+.card-url {
+  margin-top: 0px;
+  text-align: center;
+}
+
+/* 文章が入る場所の設定 */
+.card-box {
+    padding: 1em ;
+    padding-top: 0px;
+}
+
+/* タイトルデザイン */
+.card-title {
+    margin-bottom: 0.5rem;
+    font-size: 1.2rem;
+    font-weight: bold;
+}
+
+/* 文章デザイン */
+.card-description {
+    margin-bottom: 0.5rem;
+    line-height: 1.5;
+}
+
+.card:hover {
+    box-shadow: 0 10px 20px #999;
+}
+
+
+/* トップ作品 */
+/* レイアウト */
+.wrapper-big {
+    display: flex;
+/*     flex-wrap: wrap; */
+    gap: 1rem;
+    padding: 1rem;
+}
+
+/* cardデザイン */
+.card-big {
+    display: flex;
+/*     flex-direction: column; */
+    flex-basis: 100%;
+/*     padding: 1rem; */
+    word-wrap: break-word;
+    background-color: #fff;
+    box-sizing: border-box;
+    border-radius: 0.25rem;
+    border: 1px solid #cdcdcd;
+    color: #333;
+    text-decoration: none;
+    transition: 0.5s;
+}
+
+/* 画像設定 */
+.card-image-big {
+/*     width: 70%; */
+    object-fit: contain;
+}
+/* url設定 */
+.card-url-big {
+  margin-top: 0px;
+  margin-bottom: 1rem;
+  text-align: center;
+}
+
+/* 文章が入る場所の設定 */
+.card-box-big {
+    padding: 1rem ;
+}
+
+/* タイトルデザイン */
+.card-title-big {
+    margin-bottom: 0.5rem;
+    font-size: 1.2rem;
+    font-weight: bold;
+}
+
+/* 文章デザイン */
+.card-description-big {
+    margin-bottom: 0.5rem;
+    line-height: 1.5;
+}
+
+.card-big:hover {
+    box-shadow: 0 10px 20px #999;
+}
+
+.plus {
+  text-align: center;
+
+}
