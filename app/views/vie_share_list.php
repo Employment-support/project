@@ -45,11 +45,12 @@
                     <?php foreach($data['path'] as $d):?>
                         <th>
                             <?php
+                            // ファイル名の取得
                             preg_match("/(?<=-)(.*)/", $d, $match);
                             echo $match[0];
                             ?>
                         </th>
-                        <td><input type="button" value="ダウンロード"></td>
+                        <td><a href="<?= $d ?>" download>ダウンロード</a></td>
                     <?php endforeach?>
                 </tr>
             </table>
@@ -64,11 +65,11 @@
         <p>データがありません</p>
     <?php endif ?>
     <!-- 新規仮 -->
-    <?php if ($type){?>
+    <?php if ($type):?>
         <div>
             <a href="/share/create">新規作成</a>
         </div>
-    <?php }?>
+    <?php endif ?>
     <!--  -->
     <?= require_once __DIR__ . "/../template/tmp_pagination.php"; ?>
     </div>
