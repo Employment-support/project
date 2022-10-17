@@ -12,7 +12,7 @@ $files = new DB();
 
 // vies側で学生/担任で表示される内容の変更
 $type = is_editor();
-
+// echo $type;
 
 
 $major_lists = $majors->selectAll($majors::sqlSelectAll);
@@ -20,7 +20,8 @@ $major_lists = $majors->selectAll($majors::sqlSelectAll);
 $file_lists = $files->selectAll('SELECT * FROM files');
 
 // ページネーション
-$shares_lists = $shares->selectAll($shares::sqlSelectAll);
+$sql = $shares::sqlSelectAll . ' ORDER by update_at desc';
+$shares_lists = $shares->selectAll($sql);
 
 
 if (isset($_GET['page']) && is_numeric($_GET['page'])) {
