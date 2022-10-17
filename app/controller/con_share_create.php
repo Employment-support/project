@@ -17,7 +17,8 @@ $majors = new Majors(); // 専攻
 // post送信確認とDB保存処理
 if($_SERVER["REQUEST_METHOD"] == "POST"){
     $save_name_list = [];
-    if (isset($_FILES['file'])) {
+    // if (isset($_FILES['file'])) {
+    if ($_FILES['file']['error'][0] == 0) {
         // print_r($_FILES['file']);
         // ファイルの名前にランダムの文字列の結合
         // s3 にアップできるように
@@ -38,7 +39,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
     $user_id = $_COOKIE['user_id'];
     $file_path = $save_name_list;
     
-    // print_r($file_path);
+    print_r($file_path);
 
     // 登録
     $return_type = $shares->create($title, $contents, $user_id, $file_path);
