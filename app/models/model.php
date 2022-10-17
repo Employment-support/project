@@ -149,15 +149,16 @@ class Shares extends DB
             $unique_id = random_int(1, 999999999);
             // echo $unique_id;
 
-            $is_id = $this->pdo->query('SELECT COUNT(*) FROM shares WHERE id = '. $unique_id);
-            $is_id->execute();
+            $is_id = $this->pdo->prepare('SELECT COUNT(*) FROM shares WHERE id = '. $unique_id);
+            // $is_id->execute();
             $data = $is_id->fetch(PDO::FETCH_ASSOC);
             // print_r($data);
-            // if (!empty($data)){
-            if (!in_array(0, $data)){
+            if (empty($data)){
+            // if (!in_array(0, $data)){
                 break;
             }
         }
+        // echo $unique_id;
         // print_r(!empty($data));
         // print_r($data);
         
@@ -174,7 +175,7 @@ class Shares extends DB
             return false;
         }
         
-        print_r($file_path);
+        // print_r($file_path);
         
         // 最後にINSERTした数字の取得
         if (isset($file_path)) {
