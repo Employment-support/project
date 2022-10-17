@@ -14,22 +14,30 @@
 <table>
     <tr>
         <td colspan="3">
-            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-plus" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
-                <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
-                <line x1="12" y1="5" x2="12" y2="19"></line>
-                <line x1="5" y1="12" x2="19" y2="12"></line>
-            </svg>
-            <p><a class="a" href="">新たに追加</a></p>
+		<a href="/portfolio/create" class="card-create">
+		<div class="plus">
+			<svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-plus" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+				<path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+				<line x1="12" y1="5" x2="12" y2="19"></line>
+				<line x1="5" y1="12" x2="19" y2="12"></line>
+			</svg>
+			<p>新たに追加</p>
+		</div>
+	</a>
         </td>
     </tr>
     <tr>
         <td class="td33">
-            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-plus" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
-                <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
-                <line x1="12" y1="5" x2="12" y2="19"></line>
-                <line x1="5" y1="12" x2="19" y2="12"></line>
-            </svg>
-            <p><a class="a" href="/portfolio/create">新たに追加</a></p>
+		<a href="/portfolio/create" class="card-create">
+		<div class="plus">
+			<svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-plus" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+				<path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+				<line x1="12" y1="5" x2="12" y2="19"></line>
+				<line x1="5" y1="12" x2="19" y2="12"></line>
+			</svg>
+			<p>新たに追加</p>
+		</div>
+	</a>
         </td>
         <td class="td33"></td>
         <td class="td33"></td>
@@ -41,7 +49,7 @@
 <div class="wrapper-big">
 	<a href="#" class="card-big">
 	  	<div class="card-image-big">
-			<img src="https://cdn.pixabay.com/photo/2020/03/03/20/31/boat-4899802_640.jpg">
+			<img src="../static/imgs/NoImg.png">
 			<div class="card-url-big">
 				<object>
 					<a href="https://qiita.com/fukamiiiiinmin/items/7412b21c6df5de31cab1">url</a>
@@ -61,74 +69,37 @@
   
   <!-- https://pa-tu.work/t/7104 -->
   <div class="wrapper">
+	<? #データがあれば表示 ?>
+	<?php if(!empty($portfolio_lists)): ?>
+	<?php foreach ($portfolio_lists as $data): ?>
+	<!-- <a href="#" class="card"> -->
 	<a href="#" class="card">
-	  	<img class="card-image" src="https://cdn.pixabay.com/photo/2020/03/03/20/31/boat-4899802_640.jpg">
+	  	<!-- <img class="card-image" src="https://cdn.pixabay.com/photo/2020/03/03/20/31/boat-4899802_640.jpg"> -->
+		<?php if ($data['img_path']):?>
+			<img class="card-image" src="<?= $data['img_path'] ?>">
+		<?php else: ?>
+			<img class="card-image" src="../static/imgs/NoImg.png">
+		<?php endif ?>
 		<p class="card-url">
 		  	<object>
-				<a href="https://qiita.com/fukamiiiiinmin/items/7412b21c6df5de31cab1">url</a>
+				<!-- <a href="https://qiita.com/fukamiiiiinmin/items/7412b21c6df5de31cab1">url</a> -->
+				<a href="<?= $data['item_url'] ?>"><?= $data['item_url'] ?></a>
 			</object>
 		</p>
 	  	<div class="card-box">
 			<h2 class="card-title">
-				カードタイトル
+				<?= $data['title'] ?>
 			</h2>
 			<p class="card-description">
-				ここに内容が入るここに内容が入るここに内容が入るここに内容が入るここに内容が入るここに内容が入るここに内容が入るここに内容が入るここに内容が入るここに内容が入るここに内容が入るここに内容が入るここに内容が入るここに内容が入るここに内容が入るここに内容が入るここに内容が入るここに内容が入る
+			<?= $data['contents'] ?>
 			</p>
 	  	</div>
 	</a>
+	<?php endforeach ?>
+	<?php endif ?>
 	
-	<a href="#" class="card">
-	  	<img class="card-image" src="https://cdn.pixabay.com/photo/2020/03/03/20/31/boat-4899802_640.jpg">
-		<p class="card-url">
-		  	<object>
-				<a href="https://qiita.com/fukamiiiiinmin/items/7412b21c6df5de31cab1">url</a>
-			</object>
-		</p>
-	  	<div class="card-box">
-			<h2 class="card-title">
-				カードタイトル
-			</h2>
-			<p class="card-description">
-				ここに内容が入るここに内容が入るここに内容が入るここに内容が入るここに内容が入るここに内容が入るここに内容が入るここに内容が入るここに内容が入るここに内容が入るここに内容が入るここに内容が入るここに内容が入るここに内容が入るここに内容が入るここに内容が入るここに内容が入るここに内容が入る
-			</p>
-	  	</div>
-	</a>
-	
-	<a href="#" class="card">
-	  	<img class="card-image" src="https://cdn.pixabay.com/photo/2020/03/03/20/31/boat-4899802_640.jpg">
-		<p class="card-url">
-		  	<object>
-				<a href="https://qiita.com/fukamiiiiinmin/items/7412b21c6df5de31cab1">url</a>
-			</object>
-		</p>
-	  	<div class="card-box">
-			<h2 class="card-title">
-				カードタイトル
-			</h2>
-			<p class="card-description">
-				ここに内容が入るここに内容が入るここに内容が入るここに内容が入るここに内容が入るここに内容が入るここに内容が入るここに内容が入るここに内容が入るここに内容が入るここに内容が入るここに内容が入るここに内容が入るここに内容が入るここに内容が入るここに内容が入るここに内容が入るここに内容が入る
-			</p>
-	  	</div>
-	</a>
-	<a href="#" class="card">
-	  	<img class="card-image" src="https://cdn.pixabay.com/photo/2020/03/03/20/31/boat-4899802_640.jpg">
-		<p class="card-url">
-		  	<object>
-				<a href="https://qiita.com/fukamiiiiinmin/items/7412b21c6df5de31cab1">url</a>
-			</object>
-		</p>
-	  	<div class="card-box">
-			<h2 class="card-title">
-				カードタイトル
-			</h2>
-			<p class="card-description">
-				ここに内容が入るここに内容が入るここに内容が入るここに内容が入るここに内容が入るここに内容が入るここに内容が入るここに内容が入るここに内容が入るここに内容が入るここに内容が入るここに内容が入るここに内容が入るここに内容が入るここに内容が入るここに内容が入るここに内容が入るここに内容が入る
-			</p>
-	  	</div>
-	</a>
-
-	<a href="#" class="card-create">
+	<?php if($see):?>
+	<a href="/portfolio/create" class="card-create">
 		<div class="plus">
 			<svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-plus" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
 				<path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
@@ -138,6 +109,8 @@
 			<p>新たに追加</p>
 		</div>
 	</a>
+	<?php endif ?>
+	
 	
 </div>
     <?php include (__DIR__ ."/../template/footer.html"); ?>
