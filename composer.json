@@ -1,7 +1,9 @@
 {
     "require": {
         "altorouter/altorouter": "^2.0",
-        "aws/aws-sdk-php": "^3.238"
+        "aws/aws-sdk-php": "^3.*",
+        "setasign/fpdf": "1.8.*",
+        "setasign/fpdi": "^2.0"
     },
     "config": {
         "platform": {
