@@ -12,22 +12,24 @@
 </head>
 <body>
 <?php include (__DIR__ . "/../template/navi.php"); ?>
-    <form action="" method="post">
-
-        <h4>企業名</h4>
-        <p>企業名URL</p>
+    <div>
+        <!-- 企業名 -->
+        <h4><?= $briefing_data['corporate']?></h4>
+        <!-- 企業URL -->
+        <p><?= $briefing_data['corporate_url']?></p>
         <div class="flex">
-        <p class="flexblue" value="">企業ジャンル</p>
-        <p>ジャンル名</p>
+            <!-- 企業ジャンル -->
+            <p class="flexblue" value="">企業ジャンル</p>
+            <p><?= $briefing_data['genre']?></p>
         </div>
         <!-- <p>企業情報</p> -->
         <p class="flexblue">企業情報</p>
-        <p>ここに文章が入る</p>
+        <p><?= $briefing_data['info']?></p>
 
         <!-- <p>説明会内容</p> -->
         <p class="flexblue">説明会内容</p>
-        <p>ここに文章が入る</p>
-    </form>
+        <p><?= $briefing_data['contents']?></p>
+    </div>
     <?php include ( __DIR__ . "/../template/footer.html"); ?>
 </body>
 </html>
