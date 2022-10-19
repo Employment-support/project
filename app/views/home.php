@@ -9,7 +9,8 @@
     <link rel="stylesheet" href="../static/css/footer.css">
     <link rel="stylesheet" href="../static/css/butto.css">
     <link rel="stylesheet" href="../static/css/share.css">
-
+    <link rel="stylesheet" href="../static/css/tmp_briefing_list.css">
+    <!-- <link rel="stylesheet" href="../static/css/sharing.css"> -->
 
 </head>
 <body>
@@ -21,6 +22,17 @@
 <hr size="20" color="#0000ff" noshade>
 <h1>企業説明会</h1>
 <hr size="20" color="#0000ff" noshade>
+
+
+    <!-- 企業説明会 -->
+<!-- 
+<div class="test">
+    <img class="list_logo" src="../static/imgs/log.png">
+    <p class="name">楽天</p>
+    <p class="genre">総合</p>
+    <p class="card_edit"><a class="card" href="#">編集</a></p>
+</div>    -->
+
 <?php include ( __DIR__ . "/../template/footer.html"); ?>
 
 </body>
