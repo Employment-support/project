@@ -35,7 +35,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
 if (is_admin($_COOKIE['user_admin']) || is_student($_COOKIE['user_type'])){
     $date = date('Y-m-d');
 
-    require_once __DIR__ . "/../views/vie_create_portfolio.php";
+    require_once __DIR__ . "/../views/vie_portfolio_create.php";
 } else {
     header('Location:/portfolio');
 }

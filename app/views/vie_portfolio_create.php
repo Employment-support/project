@@ -20,7 +20,10 @@
         <p><label for="image">画像投稿<br><input type="file" id="image" name="image" required></label></p>
         <p><label for="url">URL<br><input type="text" style="width: 500px; height: 20px;" id="url" name="url" required></label></p>
         <p><label for="title">タイトル<br><input type="text" style="width: 500px; height: 20px;" id="title" name="title" required></label></p>
-        <p><label for="text">文章<br><input type="text" style="width: 500px; height: 600px;" id="text" name="text" required></label></p>
+        <p><label for="text">文章<br>
+        <!-- <input type="text" style="width: 500px; height: 600px;" id="text" name="text" required> -->
+        <textarea style="width: 500px; height: 600px;" id="text" name="text"  cols="30" rows="10" required></textarea>
+    </label></p>
         <input class="blue" type="submit" value="投稿">
     </form>
     <?php include (__DIR__ ."/../template/footer.html"); ?>

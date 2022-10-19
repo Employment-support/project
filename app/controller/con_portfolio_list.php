@@ -11,11 +11,11 @@ $portfolio = new Portfolio(); // ポートフォリオ
 $type = is_editor();
 // echo $type;
 
-if (!isset($_COOKIE)) {
-    echo 'ある';
-} else {
-    echo 'ない';
-}
+// if (!isset($_COOKIE)) {
+//     echo 'ある';
+// } else {
+//     echo 'ない';
+// }
 
 // ほかのユーザーが見れるようにGET処理で見れるようにする
 $sql = '';
@@ -26,22 +26,23 @@ if ($_COOKIE){
     if (isset($_COOKIE['user_type']) && is_student($_COOKIE['user_type']) || is_admin($_COOKIE['user_type'])) {
         $sql = $portfolio::sqlSelectAll . ' WHERE user_id = ' . $_COOKIE['user_id'];
         $see = TRUE;
-        echo '学生'; // test
+        // echo '学生'; // test
     }
 } else if (isset($_GET['u'])) {
     // 学生以外が見るときにURLパラメータを使って表示だけさせる
     $sql = $portfolio::sqlSelectAll . ' WHERE user_id = ' . $_GET['u'];
     $see = FALSE;
-    echo '一般'; // test
+    // echo '一般'; // test
 } else {
     $sql = $portfolio::sqlSelectAll . ' WHERE user_id = ' . 0;
     $see = FALSE;
-    echo 'ない'; // test
+    // echo 'ない'; // test
 }
 
 if ($sql){
     $portfolio_lists = $portfolio->selectAll($sql);
-    print_r($portfolio_lists);
+    // print_r($portfolio_lists);
+    // print_r(count($portfolio_lists));
 }
 
 // // ポートフォリオがあれば処理
@@ -49,6 +50,8 @@ if ($sql){
 //     echo 'ある';
 // }
 
+// トップのものが作成されていなければ表示するもの
+$display = FALSE;
 // viewsでtmp_pagination.phpを呼び出す
 require_once __DIR__ . "/../views/vie_portfolio_inf.php";
 
