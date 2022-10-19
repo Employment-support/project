@@ -42,7 +42,16 @@ function signUp($student_number, $password)
 
     if (password_verify($password, $data["password"]) && $student_number == $data["student_number"]) {
         // cookieリセット
-
+        if (isset($_SERVER['HTTP_COOKIE'])) {
+            $cookies = explode(';', $_SERVER['HTTP_COOKIE']);
+            foreach($cookies as $cookie) {
+                $parts = explode('=', $cookie);
+                $name = trim($parts[0]);
+                setcookie($name, '', time()-1000);
+                setcookie($name, '', time()-1000, '/');
+            }
+        }
+        
         // cookie生成
         create_cookie('user_id', $data["id"]); // 
         create_cookie('user_name', $data["name"]); // 
