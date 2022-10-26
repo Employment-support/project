@@ -39,6 +39,12 @@
                         <? #仮画像 ?>
                         <img class="list_logo" src="../static/imgs/log.png">
                         <!-- <img class="list_logo" src="<?= $data['img_path']?>"> -->
+						<!-- <?php if ($data['img_path']):?>
+							<img class="card-image"$ src="<?= data['img_path'] ?>">
+                            <?php else: ?>
+							<img class="card-image" src="../static/imgs/NoImg.png">
+						<?php endif ?> -->
+
                         <p class="name"><?= $data['corporate'] ?></p>
                         <p class="genre"><?= $data['genre'] ?></p>
                         <? #担任または管理者かつidがbriefingsに登録されているユーザidと等しいか ?>
