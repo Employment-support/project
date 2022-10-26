@@ -8,7 +8,8 @@
     <link rel="stylesheet" href="../static/css/navi.css">
     <link rel="stylesheet" href="../static/css/footer.css"> 
     <link rel="stylesheet" href="../static/css/resume.css">
-    <link rel="stylesheet" href="../static/css/butto.css"> 
+    <link rel="stylesheet" href="../static/css/butto.css">
+    <link rel="stylesheet" href="../static/css/back.css">
 </head>
 <body>
     <?php include ( __DIR__ . "/../template/navi.php"); ?>
@@ -274,8 +275,8 @@
         </table>
         <table>
             <tr>
-                <td class="td50"><p><input class="yellow" type="button" value="PDF保存"></p></td>
-                <td><p><input class="blue" type="submit" value="保存"></p></td>
+                <td class="td50"><p><input class="yellow" type="submit" name="pdf" value="PDF保存"></p></td>
+                <td><p><input class="blue" type="submit" name="save" value="保存"></p></td>
             </tr>
         </table>
     </form>

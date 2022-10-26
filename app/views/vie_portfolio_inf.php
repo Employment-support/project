@@ -7,6 +7,8 @@
     <link rel="stylesheet" href="../static/css/navi.css">
     <link rel="stylesheet" href="../static/css/footer.css">
     <link rel="stylesheet" href="../static/css/portfolio_inf.css">
+	<link rel="stylesheet" href="../static/css/butto.css">
+	<link rel="stylesheet" href="../static/css/back.css">
     <title>学生画面　ポートフォリオ初期画面</title>
 </head>
 <body>

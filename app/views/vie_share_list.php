@@ -7,7 +7,9 @@
     <title>情報共有(学生)</title>
     <link rel="stylesheet" href="../static/css/sharing.css">
     <link rel="stylesheet" href="../static/css/navi.css">
-    <link rel="stylesheet" href="../static/css/footer.css"> 
+    <link rel="stylesheet" href="../static/css/footer.css">
+    <link rel="stylesheet" href="../static/css/back.css">
+    <link rel="stylesheet" href="../static/css/butto.css">
 </head>
 <body>
     <?php include (__DIR__ . "/../template/navi.php"); ?>
@@ -56,8 +58,8 @@
             </table>
             <!-- 作ったユーザだけで編集可能 -->
             <?php if ($type && $_COOKIE['user_id'] == $data['user_id']): ?>
-                <p><a href=/share/edit?id=<?= $data['id'] ?>>edit_url</a></p>
-                <button>編集</button>
+                <p><a href=/share/edit?id=<?= $data['id'] ?> class="blue">編集</a></p>
+                <!-- <button>編集</button> -->
             <?php endif ?>
             <hr>
         <?php endforeach ?>
