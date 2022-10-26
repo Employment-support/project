@@ -81,7 +81,8 @@ include_once __DIR__ . "/function.php";
 // [office] => スキルセット - office
 // [network] => スキルセット - ネットワーク
 // [other] => スキルセット - その他
-
+// [pdf] => PDF保存
+// [save] => 保存 (保存)
 $resumes = new Resumes();
 
 // 保存処理
