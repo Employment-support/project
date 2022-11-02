@@ -4,10 +4,12 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="../static/css/log.css">
-    <link rel="stylesheet" href="../static/css/navi.css">
-    <link rel="stylesheet" href="../static/css/footer.css">
-    <link rel="stylesheet" href="../static/css/butto.css"> 
+    <link rel="stylesheet" href="../app/static/css/log.css">
+    <link rel="stylesheet" href="../app/static/css/navi.css">
+    <link rel="stylesheet" href="../app/static/css/footer.css">
+    <link rel="stylesheet" href="../app/static/css/butto.css"> 
+    <link rel="stylesheet" href="../app/static/css/back.css">
+
 
 
 

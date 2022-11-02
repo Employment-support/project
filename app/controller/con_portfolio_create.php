@@ -20,7 +20,6 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
     $img_path = $save_db_name;
     $user_id = $_COOKIE['user_id'];
 
-
     // 登録
     $return_type = $portfolio->create($title, $contents, $item_url, $img_path, $user_id);
 
@@ -32,7 +31,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
 }
 
 // 担任以外だけが入れる処理
-if (is_admin($_COOKIE['user_admin']) || is_student($_COOKIE['user_type'])){
+if (is_admin($_COOKIE['user_admin']) || is_student($_COOKIE['user_type_id'])){
     $date = date('Y-m-d');
 
     require_once __DIR__ . "/../views/vie_portfolio_create.php";

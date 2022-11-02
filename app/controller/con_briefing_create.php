@@ -16,6 +16,7 @@ $corporations = new Corporations(); // 企業ジャンル
 
 // post送信確認とDB保存処理
 if($_SERVER["REQUEST_METHOD"] == "POST"){
+    // ローカルへの画像投稿ができない
     $save_db_name = uploaded_file($_FILES['gazou']);
     
     $corporate = $_POST['Enterprise']; // 企業名
@@ -25,7 +26,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
     $img_path = $save_db_name;
     $corporation_id = (int) $_POST['genre']; // 企業ジャンル
     $user_id = (int) $_COOKIE['user_id']; // 投稿者ID
-
+    
     // var_dump($corporate); // test
     // var_dump($contents); // test
     // var_dump($corporate_url); // test
@@ -33,6 +34,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
     // var_dump($img_path); // test
     // var_dump($corporation_id); // test
     // var_dump($user_id); // test
+
     // 登録
     $return_type = $briefings->create($corporate, $contents, $corporate_url, $info, $img_path, $corporation_id, $user_id);
 
@@ -44,7 +46,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
 }
 
 // 学生以外だけが入れる処理＆getがあるとき
-if (is_admin($_COOKIE['user_admin']) || is_teacher($_COOKIE['user_type'])){
+if (is_admin($_COOKIE['user_admin']) || is_teacher($_COOKIE['user_type_id'])){
     $date = date('Y-m-d');
     $corporation_lists = $corporations->selectAll($corporations::sqlSelectAll);
 

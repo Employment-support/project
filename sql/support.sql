@@ -176,6 +176,17 @@ CREATE TABLE `resumes` (
   `delete_at` datetime DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
+--
+-- カラム追加 `resumes`
+--
+
+ALTER TABLE `resumes`
+  ADD `os` text DEFAULT NULL,
+  ADD `lang` text DEFAULT NULL,
+  ADD `db` text DEFAULT NULL,
+  ADD `office` text DEFAULT NULL,
+  ADD `net` text DEFAULT NULL;
+
 -- --------------------------------------------------------
 
 --

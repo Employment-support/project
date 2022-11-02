@@ -22,7 +22,6 @@ $sql = '';
 // 新規登録の表示
 $see = FALSE;
 // cookieが存在するか確認しそれが学生なら処理がされる
-// cookieが存在するか確認しそれが学生なら処理がされる
 // if ($_COOKIE){
 //     if (isset($_COOKIE['user_type']) && is_student($_COOKIE['user_type']) || is_admin($_COOKIE['user_type'])) {
 //         $sql = $portfolio::sqlSelectAll . ' WHERE user_id = ' . $_COOKIE['user_id'];
@@ -39,7 +38,7 @@ $see = FALSE;
 //     $see = FALSE;
 //     // echo 'ない'; // test
 // }
-if (isset($_COOKIE['user_type']) || is_student($_COOKIE['user_type']) || is_admin($_COOKIE['user_type'])) {
+if (isset($_COOKIE['user_type_id']) && is_student($_COOKIE['user_type_id']) || is_admin($_COOKIE['user_type_id'])) {
     $sql = $portfolio::sqlSelectAll . ' WHERE user_id = ' . $_COOKIE['user_id'];
     $see = TRUE;
     // echo '学生'; // test
@@ -57,7 +56,7 @@ if (isset($_COOKIE['user_type']) || is_student($_COOKIE['user_type']) || is_admi
 
 if ($sql){
     $portfolio_lists = $portfolio->selectAll($sql);
-    // print_r($portfolio_lists);
+    // print_r($portfolio_lists[4]);
     // print_r(count($portfolio_lists));
 }
 

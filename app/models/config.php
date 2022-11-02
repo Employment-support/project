@@ -4,8 +4,10 @@
 
 class DB
 {
-    // public const DSN = "mysql:host=localhost:3309; dbname=support; charset=utf8mb4";
-    public const DSN = "mysql:host=localhost; dbname=support; charset=utf8mb4";
+    public const DSN = "mysql:host=localhost:3306; dbname=support; charset=utf8mb4";
+    // public const DSN = "mysql:host=employment-support.cluster-cn3srovxz5ja.ap-northeast-1.rds.amazonaws.com; post=3306; dbname=support2; charset=utf8mb4";
+    // public const USER = "admin";
+    // public const PASS = "T5p3zcjw";
     public const USER = "root";
     public const PASS = "";
     public $error_message = [];

@@ -11,12 +11,17 @@
 
 <nav>
 	<ul>
-		<li class="left"><a href="home.php" class="logo">OCA学生就職サポート</a></li>
-		<li><a class="link" href="vie_share_list.php">共有情報</a></li>
-		<li><a class="link" href="#">企業説明</a></li>
-		<li><a class="link" href="vie_resume_create.php">履歴書作成</a></li>
-		<li><a class="link" href="vie_portfolio_create.php">ポートフォリオ作成</a></li>
-		<li class="right"><a href="vie_login.php" class="blue">ログイン</a></li>
+		<li class="left"><a href="/" class="logo">OCA学生就職サポート</a></li>
+		<li><a class="link" href="/share">共有情報</a></li>
+		<li><a class="link" href="/briefing">企業説明</a></li>
+		<li><a class="link" href="/resume">履歴書作成</a></li>
+		<li><a class="link" href="/portfolio">ポートフォリオ作成</a></li>
+		<? #ログインしたらログアウトに ?>
+		<?php if(!isset($_COOKIE['user_id'])): ?>
+		<li class="right"><a href="/login" class="blue">ログイン</a></li>
+		<?php else: ?>
+		<li class="right"><a href="/logout" class="blue">ログアウト</a></li>
+		<?php endif ?>
 	</ul>
 	<hr>
 </nav>

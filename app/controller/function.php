@@ -45,7 +45,7 @@ function is_admin($admin)
 function is_teacher($user)
 {
     // 担任なら入れる
-    if ($user == '担任'){
+    if ($user == 1){
         // echo '担任だ';
         return true;
     } else {
@@ -58,7 +58,7 @@ function is_teacher($user)
 function is_student($user)
 {
     // 学生なら入れる
-    if ($user == '学生'){
+    if ($user == 0){
         return true;
     } else {
         return false;
@@ -110,8 +110,8 @@ function pagination($db_data, $max_display_num, $get_page)
 // ログイン状態で担任か管理者か判断
 function is_editor()
 {
-    if (isset($_COOKIE['user_type'])) {
-        if (is_teacher($_COOKIE['user_type']) || is_admin($_COOKIE['user_type'])){
+    if (isset($_COOKIE['user_type_id'])) {
+        if (is_teacher($_COOKIE['user_type_id']) || is_admin($_COOKIE['user_type_id'])){
             return true;
         }
     } else {
@@ -127,12 +127,14 @@ function uploaded_file($files)
         // ファイルの名前にランダムの文字列の結合
         // s3 にアップできるように
         // https://tech.gootablog.com/article/s3-php/
-        $save_db_name = "../media/imgs/". uniqid(mt_rand(), true). '-'. $files["name"];
-        $savefile = __DIR__ . '/' . $save_db_name;
+        $save_db_name = "../app/media/imgs/". uniqid(mt_rand(), true). '-'. $files["name"];
+        $savefile = __DIR__ . '/../' . $save_db_name;
         move_uploaded_file($files["tmp_name"], $savefile);
     } else {
         $save_db_name = '';
     }
 
+    // return $savefile;
     return $save_db_name;
 }
+

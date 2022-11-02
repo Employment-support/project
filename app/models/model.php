@@ -298,7 +298,8 @@ class Resumes extends DB
     $station_line, $station, $img_path, 
     $hope, $desire, $pr, 
     $personality, $hobby, $other, int $user_id,
-    array $historys, array $abilites, array $skillItems)
+    $os, $language, $db, $office, $network,
+    array $career_academic)
     {
         /*
         $year:string 年
@@ -323,8 +324,12 @@ class Resumes extends DB
         $hobby:string 趣味
         $other:string その他
         $user_id:string ユーザID
-        $historys:array 学歴リスト
-        $abilites:array 資格リスト
+        $os         : os
+        $language   : 言語
+        $db         : データベース
+        $office     : office
+        $network    : ネットワーク
+        $career_academic:array 学歴リスト 資格リスト
         $skillItems:array スキルリスト
         */
         $sql = "INSERT INTO `resumes`(
@@ -335,6 +340,7 @@ class Resumes extends DB
                                     station_line, station, img_path,
                                     hope, desire, pr,
                                     personality, hobby, other,
+                                    os, lang, db, office, net,
                                     user_id, created_at, update_at)
                                 VALUES (
                                     :year, :month, :day,
@@ -344,6 +350,7 @@ class Resumes extends DB
                                     :station_line, :station, :img_path,
                                     :hope,:desire,:pr,
                                     :personality, :hobby, :other,
+                                    :os, :lang, :db, :office, :net,
                                     :user_id, NOW(), NOW()
                                 )";
         // 履歴書
@@ -369,6 +376,11 @@ class Resumes extends DB
             $stmt -> bindValue(":pr", $pr, PDO::PARAM_STR);
             $stmt -> bindValue(":personality", $personality, PDO::PARAM_STR);
             $stmt -> bindValue(":hobby", $hobby, PDO::PARAM_STR);
+            $stmt -> bindValue(":os", $os, PDO::PARAM_STR);
+            $stmt -> bindValue(":lang", $language, PDO::PARAM_STR);
+            $stmt -> bindValue(":db", $db, PDO::PARAM_STR);
+            $stmt -> bindValue(":office", $office, PDO::PARAM_STR);
+            $stmt -> bindValue(":net", $network, PDO::PARAM_STR);
             $stmt -> bindValue(":other", $other, PDO::PARAM_STR);
             $stmt -> bindValue(":user_id", $user_id, PDO::PARAM_INT);
             $stmt->execute();
@@ -377,20 +389,11 @@ class Resumes extends DB
             // 最後に登録されたIDの取得
             $id = $this->pdo->lastInsertId();
             // 学歴があれば処理がされる
-            if (empty($historys)){
+            // 資格があれば処理がされる
+            if (empty($career_academic)){
                 $history_lists = new Historys();
             }
             
-            // 資格があれば処理がされる
-            if (empty($abilites)){
-                $abilites_lists = new UserAbilites();
-            }
-            
-            // スキルセットがあれば処理がされる
-            if (empty($skillItems)){
-                $skillItems_lists = new SkillItemsResumes();
-            }
-
             return true;
         } catch (PDOException $e) {
             print('Error:'.$e->getMessage());

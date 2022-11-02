@@ -19,7 +19,13 @@ img {
 }
 
 td.lightgrey {
-    background-color: lightgrey;
+    /* background-color: lightgrey; */
+}
+
+td.lightgrey #name1, #name_furigana1 {
+    width: 100%;
+    /* height: 50px; */
+    font-size: 30px;
 }
 
 td.td5 {

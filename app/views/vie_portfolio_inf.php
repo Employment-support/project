@@ -4,12 +4,12 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="../static/css/navi.css">
-    <link rel="stylesheet" href="../static/css/footer.css">
-    <link rel="stylesheet" href="../static/css/portfolio_inf.css">
-	<link rel="stylesheet" href="../static/css/butto.css">
-	<link rel="stylesheet" href="../static/css/back.css">
-    <title>学生画面　ポートフォリオ初期画面</title>
+    <link rel="stylesheet" href="../app/static/css/navi.css">
+    <link rel="stylesheet" href="../app/static/css/footer.css">
+    <link rel="stylesheet" href="../app/static/css/portfolio_inf.css">
+	<link rel="stylesheet" href="../app/static/css/butto.css">
+	<link rel="stylesheet" href="../app/static/css/back.css">
+    <title>ポートフォリオ</title>
 </head>
 <body>
     <?php include (__DIR__ ."/../template/navi.php"); ?>
@@ -28,7 +28,7 @@
 						<?php if ($data['img_path']):?>
 							<img class="card-image" src="<?= $data['img_path'] ?>">
 						<?php else: ?>
-							<img class="card-image" src="../static/imgs/NoImg.png">
+							<img class="card-image" src="../app/static/imgs/NoImg.png">
 						<?php endif ?>
 						<div class="card-url-big">
 							<object>
@@ -99,7 +99,7 @@
 			<?php if ($data['img_path']):?>
 				<img class="card-image" src="<?= $data['img_path'] ?>">
 			<?php else: ?>
-				<img class="card-image" src="../static/imgs/NoImg.png">
+				<img class="card-image" src="../app/static/imgs/NoImg.png">
 			<?php endif ?>
 			<p class="card-url">
 				<object>

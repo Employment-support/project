@@ -80,13 +80,20 @@ a.card{
     height: 40px;
     font-weight: bold;
     transition: 0.3s;
-    background-color: #1976d2;
+    background: #297CDD; /* 色をメインカラーに変更 */
+    /*background-color: #1976d2;*/
     margin-left: auto;
     margin-right: auto;
 }
 
 a.card:hover{
     opacity: .7;
+}
+
+/* 画像設定 */
+.card-image {
+    width: 100%;
+    object-fit: contain;
 }
 
 div.page_button{

@@ -2,6 +2,7 @@
 include_once __DIR__ . "/../models/model.php";
 include_once __DIR__ . "/../models/masters.php";
 include_once __DIR__ . "/../models/user.php";
+include_once __DIR__ . "/function.php";
 
 function create_cookie($name, $data){
     if (isset($_COOKIE[$name])) {
@@ -9,7 +10,7 @@ function create_cookie($name, $data){
         setcookie($name, '', time()-10); //     
         echo $name. 'cookie削除';
     } else {
-        setcookie($name, $data);
+        setcookie($name, $data, time()+1800, '/');
     }
 }
 
@@ -30,7 +31,7 @@ function signUp($student_number, $password)
     users.major_id,
     ma.major
     FROM users 
-    INNER JOIN belongs as be ON users.type_id = be.id 
+    INNER JOIN belongs as be ON users.type_id = be.id
     INNER JOIN departments as de ON users.department_id = de.id 
     INNER JOIN majors as ma ON users.major_id = ma.id 
     WHERE users.student_number = ?";
@@ -53,18 +54,18 @@ function signUp($student_number, $password)
         }
         
         // cookie生成
-        create_cookie('user_id', $data["id"]); // 
-        create_cookie('user_name', $data["name"]); // 
-        create_cookie('user_name_hiragana', $data["name_hiragana"]); // 
-        create_cookie('user_number', $data["student_number"]); // 
-        create_cookie('user_admin', $data["admin"]); // 
-        create_cookie('user_gender', $data["gender"]); // 
-        create_cookie('user_type_id', $data["type_id"]); // 
-        create_cookie('user_type', $data["type"]); // 
-        create_cookie('user_department_id', $data["department_id"]); // 
-        create_cookie('user_department', $data["department"]); // 
-        create_cookie('user_major_id', $data["major_id"]); // 
-        create_cookie('user_major', $data["major"]); // 
+        setcookie('user_id', $data["id"], time()+1800, '/'); // 
+        setcookie('user_name', $data["name"], time()+1800, '/'); // 
+        setcookie('user_name_hiragana', $data["name_hiragana"], time()+1800, '/'); // 
+        setcookie('user_number', $data["student_number"], time()+1800, '/'); // 
+        setcookie('user_admin', $data["admin"], time()+1800, '/'); // 
+        setcookie('user_gender', $data["gender"], time()+1800, '/'); // 
+        setcookie('user_type_id', $data["type_id"], time()+1800, '/'); // 
+        setcookie('user_type', $data["type"], time()+1800, '/'); // 
+        setcookie('user_department_id', $data["department_id"], time()+1800, '/'); // 
+        setcookie('user_department', $data["department"], time()+1800, '/'); // 
+        setcookie('user_major_id', $data["major_id"], time()+1800, '/'); // 
+        setcookie('user_major', $data["major"], time()+1800, '/'); // 
         echo "成功"; // テスト用
         header('Location:/');
     } else {

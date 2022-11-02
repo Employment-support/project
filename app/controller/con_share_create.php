@@ -64,7 +64,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
 }
 
 // 学生以外だけが入れる処理
-if (is_admin($_COOKIE['user_admin']) || is_teacher($_COOKIE['user_type'])){
+if (is_admin($_COOKIE['user_admin']) || is_teacher($_COOKIE['user_type_id'])){
     $date = date('Y-m-d');
     $major_lists = $majors->selectAll($majors::sqlSelectAll);
     $department_lists = $departments->selectAll($departments::sqlSelectAll);
