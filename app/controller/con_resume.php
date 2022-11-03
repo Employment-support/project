@@ -542,6 +542,31 @@ function post_check($post){
     };
 };
 
+
+// 二重送信対策
+list($session_token, $new_token) = generate_token();
+
+$resumes = new Resumes(); // 履歴書
+$historys = new Historys(); // 学歴職歴
+$userAbilites = new UserAbilites(); // ユーザ資格免許
+
+if ($is_cookie) {
+    $resume_list = $resumes->select($_COOKIE['user_id'], $resumes::sqlSelect);
+} else {
+    $resume_list = '';
+}
+if ($resume_list) {
+    $userAbilites_list = $userAbilites->select($resume_list['id'], $userAbilites::sqlSelect);
+    $historys_list = $historys->select($resume_list['id'], $historys::sqlSelect);
+    $is_resume = true;
+} else {
+    $userAbilites_list ='';
+    $historys_list = '';
+    $is_resume = false;
+}
+// print_r($resume_list);
+
+
 // 保存処理
 if($_SERVER["REQUEST_METHOD"] == "POST"){
     
@@ -713,7 +738,8 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
 
     if($is_academic && $is_career) {
         echo 'aaa';
-        $career_academic = array_map(null, $career, $academic);
+        // $career_academic = array_map(null, $career, $academic);
+        $career_academic = array_merge_recursive($career, $academic);
     } elseif ($is_academic) {
         $career_academic = $academic;
     } elseif ($is_career) {
@@ -722,6 +748,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
         $career_academic = [];
     }
     
+    print_r($career_academic);
 
     if (isset($_POST['qualification_month']) && isset($_POST['qualification'])){
         // 配列がからでは無ければ処理
@@ -756,6 +783,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
     }
 
     $img = [];
+    $img_path = '';
     if (isset($_FILES['ver-img'])) {
         if (isset($_FILES['ver-img']['name'])) {
             // print_r($_FILES['file']);
@@ -764,7 +792,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
             // https://tech.gootablog.com/article/s3-php/
             
             // $save_db_name = uploaded_file($_FILES['gazou']);
-
+            $img_path = [];
             $pdf_img = $_FILES['ver-img']['tmp_name'];
         }
     }
@@ -777,12 +805,50 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
         , $os, $language, $db, $office, $network, $other
         , $career_academic, $qualification);
     }
+
     // db登録
     if(isset($_POST['save']) && $is_cookie) {
-        $resumes = new Resumes(); // 履歴書 
-        $historys = new Historys(); // 学歴職歴
-        $userAbilites = new UserAbilites(); // ユーザ資格免許
-        // $resumes->create();
+        if (!$is_resume){
+            // 二重送信対策確認
+            if ( is_token_valid($session_token) ){
+                echo '登録できません';
+                // 保存は確認済み
+                //$resume_id = $resumes->create($birthday[0], $birthday[1], $birthday[2], 
+                //     $postalcode, $address, $address_furigana, 
+                //     $tel_home, $tel_mobile, $email, 
+                //     $emergency_address, $emergency_address_furigana, $emergency_tel, 
+                //     $nearest_line, $nearest_station, $img_path,
+                //     $desired, $motivatio, $publicity, $character, $hobby,
+                //     $other, $_COOKIE['user_id'],
+                //     $os, $language, $db, $office, $network, 
+                // );
+                foreach ($career_academic as $value) {
+                    $userAbilites->create($value['year'], $value['month'], $value['data'], $resume_id);
+                }
+
+                foreach ($qualification as $value) {
+                    $historys->create($value['year'], $value['month'], $value['data'], $resume_id);
+                }
+            }
+        } else {
+            // $resumes->update();
+            // ユーザ資格免許あれば処理
+            // updateするときに重複したデーターをどうするか
+            // https://qiita.com/y-encore/items/40ba694a8899ad1e9416
+            if (!empty($userAbilites_list)){
+                foreach ($userAbilites_list as $value) {
+                    $userAbilites->update($value['id'], $value['year'], $value['month'], $value['data'], $resume_id);
+    
+                }
+            }
+            // 学歴職歴あれば処理
+            if (!empty($historys_list)){
+                foreach ($historys_list as $value) {
+                    $historys->update($value['id'], $value['year'], $value['month'], $value['data'], $resume_id);
+    
+                }
+            }
+        }
     } else {
         // ①$alertにjavascriptのalert関数を代入する。
         $alert = "<script type='text/javascript'>alert('ログインしてください');</script>";
@@ -791,6 +857,31 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
         echo $alert;
     }
 }
+
+function xxx(){
+    // 分ける
+    $new_list = [];
+    foreach ($zz as $key => $value) {
+        array_push($new_list, $value[1]);
+    }
+    
+    // 重複の古いものを削除する番号の取得
+    $test_list = [];
+    $drop_num = [];
+    foreach ($new_list as $key => $value) {
+        if (!in_array($value, $test_list)) {
+            $test_list[$key] = $value;
+        } else {
+            array_push($drop_num, $key);
+        }
+    }
+    
+    foreach ($drop_num as $dr) {
+        unset($zz[$dr]);
+    }
+    
+    $target = array_values($zz);
+    print_r($target);}
 
 // 現在の日付
 $now_date = date('Y-m-d');

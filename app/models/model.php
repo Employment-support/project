@@ -245,15 +245,53 @@ class Shares extends DB
 // 学歴
 class Historys extends DB
 {
+    public const sqlSelect = "SELECT * FROM historys WHERE resume_id = ?";
     // 登録    
-    function create()
+    function create($year, $month, $ability,  $resume_id)
     {
+        $sql = "INSERT INTO `historys`(year, month, historys, resume_id) 
+        VALUES (:year,:month,:historys,:resume_id)";
 
+
+        try {
+            $stmt = $this->pdo->prepare($sql);
+            $stmt -> bindValue(":year", $year, PDO::PARAM_STR);
+            $stmt -> bindValue(":month", $month, PDO::PARAM_STR);
+            $stmt -> bindValue(":historys", $historys, PDO::PARAM_STR);
+            $stmt -> bindValue(":resume_id", $resume_id, PDO::PARAM_INT);
+            $stmt->execute();
+            echo '登録完了'; // テスト用
+            return true;
+        } catch (PDOException $e) {
+            print('Error:'.$e->getMessage());
+            return false;
+        }
     }
     // 変更
-    function update()
+    function update($id, $year, $month, $historys,  $resume_id)
     {
+        $sql = "UPDATE `historys` SET
+        year= :year,
+        month= :month,
+        historys= :historys,
+        resume_id= :resume_id 
+        WHERE resume_id= :resume_id AND id= :id";
 
+
+        try {
+            $stmt = $this->pdo->prepare($sql);
+            $stmt -> bindValue(":id", $id, PDO::PARAM_INT);
+            $stmt -> bindValue(":year", $year, PDO::PARAM_STR);
+            $stmt -> bindValue(":month", $month, PDO::PARAM_STR);
+            $stmt -> bindValue(":historys", $historys, PDO::PARAM_STR);
+            $stmt -> bindValue(":resume_id", $resume_id, PDO::PARAM_INT);
+            $stmt->execute();
+            echo '登録完了'; // テスト用
+            return true;
+        } catch (PDOException $e) {
+            print('Error:'.$e->getMessage());
+            return false;
+        }
     }
 }
 
@@ -275,21 +313,60 @@ class SkillItemsResumes extends DB
 // ユーザ資格免許一覧
 class UserAbilites extends DB
 {
+    public const sqlSelect = "SELECT * FROM user_abilities WHERE resume_id = ?";
     // 登録    
-    function create()
+    function create($year, $month, $ability,  $resume_id)
     {
+        $sql = "INSERT INTO `user_abilities`(year, month, ability, resume_id) 
+        VALUES (:year,:month,:ability,:resume_id)";
 
+
+        try {
+            $stmt = $this->pdo->prepare($sql);
+            $stmt -> bindValue(":year", $year, PDO::PARAM_STR);
+            $stmt -> bindValue(":month", $month, PDO::PARAM_STR);
+            $stmt -> bindValue(":ability", $ability, PDO::PARAM_STR);
+            $stmt -> bindValue(":resume_id", $resume_id, PDO::PARAM_INT);
+            $stmt->execute();
+            echo '登録完了'; // テスト用
+            return true;
+        } catch (PDOException $e) {
+            print('Error:'.$e->getMessage());
+            return false;
+        }
     }
     // 変更
-    function update()
+    function update($id, $year, $month, $ability,  $resume_id)
     {
+        $sql = "UPDATE `user_abilities` SET
+        year= :year,
+        month= :month,
+        ability= :ability,
+        resume_id= :resume_id 
+        WHERE resume_id= :resume_id AND id= :id";
 
+
+        try {
+            $stmt = $this->pdo->prepare($sql);
+            $stmt -> bindValue(":id", $id, PDO::PARAM_INT);
+            $stmt -> bindValue(":year", $year, PDO::PARAM_STR);
+            $stmt -> bindValue(":month", $month, PDO::PARAM_STR);
+            $stmt -> bindValue(":ability", $ability, PDO::PARAM_STR);
+            $stmt -> bindValue(":resume_id", $resume_id, PDO::PARAM_INT);
+            $stmt->execute();
+            echo '登録完了'; // テスト用
+            return true;
+        } catch (PDOException $e) {
+            print('Error:'.$e->getMessage());
+            return false;
+        }
     }
 }
 
 // 履歴書作成、保存、PDF出力
 class Resumes extends DB
 {
+    public const sqlSelect = "SELECT * FROM resumes WHERE user_id = ?";
     // 登録    
     function create($year, $month, $day, 
     $postal_code, $address, $address_furigana, 
@@ -298,8 +375,7 @@ class Resumes extends DB
     $station_line, $station, $img_path, 
     $hope, $desire, $pr, 
     $personality, $hobby, $other, int $user_id,
-    $os, $language, $db, $office, $network,
-    array $career_academic)
+    $os, $language, $db, $office, $network)
     {
         /*
         $year:string 年
@@ -388,13 +464,7 @@ class Resumes extends DB
 
             // 最後に登録されたIDの取得
             $id = $this->pdo->lastInsertId();
-            // 学歴があれば処理がされる
-            // 資格があれば処理がされる
-            if (empty($career_academic)){
-                $history_lists = new Historys();
-            }
-            
-            return true;
+            return $id;
         } catch (PDOException $e) {
             print('Error:'.$e->getMessage());
             return false;
@@ -407,7 +477,8 @@ class Resumes extends DB
     $address2, $address2_furigana, $tel, 
     $station_line, $station, $img_path, 
     $hope, $desire, $pr, 
-    $personality, $hobby, $other, int $user_id)
+    $personality, $hobby, $other, int $user_id,
+    $os, $language, $db, $office, $network)
     {
         /*
         $id : コンテンツid

@@ -40,6 +40,7 @@ class DB
             $data = $stmt->fetch(PDO::FETCH_ASSOC);
             return $data;
         } catch (PDOException $e) {
+            print('Error:'.$e->getMessage());
             return false;
         }
     }

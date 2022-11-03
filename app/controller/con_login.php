@@ -54,18 +54,18 @@ function signUp($student_number, $password)
         }
         
         // cookie生成
-        setcookie('user_id', $data["id"], time()+1800, '/'); // 
-        setcookie('user_name', $data["name"], time()+1800, '/'); // 
-        setcookie('user_name_hiragana', $data["name_hiragana"], time()+1800, '/'); // 
-        setcookie('user_number', $data["student_number"], time()+1800, '/'); // 
-        setcookie('user_admin', $data["admin"], time()+1800, '/'); // 
-        setcookie('user_gender', $data["gender"], time()+1800, '/'); // 
-        setcookie('user_type_id', $data["type_id"], time()+1800, '/'); // 
-        setcookie('user_type', $data["type"], time()+1800, '/'); // 
-        setcookie('user_department_id', $data["department_id"], time()+1800, '/'); // 
-        setcookie('user_department', $data["department"], time()+1800, '/'); // 
-        setcookie('user_major_id', $data["major_id"], time()+1800, '/'); // 
-        setcookie('user_major', $data["major"], time()+1800, '/'); // 
+        setcookie('user_id', $data["id"], time()+18000, '/'); // 
+        setcookie('user_name', $data["name"], time()+18000, '/'); // 
+        setcookie('user_name_hiragana', $data["name_hiragana"], time()+18000, '/'); // 
+        setcookie('user_number', $data["student_number"], time()+18000, '/'); // 
+        setcookie('user_admin', $data["admin"], time()+18000, '/'); // 
+        setcookie('user_gender', $data["gender"], time()+18000, '/'); // 
+        setcookie('user_type_id', $data["type_id"], time()+18000, '/'); // 
+        setcookie('user_type', $data["type"], time()+18000, '/'); // 
+        setcookie('user_department_id', $data["department_id"], time()+18000, '/'); // 
+        setcookie('user_department', $data["department"], time()+18000, '/'); // 
+        setcookie('user_major_id', $data["major_id"], time()+18000, '/'); // 
+        setcookie('user_major', $data["major"], time()+18000, '/'); // 
         echo "成功"; // テスト用
         header('Location:/');
     } else {

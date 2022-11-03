@@ -65,44 +65,63 @@
             </tr>
             <tr>
                 <th><p>生年月日</p></th>
-                <td colspan="3"><p><input type="date" name="birthday" id="birthday" required><samp id="age">（満○○歳）</samp></p></td>
-                <!-- <td colspan="3">
+                <?php if($is_resume):?>
+                <td colspan="3">
                     <p>
-                        <select name="birthday_year" >
-                            <option value="1900">1900</option>
-                            <option value="3000">3000</option>
-                        </select>年
-                        <select name="birthday_month" >
-                            <option value="01">01</option>
-                            <option value="06">06</option>
-                            <option value="12">12</option>
-                        </select>月
-                        <select name="birthday_day" >
-                            <option value="01">01</option>
-                            <option value="15">15</option>
-                            <option value="31">31</option>
-                        </select>日
-                        （満○○歳）
+                        <input type="date" name="birthday" id="birthday"  value="<?= $resume_list['year']. '-'. $resume_list['month']. '-'. $resume_list['day'] ?>" required>
+                        <samp id="age">（満○○歳）</samp>
                     </p>
-                </td> -->
+                </td>
+                <?php else: ?>
+                <td colspan="3"><p><input type="date" name="birthday" id="birthday" required><samp id="age">（満○○歳）</samp></p></td>
+                <?php endif ?>
             </tr>
         </table>
         <table border="1">
             <tr>
                 <th rowspan="3"><p>現住所</p></th>
                 <td>
-                    <p>〒<input type="number" placeholder="1002100" name="postalcode" id="postalcode">
+                    <p>〒
+                    <?php if($is_resume):?>
+                        <input type="number" placeholder="1002100" name="postalcode" id="postalcode" value="<?= $resume_list['postal_code']?>">
+                    <?php else: ?>
+                        <input type="number" placeholder="1002100" name="postalcode" id="postalcode">
+                    <?php endif ?>
                     <input type="button" name="but-postalcode" id="but-postalcode" value="住所検索">
                     </p>
                     <!-- データベースから表示 -->
-                    <p><input type="text" placeholder="ふりがな" name="address_furigana" id="address_furigana"></p>
-                    <p><input type="text" name="address" id="address" placeholder="大阪府大阪市西区北堀江2－4ー6"></p>
+                    <p>
+                        <?php if($is_resume):?>
+                            <input type="text" placeholder="ふりがな" name="address_furigana" id="address_furigana" value="<?= $resume_list['address_furigana'] ?>">
+                        <?php else: ?>
+                            <input type="text" placeholder="ふりがな" name="address_furigana" id="address_furigana">
+                        <?php endif ?>
+                    </p>
+                    <p>
+                        <?php if($is_resume):?>
+                            <input type="text" name="address" id="address" placeholder="大阪府大阪市西区北堀江2－4ー6" value="<?= $resume_list['address'] ?>">
+                        <?php else: ?>
+                            <input type="text" name="address" id="address" placeholder="大阪府大阪市西区北堀江2－4ー6">
+                        <?php endif ?>
+                    </p>
                     <!--  -->
                 </td>
                 <th><p>最寄り駅</p></th>
                 <td>
-                    <p><input type="text" placeholder="大阪メトロ長堀橋見緑地" name="nearest_line">線</p>
-                    <p><input type="text" placeholder="西大橋" name="nearest_station">駅</p>
+                    <p>
+                        <?php if($is_resume):?>
+                            <input type="text" placeholder="大阪メトロ長堀橋見緑地" name="nearest_line" value="<?= $resume_list['station_line'] ?>">線
+                        <?php else: ?>
+                            <input type="text" placeholder="大阪メトロ長堀橋見緑地" name="nearest_line">線
+                        <?php endif ?>
+                    </p>
+                    <p>
+                        <?php if($is_resume):?>
+                            <input type="text" placeholder="西大橋" name="nearest_station" value="<?= $resume_list['station'] ?>">駅
+                        <?php else: ?>
+                            <input type="text" placeholder="西大橋" name="nearest_station">駅
+                        <?php endif ?>
+                    </p>
                 </td>
             </tr>
             <tr>
@@ -111,25 +130,51 @@
                 </td>
                 <th><p>電話</p></th>
                 <td>
-                    <p>自宅<input type="tel" placeholder="0123456789" name="tel_home" placeholder="012345678902"></p>
-                    <p>携帯<input type="tel" placeholder="01012345678" name="tel_mobile" placeholder="012345678902"></p>
+                    <?php if($is_resume):?>
+                        <p>自宅<input type="tel" placeholder="0123456789" name="tel_home" placeholder="012345678902" value="<?= $resume_list['home_tel'] ?>"></p>
+                    <?php else: ?>
+                        <p>自宅<input type="tel" placeholder="0123456789" name="tel_home" placeholder="012345678902"></p>
+                    <?php endif ?>
+                    <?php if($is_resume):?>
+                        <p>携帯<input type="tel" placeholder="01012345678" name="tel_mobile" placeholder="012345678902" value="<?= $resume_list['mobile_tel'] ?>"></p>
+                    <?php else: ?>
+                        <p>携帯<input type="tel" placeholder="01012345678" name="tel_mobile" placeholder="012345678902"></p>
+                    <?php endif ?>
                 </td>
             </tr>
             <tr>     
                 <th><p>メール</p></th>
                 <td>
+                <?php if($is_resume):?>
+                    <p><input type="email" name="email" placeholder="xxxx@gmail.com" value="<?= $resume_list['email'] ?>"></p>
+                <?php else: ?>
                     <p><input type="email" name="email" placeholder="xxxx@gmail.com"></p>
+                <?php endif ?>
                 </td>
             </tr>
             <tr>
                 <th><p>緊急連絡先</p></th>
                 <td>
-                    <p><input type="text" placeholder="ふりがな" name="emergency_address_furigana" ></p>
-                    <p><input type="text" name="emergency_address" ></p>
+                    <?php if($is_resume):?>
+                        <p><input type="text" placeholder="ふりがな" name="emergency_address_furigana" value="<?= $resume_list['address2'] ?>"></p>
+                    <?php else: ?>
+                        <p><input type="text" placeholder="ふりがな" name="emergency_address_furigana" ></p>
+                    <?php endif ?>
+
+                    <?php if($is_resume):?>
+                        <p><input type="text" name="emergency_address" value="<?= $resume_list['address2'] ?>"></p>
+                    <?php else: ?>
+                        <p><input type="text" name="emergency_address" ></p>
+                    <?php endif ?>
                 </td>
                 <th><p>電話</p></th>
                 <td>
+                <?php if($is_resume):?>
+                    <p><input type="tel" name="emergency_tel" placeholder="012345678902" value="<?= $resume_list['tel'] ?>"></p>
+                <?php else: ?>
                     <p><input type="tel" name="emergency_tel" placeholder="012345678902"></p>
+                <?php endif ?>
+
                 </td>
             </tr>
         </table>
@@ -212,7 +257,13 @@
         <table border="1">
             <tr><th colspan="6"><p>希望職種</p></th></tr>
             <tr>
-                <td colspan="6"><p><input type="text" name="desired" placeholder=""></p></td>
+                <td colspan="6">
+                    <?php if($is_resume):?>
+                        <p><input type="text" name="desired" placeholder="インフラエンジニア・セキュリティエンジニア" value="<?= $resume_list['hope']?>"></p>
+                    <?php else: ?>
+                        <p><input type="text" name="desired" placeholder="インフラエンジニア・セキュリティエンジニア"></p>
+                    <?php endif ?>
+                </td>
             </tr>
             
             <tr>
@@ -265,46 +316,106 @@
         <table border="1">
             <tr><th colspan="2"><p>志望動機</p></th></tr>
             <tr>
-                <td colspan="2"><p><textarea rows="10" name="motivation" placeholder=""></textarea></p></td>
+                <td colspan="2">
+                    <?php if($is_resume):?>
+                        <p><textarea rows="10" name="motivation" placeholder="" ><?= $resume_list['desire']?></textarea></p>
+                    <?php else: ?>
+                        <p><textarea rows="10" name="motivation" placeholder=""></textarea></p>
+                    <?php endif ?>
+                </td>
             </tr>
             <tr><th colspan="2"><p>自己PR</p></th></tr>
             <tr>
-                <td colspan="2"><p><textarea rows="10" name="publicity" placeholder=""></textarea></p></td>
+                <td colspan="2">
+                    <?php if($is_resume):?>
+                        <p><textarea rows="10" name="publicity" placeholder=""><?= $resume_list['pr']?></textarea></p>
+                    <?php else: ?>
+                        <p><textarea rows="10" name="publicity" placeholder=""></textarea></p>
+                    <?php endif ?>
+                </td>
             </tr>
             <tr>
                 <th><p>性格</p></th>
                 <th><p>趣味</p></th>
             </tr>
             <tr>
-                <td><p><textarea rows="10" name="character" ></textarea></p></td>
-                <td><p><textarea rows="10" name="hobby" ></textarea></p></td>
+                <td>
+                    <?php if($is_resume):?>
+                        <p><textarea rows="10" name="character"><?= $resume_list['personality']?></textarea></p>
+                    <?php else: ?>
+                        <p><textarea rows="10" name="character"></textarea></p>
+                    <?php endif ?>
+                </td>
+                <td>
+                <?php if($is_resume):?>
+                    <p><textarea rows="10" name="hobby"><?= $resume_list['hobby']?></textarea></p>
+                <?php else: ?>
+                    <p><textarea rows="10" name="hobby"></textarea></p>
+                <?php endif ?>
+                </td>
             </tr>
         </table>
         <table border="1">
             <tr><th colspan="2"><p>スキルセット</p></th></tr>
             <tr>
                 <td class="td15"><p>OS</p></td>
-                <td><p><input type="text" name="os" placeholder=""></p></td>
+                <td>
+                    <?php if($is_resume):?>
+                        <p><input type="text" name="os" placeholder="" value="<?= $resume_list['os']?>"></p>
+                    <?php else: ?>
+                        <p><input type="text" name="os" placeholder=""></p>
+                    <?php endif ?>
+                </td>
             </tr>
             <tr>
                 <td><p>言語</p></td>
-                <td><p><input type="text" name="language" placeholder=""></p></td>
+                <td>
+                    <?php if($is_resume):?>
+                        <p><input type="text" name="language" placeholder="" value="<?= $resume_list['lang']?>"></p>
+                    <?php else: ?>
+                        <p><input type="text" name="language" placeholder=""></p>
+                    <?php endif ?>
+                </td>
             </tr>
             <tr>
                 <td><p>DB</p></td>
-                <td><p><input type="text" name="db" placeholder=""></p></td>
+                <td>
+                    <?php if($is_resume):?>
+                        <p><input type="text" name="db" placeholder="" value="<?= $resume_list['db']?>"></p>
+                    <?php else: ?>
+                        <p><input type="text" name="db" placeholder=""></p>
+                    <?php endif ?>
+                </td>
             </tr>
             <tr>
                 <td><p>Office</p></td>
-                <td><p><input type="text" name="office" placeholder=""></p></td>
+                <td>
+                    <?php if($is_resume):?>
+                        <p><input type="text" name="office" placeholder="" value="<?= $resume_list['office']?>"></p>
+                    <?php else: ?>
+                        <p><input type="text" name="office" placeholder=""></p>
+                    <?php endif ?>
+                </td>
             </tr>
             <tr>
                 <td><p>ネットワーク</p></td>
-                <td><p><input type="text" name="network" placeholder=""></p></td>
+                <td>
+                    <?php if($is_resume):?>
+                        <p><input type="text" name="network" placeholder="" value="<?= $resume_list['net']?>"></p>
+                    <?php else: ?>
+                        <p><input type="text" name="network" placeholder=""></p>
+                    <?php endif ?>
+                </td>
             </tr>
             <tr>
                 <td><p>その他</p></td>
-                <td><p><textarea rows="10" name="other" ></textarea></p></td>
+                <td>
+                    <?php if($is_resume):?>
+                        <p><textarea rows="10" name="other" ><?= $resume_list['other']?></textarea></p>
+                    <?php else: ?>
+                        <p><textarea rows="10" name="other" ></textarea></p>
+                    <?php endif ?>
+                </td>
             </tr>
         </table>
         <table>

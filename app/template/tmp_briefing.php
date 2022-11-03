@@ -9,7 +9,7 @@
 				<img class="card-image" src="<?= $data['img_path'] ?>">
             <?php else: ?>
 				<img class="card-image" src="../app/static/imgs/log_noimg.png">
-			<?php endif ?> -->
+			<?php endif ?>
             <p class="name"><?= $data['corporate'] ?></p>
             <p class="genre"><?= $data['genre'] ?></p>
             <? #担任または管理者かつidがbriefingsに登録されているユーザidと等しいか ?>
