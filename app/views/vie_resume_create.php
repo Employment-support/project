@@ -181,76 +181,127 @@
         <br>
         <table border="1">
             <tr><th colspan="2"><p>学歴</p></th></tr>
-            <tr>
-                <td class="td20"><p><input type="month" name="academic_month[]"></p></td>
-                <td><p><input type="text" name="academic[]" placeholder="○○○○中学校卒業"></p></td>
-            </tr>
-            <tr>
-                <td><p><input type="month" name="academic_month[]"></p></td>
-                <td><p><input type="text" name="academic[]" placeholder="○○○○高等学校卒業"></p></td>
-            </tr>
-            <tr>
-                <td><p><input type="month" name="academic_month[]"></p></td>
-                <td><p><input type="text" name="academic[]" placeholder="OCA大阪デザイン＆IT専門学校　スーパーゲームIT科　ホワイトハッカー専攻　入学"></p></td>
-            </tr>
-            <tr>
-                <td><p><input type="month" name="academic_month[]"></p></td>
-                <td><p><input type="text" name="academic[]"></p></td>
-            </tr>
-            <tr>
-                <td><p><input type="month" name="academic_month[]"></p></td>
-                <td><p><input type="text" name="academic[]"></p></td>
-            </tr>
-            <tr><td colspan="2"><p><input type="button" value="行を追加"></p></td></tr>
+            <?php if($is_resume):?>
+                <?php foreach($historys_list as $value): ?>
+                    <tr>
+                        <td class="td20"><p><input type="month" name="academic_month[]" value="<?= $value['year']. '-'. $value['month'] ?>"></p></td>
+                        <td><p><input type="text" name="academic[]" value="<?= $value['history']?>"></p></td>
+                    </tr>
+                <?php endforeach ?>
+                <tr>
+                    <td class="td20"><p><input type="month" name="academic_month[]"></p></td>
+                    <td><p><input type="text" name="academic[]" placeholder="○○○○中学校卒業"></p></td>
+                </tr>
+                <tr>
+                    <td><p><input type="month" name="academic_month[]"></p></td>
+                    <td><p><input type="text" name="academic[]" placeholder="○○○○高等学校卒業"></p></td>
+                </tr>
+                <tr>
+                    <td><p><input type="month" name="academic_month[]"></p></td>
+                    <td><p><input type="text" name="academic[]" placeholder="OCA大阪デザイン＆IT専門学校　スーパーゲームIT科　ホワイトハッカー専攻　入学"></p></td>
+                </tr>
+            <?php else: ?>
+                <tr>
+                    <td><p><input type="month" name="academic_month[]"></p></td>
+                    <td><p><input type="text" name="academic[]" placeholder="○○○○中学校卒業"></p></td>
+                </tr>
+                <tr>
+                    <td><p><input type="month" name="academic_month[]"></p></td>
+                    <td><p><input type="text" name="academic[]" placeholder="○○○○高等学校卒業"></p></td>
+                </tr>
+                <tr>
+                    <td><p><input type="month" name="academic_month[]"></p></td>
+                    <td><p><input type="text" name="academic[]" placeholder="OCA大阪デザイン＆IT専門学校　スーパーゲームIT科　ホワイトハッカー専攻　入学"></p></td>
+                </tr>
+                <tr>
+                    <td><p><input type="month" name="academic_month[]"></p></td>
+                    <td><p><input type="text" name="academic[]"></p></td>
+                </tr>
+                <tr>
+                    <td><p><input type="month" name="academic_month[]"></p></td>
+                    <td><p><input type="text" name="academic[]"></p></td>
+                </tr>
+            <?php endif ?>
+                <tr><td colspan="2"><p><input type="button" value="行を追加"></p></td></tr>
         </table>
         <br>
         <table border="1">
             <tr><th colspan="2"><p>職歴</p></th></tr>
-            <tr>
-                <td class="td20"><p><input type="month" name="career_month[]"></p></td>
-                <td><p><input type="text" placeholder="なし" name="career[]"></p></td>
-            </tr>
-            <tr>
-                <td><p><input type="month" name="career_month[]"></p></td>
-                <td><p><input type="text" name="career[]"></p></td>
-            </tr>
-            <tr>
-                <td><p><input type="month" name="career_month[]"></p></td>
-                <td><p><input type="text" name="career[]"></p></td>
-            </tr>
-            <tr>
-                <td><p><input type="month" name="career_month[]"></p></td>
-                <td><p><input type="text" name="career[]"></p></td>
-            </tr>
-            <tr>
-                <td><p><input type="month" name="career_month[]"></p></td>
-                <td><p><input type="text" name="career[]"></p></td>
-            </tr>
+            <?php if($is_resume):?>
+                <?php foreach($career_list as $value): ?>
+                    <tr>
+                        <td class="td20"><p><input type="month" name="career_month[]" value="<?= $value['year']. '-'. $value['month'] ?>"></p></td>
+                        <td><p><input type="text" placeholder="なし" name="career[]" value="<?= $value['history']?>"></p></td>
+                    </tr>
+                <?php endforeach ?>
+                    <tr>
+                        <td class="td20"><p><input type="month" name="career_month[]"></p></td>
+                        <td><p><input type="text" placeholder="なし" name="career[]"></p></td>
+                    </tr>
+            <?php else: ?>
+                <tr>
+                    <td class="td20"><p><input type="month" name="career_month[]"></p></td>
+                    <td><p><input type="text" placeholder="なし" name="career[]"></p></td>
+                </tr>
+                <tr>
+                    <td><p><input type="month" name="career_month[]"></p></td>
+                    <td><p><input type="text" name="career[]"></p></td>
+                </tr>
+                <tr>
+                    <td><p><input type="month" name="career_month[]"></p></td>
+                    <td><p><input type="text" name="career[]"></p></td>
+                </tr>
+                <tr>
+                    <td><p><input type="month" name="career_month[]"></p></td>
+                    <td><p><input type="text" name="career[]"></p></td>
+                </tr>
+                <tr>
+                    <td><p><input type="month" name="career_month[]"></p></td>
+                    <td><p><input type="text" name="career[]"></p></td>
+                </tr>
+            <?php endif ?>
             <tr><td colspan="2"><p><input type="button" value="行を追加"></p></td></tr>
         </table>
         <br>
         <table border="1">
             <tr><th colspan="2"><p>資格・免許</p></th></tr>
-            <tr>
-                <td class="td20"><p><input type="month" name="qualification_month[]"></p></td>
-                <td><p><input type="text" name="qualification[]" placeholder="ITパスポート"></p></td>
-            </tr>
-            <tr>
-                <td><p><input type="month" name="qualification_month[]"></p></td>
-                <td><p><input type="text" name="qualification[]" placeholder="基本情報"></p></td>
-            </tr>
-            <tr>
-                <td><p><input type="month" name="qualification_month[]"></p></td>
-                <td><p><input type="text" name="qualification[]"></p></td>
-            </tr>
-            <tr>
-                <td><p><input type="month" name="qualification_month[]"></p></td>
-                <td><p><input type="text" name="qualification[]"></p></td>
-            </tr>
-            <tr>
-                <td><p><input type="month" name="qualification_month[]"></p></td>
-                <td><p><input type="text" name="qualification[]"></p></td>
-            </tr>
+            <?php if($is_resume):?>
+                <?php foreach($userAbilites_list as $value): ?>
+                    <tr>
+                        <td class="td20"><p><input type="month" name="academic_month[]" value="<?= $value['year']. '-'. $value['month'] ?>"></p></td>
+                        <td><p><input type="text" name="academic[]" value="<?= $value['ability']?>"></p></td>
+                    </tr>
+                    <?php endforeach ?>
+                <tr>
+                    <td class="td20"><p><input type="month" name="qualification_month[]"></p></td>
+                    <td><p><input type="text" name="qualification[]" placeholder="ITパスポート"></p></td>
+                </tr>
+                <tr>
+                    <td><p><input type="month" name="qualification_month[]"></p></td>
+                    <td><p><input type="text" name="qualification[]" placeholder="基本情報"></p></td>
+                </tr>
+            <?php else: ?>
+                <tr>
+                    <td class="td20"><p><input type="month" name="qualification_month[]"></p></td>
+                    <td><p><input type="text" name="qualification[]" placeholder="ITパスポート"></p></td>
+                </tr>
+                <tr>
+                    <td><p><input type="month" name="qualification_month[]"></p></td>
+                    <td><p><input type="text" name="qualification[]" placeholder="基本情報"></p></td>
+                </tr>
+                <tr>
+                    <td><p><input type="month" name="qualification_month[]"></p></td>
+                    <td><p><input type="text" name="qualification[]"></p></td>
+                </tr>
+                <tr>
+                    <td><p><input type="month" name="qualification_month[]"></p></td>
+                    <td><p><input type="text" name="qualification[]"></p></td>
+                </tr>
+                <tr>
+                    <td><p><input type="month" name="qualification_month[]"></p></td>
+                    <td><p><input type="text" name="qualification[]"></p></td>
+                </tr>
+            <?php endif ?>
             <tr><td colspan="2"><p><input type="button" value="行を追加"></p></td></tr>
         </table>
         <br>
