@@ -245,19 +245,20 @@ class Shares extends DB
 // 学歴
 class Historys extends DB
 {
-    public const sqlSelect = "SELECT * FROM historys WHERE resume_id = ?";
+    public const sqlSelect = "SELECT * FROM histories WHERE resume_id = ?";
+    public const sqlSelectAll = "SELECT * FROM histories";
     // 登録    
-    function create($year, $month, $ability,  $resume_id)
+    function create($year, $month, $history, int $resume_id)
     {
-        $sql = "INSERT INTO `historys`(year, month, historys, resume_id) 
-        VALUES (:year,:month,:historys,:resume_id)";
+        $sql = "INSERT INTO `histories`(year, month, history, resume_id) 
+        VALUES (:year,:month,:history,:resume_id)";
 
 
         try {
             $stmt = $this->pdo->prepare($sql);
             $stmt -> bindValue(":year", $year, PDO::PARAM_STR);
             $stmt -> bindValue(":month", $month, PDO::PARAM_STR);
-            $stmt -> bindValue(":historys", $historys, PDO::PARAM_STR);
+            $stmt -> bindValue(":history", $history, PDO::PARAM_STR);
             $stmt -> bindValue(":resume_id", $resume_id, PDO::PARAM_INT);
             $stmt->execute();
             echo '登録完了'; // テスト用
@@ -268,13 +269,12 @@ class Historys extends DB
         }
     }
     // 変更
-    function update($id, $year, $month, $historys,  $resume_id)
+    function update($id, $year, $month, $history, int $resume_id)
     {
-        $sql = "UPDATE `historys` SET
+        $sql = "UPDATE `histories` SET
         year= :year,
         month= :month,
-        historys= :historys,
-        resume_id= :resume_id 
+        history= :history
         WHERE resume_id= :resume_id AND id= :id";
 
 
@@ -283,8 +283,161 @@ class Historys extends DB
             $stmt -> bindValue(":id", $id, PDO::PARAM_INT);
             $stmt -> bindValue(":year", $year, PDO::PARAM_STR);
             $stmt -> bindValue(":month", $month, PDO::PARAM_STR);
-            $stmt -> bindValue(":historys", $historys, PDO::PARAM_STR);
+            $stmt -> bindValue(":history", $history, PDO::PARAM_STR);
             $stmt -> bindValue(":resume_id", $resume_id, PDO::PARAM_INT);
+            $stmt->execute();
+            echo '登録完了'; // テスト用
+            return true;
+        } catch (PDOException $e) {
+            print('Error:'.$e->getMessage());
+            return false;
+        }
+    }
+
+    // 登録&更新
+    function createUpdate($id, $year, $month, $history, int $resume_id) 
+    {
+        $sql = "INSERT INTO
+                    histories(id, year, month, history, resume_id)
+                    VALUES (:id, :year, :month, :history, :resume_id)
+                ON DUPLICATE KEY
+                    UPDATE
+                        year = :up_year,
+                        month = :up_month,
+                        history = :up_history";
+
+
+        try {
+            $stmt = $this->pdo->prepare($sql);
+            $stmt -> bindValue(":id", $id, PDO::PARAM_INT);
+            $stmt -> bindValue(":year", $year, PDO::PARAM_STR);
+            $stmt -> bindValue(":month", $month, PDO::PARAM_STR);
+            $stmt -> bindValue(":history", $history, PDO::PARAM_STR);
+            $stmt -> bindValue(":resume_id", $resume_id, PDO::PARAM_INT);
+            $stmt -> bindValue(":up_year", $year, PDO::PARAM_STR);
+            $stmt -> bindValue(":up_month", $month, PDO::PARAM_STR);
+            $stmt -> bindValue(":up_history", $history, PDO::PARAM_STR);
+            $stmt->execute();
+            echo '登録完了'; // テスト用
+            return true;
+        } catch (PDOException $e) {
+            print('Error:'.$e->getMessage());
+            return false;
+        }
+    }
+
+    // 削除
+    function delete($id) 
+    {
+        $sql = "DELETE FROM histories WHERE id = :id";
+
+
+        try {
+            $stmt = $this->pdo->prepare($sql);
+            $stmt -> bindValue(":id", $id, PDO::PARAM_INT);
+            $stmt->execute();
+            echo '登録完了'; // テスト用
+            return true;
+        } catch (PDOException $e) {
+            print('Error:'.$e->getMessage());
+            return false;
+        }
+    }
+}
+
+// 職歴
+class Careers extends DB
+{
+    public const sqlSelect = "SELECT * FROM careers WHERE resume_id = ?";
+    public const sqlSelectAll = "SELECT * FROM careers";
+    // 登録    
+    function create($year, $month, $job, int $resume_id)
+    {
+        $sql = "INSERT INTO `careers`(year, month, job, resume_id) 
+        VALUES (:year,:month,:job,:resume_id)";
+
+
+        try {
+            $stmt = $this->pdo->prepare($sql);
+            $stmt -> bindValue(":year", $year, PDO::PARAM_STR);
+            $stmt -> bindValue(":month", $month, PDO::PARAM_STR);
+            $stmt -> bindValue(":job", $job, PDO::PARAM_STR);
+            $stmt -> bindValue(":resume_id", $resume_id, PDO::PARAM_INT);
+            $stmt->execute();
+            echo '登録完了'; // テスト用
+            return true;
+        } catch (PDOException $e) {
+            print('Error:'.$e->getMessage());
+            return false;
+        }
+    }
+    // 変更
+    function update($id, $year, $month, $job, int $resume_id)
+    {
+        $sql = "UPDATE `careers` SET
+        year= :year,
+        month= :month,
+        job= :job
+        WHERE resume_id= :resume_id AND id= :id";
+
+
+        try {
+            $stmt = $this->pdo->prepare($sql);
+            $stmt -> bindValue(":id", $id, PDO::PARAM_INT);
+            $stmt -> bindValue(":year", $year, PDO::PARAM_STR);
+            $stmt -> bindValue(":month", $month, PDO::PARAM_STR);
+            $stmt -> bindValue(":job", $job, PDO::PARAM_STR);
+            $stmt -> bindValue(":resume_id", $resume_id, PDO::PARAM_INT);
+            $stmt->execute();
+            echo '登録完了'; // テスト用
+            return true;
+        } catch (PDOException $e) {
+            print('Error:'.$e->getMessage());
+            return false;
+        }
+    }
+
+    // 登録&更新
+    function createUpdate($id, $year, $month, $job, int $resume_id) 
+    {
+        $sql = "INSERT INTO
+                    careers(id, year, month, job, resume_id)
+                    VALUES (:id, :year, :month, :job, :resume_id)
+                ON DUPLICATE KEY
+                    UPDATE
+                        year = :up_year,
+                        month = :up_month,
+                        job = :up_job";
+
+
+        try {
+            $stmt = $this->pdo->prepare($sql);
+            $stmt -> bindValue(":id", $id, PDO::PARAM_INT);
+            $stmt -> bindValue(":year", $year, PDO::PARAM_STR);
+            $stmt -> bindValue(":month", $month, PDO::PARAM_STR);
+            $stmt -> bindValue(":job", $job, PDO::PARAM_STR);
+            $stmt -> bindValue(":resume_id", $resume_id, PDO::PARAM_INT);
+            $stmt -> bindValue(":up_year", $year, PDO::PARAM_STR);
+            $stmt -> bindValue(":up_month", $month, PDO::PARAM_STR);
+            $stmt -> bindValue(":up_job", $job, PDO::PARAM_STR);
+            $stmt->execute();
+            echo '登録完了'; // テスト用
+            return true;
+        } catch (PDOException $e) {
+            print('Error:'.$e->getMessage());
+            return false;
+        }
+    }
+
+    // 削除
+    function delete($id) 
+    {
+        $sql = "DELETE FROM careers WHERE id = :id";
+
+
+        try {
+            $stmt = $this->pdo->prepare($sql);
+            $stmt -> bindValue(":id", $id, PDO::PARAM_INT);
             $stmt->execute();
             echo '登録完了'; // テスト用
             return true;
@@ -314,8 +467,9 @@ class SkillItemsResumes extends DB
 class UserAbilites extends DB
 {
     public const sqlSelect = "SELECT * FROM user_abilities WHERE resume_id = ?";
+    public const sqlSelectAll = "SELECT * FROM user_abilities";
     // 登録    
-    function create($year, $month, $ability,  $resume_id)
+    function create($year, $month, $ability, int $resume_id)
     {
         $sql = "INSERT INTO `user_abilities`(year, month, ability, resume_id) 
         VALUES (:year,:month,:ability,:resume_id)";
@@ -336,7 +490,7 @@ class UserAbilites extends DB
         }
     }
     // 変更
-    function update($id, $year, $month, $ability,  $resume_id)
+    function update($id, $year, $month, $ability, int $resume_id)
     {
         $sql = "UPDATE `user_abilities` SET
         year= :year,
@@ -353,6 +507,55 @@ class UserAbilites extends DB
             $stmt -> bindValue(":month", $month, PDO::PARAM_STR);
             $stmt -> bindValue(":ability", $ability, PDO::PARAM_STR);
             $stmt -> bindValue(":resume_id", $resume_id, PDO::PARAM_INT);
+            $stmt->execute();
+            echo '登録完了'; // テスト用
+            return true;
+        } catch (PDOException $e) {
+            print('Error:'.$e->getMessage());
+            return false;
+        }
+    }
+    // 登録&更新
+    function createUpdate($id, $year, $month, $ability, int $resume_id) 
+    {
+        $sql = "INSERT INTO
+                    user_abilities(id, year, month, ability, resume_id)
+                    VALUES (:id, :year, :month, :ability, :resume_id)
+                ON DUPLICATE KEY
+                    UPDATE
+                        year = :up_year,
+                        month = :up_month,
+                        ability = :up_ability";
+
+
+        try {
+            $stmt = $this->pdo->prepare($sql);
+            $stmt -> bindValue(":id", $id, PDO::PARAM_INT);
+            $stmt -> bindValue(":year", $year, PDO::PARAM_STR);
+            $stmt -> bindValue(":month", $month, PDO::PARAM_STR);
+            $stmt -> bindValue(":ability", $ability, PDO::PARAM_STR);
+            $stmt -> bindValue(":resume_id", $resume_id, PDO::PARAM_INT);
+            $stmt -> bindValue(":up_year", $year, PDO::PARAM_STR);
+            $stmt -> bindValue(":up_month", $month, PDO::PARAM_STR);
+            $stmt -> bindValue(":up_ability", $ability, PDO::PARAM_STR);
+            $stmt->execute();
+            echo '登録完了'; // テスト用
+            return true;
+        } catch (PDOException $e) {
+            print('Error:'.$e->getMessage());
+            return false;
+        }
+    }
+
+    // 削除
+    function delete($id) 
+    {
+        $sql = "DELETE FROM user_abilities WHERE id = :id";
+
+
+        try {
+            $stmt = $this->pdo->prepare($sql);
+            $stmt -> bindValue(":id", $id, PDO::PARAM_INT);
             $stmt->execute();
             echo '登録完了'; // テスト用
             return true;
@@ -505,8 +708,13 @@ class Resumes extends DB
                         personality = :personality,
                         hobby = :hobby,
                         other = :other,
+                        os = :os,
+                        lang = :lang,
+                        db = :db,
+                        office = :office,
+                        net = :net,
                         update_at = NOW()
-                    WHERE id = :id ADD user_id = :user_id";
+                    WHERE id = :id AND user_id = :user_id";
         // 履歴書
         try {
             $stmt = $this->pdo->prepare($sql);
@@ -533,10 +741,18 @@ class Resumes extends DB
             $stmt -> bindValue(":other", $other, PDO::PARAM_STR);
             $stmt -> bindValue(":user_id", $user_id, PDO::PARAM_INT);
             $stmt -> bindValue(":id", $id, PDO::PARAM_INT);
+            $stmt -> bindValue(":os", $os, PDO::PARAM_STR);
+            $stmt -> bindValue(":lang", $language, PDO::PARAM_STR);
+            $stmt -> bindValue(":db", $db, PDO::PARAM_STR);
+            $stmt -> bindValue(":office", $office, PDO::PARAM_STR);
+            $stmt -> bindValue(":net", $network, PDO::PARAM_STR);
+            $stmt -> bindValue(":other", $other, PDO::PARAM_STR);
             $stmt->execute();
             echo '変更完了'; // テスト用
+
             return true;
         } catch (PDOException $e) {
+            print('Error:'.$e->getMessage());
             return false;
         }
     }
