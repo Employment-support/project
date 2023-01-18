@@ -8,6 +8,12 @@ table {
     background-color: rgb(255, 255, 255);
 }
 
+table.fixed {
+    position: sticky;
+    bottom: 0;
+    background-color: transparent;
+}
+
 p {
     text-align: center;
 }

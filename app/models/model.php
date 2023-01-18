@@ -327,8 +327,7 @@ class Historys extends DB
     // 削除
     function delete($id) 
     {
-        $sql = "DELETE FROM histories WHERE id = :id";
-
+        $sql = "DELETE FROM histories WHERE resume_id = :id";
 
         try {
             $stmt = $this->pdo->prepare($sql);
@@ -430,7 +429,7 @@ class Careers extends DB
     // 削除
     function delete($id) 
     {
-        $sql = "DELETE FROM careers WHERE id = :id";
+        $sql = "DELETE FROM careers WHERE resume_id = :id";
 
 
         try {
@@ -548,7 +547,7 @@ class UserAbilites extends DB
     // 削除
     function delete($id) 
     {
-        $sql = "DELETE FROM user_abilities WHERE id = :id";
+        $sql = "DELETE FROM user_abilities WHERE resume_id = :id";
 
 
         try {

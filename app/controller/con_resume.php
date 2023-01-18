@@ -921,17 +921,6 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
                 
             // }
         } else {
-            // 学歴
-            list($new_academic, $academic_drops_id) = comparison($historys_list, $academic, 'history', 'data');
-            
-            // 職歴
-            list($new_career, $career_drops_id) = comparison($career_list, $career, 'job', 'data');
-            
-            // 資格免許
-            list($new_user_abilites, $abilites_drops_id) = comparison($userAbilites_list, $qualification, 'ability', 'data');
-            // print_r($new_academic);
-            // echo '更新';
-            
             $resumes->update($resume_list['id'], $birthday[0], $birthday[1], $birthday[2], 
                 $postalcode, $address, $address_furigana, 
                 $tel_home, $tel_mobile, $email, 
@@ -940,12 +929,28 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
                 $desired, $motivatio, $publicity, $character, $hobby,
                 $other, $_COOKIE['user_id'],
                 $os, $language, $db, $office, $network);
+            
+            
+
+            
+            
+            // 学歴
+            // list($new_academic, $academic_drops_id) = comparison($historys_list, $academic, 'history', 'data');
+            $historys->delete($resume_list['id']);
+            // // 職歴
+            // list($new_career, $career_drops_id) = comparison($career_list, $career, 'job', 'data');
+            $careers_model->delete($resume_list['id']);
+            
+            // // 資格免許
+            // list($new_user_abilites, $abilites_drops_id) = comparison($userAbilites_list, $qualification, 'ability', 'data');
+            $userAbilites->delete($resume_list['id']);
+            
             // ユーザ資格免許あれば処理
             // https://qiita.com/y-encore/items/40ba694a8899ad1e9416
             // ないデータがあれば追加する処理を追加する
             
             // 登録処理
-            function create_update($mai_array, string $key_name, $resume_id, $model, $drops_id_array, $db_datas) {
+            function create_update($mai_array, string $key_name, $resume_id, $model) {
                 /**
                  * $mai_array : 登録データ
                  * $key_name : 登録時のdbのkey名
@@ -956,7 +961,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
                 if ($mai_array != false || !is_null($mai_array)) {
                     foreach ($mai_array as $value) {
                         if (array_key_exists('id', $value)) {
-                            $model->createUpdate($value['id'], $value['year'], $value['month'], $value[$key_name], $resume_id);
+                            $model->createUpdate($value['id'], $value['year'], $value['month'], $value['data'], $resume_id);
                         } else if (array_key_exists('data', $value)) {
                             // echo "<br>";
                             $model->createUpdate('', $value['year'], $value['month'], $value['data'], $resume_id);
@@ -966,22 +971,21 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
                     }
                 } else {
                     // 全削除したら動く
-                    // echo 'ない';
-                    foreach ($db_datas as $value) {
-                        $model->delete($value['id']);
-                    }
-                }
-                // 一件ずつ削除
-                if (!empty($drops_id_array)) {
-                    foreach ($drops_id_array as $value) {
-                        $model->delete($value);
-                    }
+                    echo 'ない';
+                    // foreach ($db_datas as $value) {
+                    //     $model->delete($value['id']);
+                    // }
                 }
             }
             
-            create_update($new_academic, 'history', $resume_list['id'], $historys, $academic_drops_id, $historys_list);
-            create_update($new_career, 'job', $resume_list['id'], $careers_model, $career_drops_id, $career_list);
-            create_update($new_user_abilites, 'ability', $resume_list['id'], $userAbilites, $abilites_drops_id, $userAbilites_list);
+            // 登録処理の変更
+            print_r($academic);
+            // create_update($new_academic, 'history', $resume_list['id'], $historys, $academic_drops_id, $historys_list);
+            // create_update($new_career, 'job', $resume_list['id'], $careers_model, $career_drops_id, $career_list);
+            // create_update($new_user_abilites, 'ability', $resume_list['id'], $userAbilites, $abilites_drops_id, $userAbilites_list);
+            create_update($academic, 'history', $resume_list['id'], $historys);
+            create_update($career, 'job', $resume_list['id'], $careers_model);
+            create_update($qualification, 'ability', $resume_list['id'], $userAbilites);
 
         }
     } else {
@@ -992,7 +996,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
         echo $alert;
     }
     // phpの確認のとき削除
-    header('Location:/resume');
+    // header('Location:/resume');
 }
 
 $abilite_list = $abilite_list->selectAll($abilite_list::sqlSelectAll);

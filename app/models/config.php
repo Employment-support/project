@@ -89,4 +89,16 @@ class DB
         }
     }
 
+    // 物理削除
+    function deletePhysics($id, $sql)
+    {
+        try{
+            $stmt = $this->pdo->prepare($sql);
+            $stmt -> bindValue(1, $id);
+            $stmt->execute();
+            return true;
+        } catch (PDOException $e) {
+            return false;
+        }
+    }
 }
