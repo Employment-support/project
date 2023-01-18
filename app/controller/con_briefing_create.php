@@ -17,13 +17,16 @@ $corporations = new Corporations(); // 企業ジャンル
 // post送信確認とDB保存処理
 if($_SERVER["REQUEST_METHOD"] == "POST"){
     // ローカルへの画像投稿ができない
-    $save_db_name = uploaded_file($_FILES['gazou']);
+    // $save_db_name = uploaded_file($_FILES['gazou']);
+    $mod = new AwsS3();
+    $url = $mod->s3_one_upload('imgs', $_FILES['gazou']);
+    // echo 'test';
     
     $corporate = $_POST['Enterprise']; // 企業名
     $contents = $_POST['text']; // 説明会内容
     $corporate_url = $_POST['idurl']; // 企業URL
     $info = $_POST['information']; // 企業情報
-    $img_path = $save_db_name;
+    $img_path = $url;
     $corporation_id = (int) $_POST['genre']; // 企業ジャンル
     $user_id = (int) $_COOKIE['user_id']; // 投稿者ID
     
@@ -56,13 +59,6 @@ if (is_admin($_COOKIE['user_admin']) || is_teacher($_COOKIE['user_type_id'])){
 }
 ?>
 <!-- コンボックスサンプル -->
-<!-- 実際はviewsの方におく -->
-<!-- <select name="genre" id="genre">
-    <?php foreach ($corporation_lists as $corporation_list):?>
-    <option value="<?=$corporation_list['id']?>"><?=$corporation_list['genre']?></option>
-    <?php endforeach;?>
-</select> -->
-
 
 <?php
 // 二重送信対策確認

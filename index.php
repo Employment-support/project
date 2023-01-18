@@ -14,6 +14,10 @@ $router = new AltoRouter();
 $router->map('GET|POST', '/phpinfo', function () {
     echo phpinfo();
 });
+// test
+$router->map('GET|POST', '/db', function () {
+    require_once __DIR__ . '/app/controller/dbtest.php';
+});
 
 // ホーム
 $router->map('GET|POST', '/', function () {
@@ -45,7 +49,7 @@ $router->map('GET|POST', '/portfolio/create', function () {
     require_once __DIR__ . '/app/controller/con_portfolio_create.php';
 });
 
-// ポートフォリオ　作成
+// ポートフォリオ　編集
 $router->map('GET|POST', '/portfolio/edit', function () {
     // require_once __DIR__ . '/controller/con_portfolio_edit.php';
     require_once __DIR__ . '/app/controller/con_portfolio_edit.php';
@@ -122,6 +126,13 @@ $router->map('GET|POST', '/admin/sigin', function () {
     // echo $router->generate('bootstrapcss');
     // require_once __DIR__ . '/controller/admin/con_signIn.php';
     require_once __DIR__ . '/app/controller/admin/con_signIn.php';
+});
+
+$router->map('GET|POST', '/s3test', function () {
+    // global $router;
+    // echo $router->generate('bootstrapcss');
+    // require_once __DIR__ . '/controller/admin/con_signIn.php';
+    require_once __DIR__ . '/app/controller/s3test.php';
 });
 
 

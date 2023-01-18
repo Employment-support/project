@@ -20,7 +20,14 @@ $major_lists = $majors->selectAll($majors::sqlSelectAll);
 $file_lists = $files->selectAll('SELECT * FROM files');
 
 // ページネーション
-$sql = $shares::sqlSelectAll . ' ORDER by update_at desc';
+$sql = 'SELECT t1.id, t1.title, t1.contents, t1.user_id, t1.created_at, t1.update_at, t1.delete_at, t1.department_id, t1.major_id, t2.major, t3.department
+FROM shares as t1
+INNER JOIN majors as t2
+ON t2.id = t1.major_id
+INNER JOIN departments as t3
+ON t3.id = t1.department_id 
+ORDER by update_at desc';
+
 $shares_lists = $shares->selectAll($sql);
 
 
@@ -30,7 +37,7 @@ if (isset($_GET['page']) && is_numeric($_GET['page'])) {
     $get_page = 1;
 }
 
-list($page, $range, $max_page, $disp_data_share) = pagination($shares_lists, 5, $get_page);
+list($page, $range, $max_page, $disp_data_share) = pagination($shares_lists, 3, $get_page);
 
 // 現在のURL取得
 $now_url = (empty($_SERVER['HTTPS']) ? 'http://' : 'https://') . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'];

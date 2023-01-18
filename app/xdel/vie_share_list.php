@@ -12,13 +12,14 @@
 <body>
     <?php include (__DIR__ . "/../template/navi.php"); ?>
     <!-- 専攻コンボックス -->
-    <div class="tte">
-    <select name="genre" id="genre">
+    <div class="tte" style="margin: 0 auto; width: 100%; max-width: 50%;">
+    <select name="genre" id="genre" style="border-radius: 10px; padding: 1%">
         <?php foreach ($major_lists as $major_list):?>
         <option value="<?=$major_list['id']?>"><?=$major_list['major']?></option>
         <?php endforeach;?>
     </select>
     <hr>
+    </div>
     <!-- データがあるか判断 -->
     <?php if($is_data):?>
         <?php foreach ($disp_data as $data):?>
@@ -70,7 +71,6 @@
     <?php }?>
     <!--  -->
     <?= require_once __DIR__ . "/../template/tmp_pagination.php"; ?>
-    </div>
     
     <?php include (__DIR__ . "/../template/footer.html"); ?>
 </body>

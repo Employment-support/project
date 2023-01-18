@@ -1,0 +1,45 @@
+/* ホーム */
+
+.box{
+    display: flex;
+    justify-content: space-between;
+    margin: 5%;
+    /*margin-left: 10%;*/
+    text-align: right;
+}
+.center{
+    text-align: center;
+}
+.gazo img{
+    width: 100ex;
+    height: auto;
+}
+.moji{
+    
+    font-size: x-large;
+    text-align: center;
+    /*font-size: 48 / 750 * 100vw;*/
+    margin: 10%;
+    /*https://www.nishishi.com/css/text-nowrap.html*/
+    white-space: nowrap;
+}
+.sapo{
+    font-size: 90px;
+    font-weight: 600;
+}
+
+
+#flex-container {
+  display: flex;
+  flex-direction: row;
+  max-width: 90%;
+  margin: 0 auto;
+}
+
+#flex-container > .flex-item {
+  flex: auto;
+}
+
+#flex-container > .raw-item {
+  width: 5rem;
+}

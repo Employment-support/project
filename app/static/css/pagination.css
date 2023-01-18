@@ -1,16 +1,19 @@
+/* パージネーション */
+
 .pagination {
     /* display: flex; */
-    /* align-items: center; */
+    /*align-items: center; */
+    text-align: center
 }
 
-.now_page_number,
-.page_number {
-    padding: 0.5rem 1rem;
+/*.now_page_number,*/
+/*.page_number {*/
+/*    padding: 0.5rem 1rem;*/
     /* background-color: red; */
-    font-size: 20px;
-    border: solid 2px;
-    border-radius: 2rem;
-}
-.page_number {
-    background-color: blue;
-}
+/*    font-size: 20px;*/
+/*    border: solid 2px;*/
+/*    border-radius: 2rem;*/
+/*}*/
+/*.page_number {*/
+/*    background-color: blue;*/
+/*}*/

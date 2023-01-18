@@ -26,7 +26,7 @@ require_once __DIR__ . '/./../../vendor/autoload.php';
 // $majors = new Majors(); // 専攻
 
 // 写真処理の追加する
-function pdf($img, $name, $name_frigana, $creation, $birthday, $gender, $postalcode, $address, $address_furigana, $nearest_line, $nearest_station, $tel_home, $tel_mobile, $email, $emergency_address, $emergency_address_furigana, $emergency_tel, $desired, $department, $major, $motivatio, $publicity, $character, $hobby, $os, $language, $db, $office, $network, $other, $academic_career, $qualification){
+function pdf($img, $name, $name_frigana, $creation, $birthday, $gender, $postalcode, $address, $address_furigana, $nearest_line, $nearest_station, $tel_home, $tel_mobile, $email, $emergency_address, $emergency_address_furigana, $emergency_tel, $desired, $department, $major, $motivatio, $publicity, $character, $hobby, $os, $language, $db, $office, $network, $other, $career_academic, $qualification){
     /*
     $img: 画像
     $name:名前
@@ -280,7 +280,7 @@ function pdf($img, $name, $name_frigana, $creation, $birthday, $gender, $postalc
     // foreachで回す
     $cou = 0;
     $coordinate_t = 123;
-    foreach ($academic_career as $value) {
+    foreach ($career_academic as $value) {
         if ($cou <= 1) {
             $coordinate_t += 7.5;
         }
@@ -519,19 +519,16 @@ function my_status_normalization($list){
 // 住所2が設定されていない
 
 // ログインしているか
-$is_cookie = false;
-if(isset($_COOKIE['user_id'])){
-    // echo 'あり';
-    $is_cookie = true;
+$is_cookie = is_login();
+if($is_cookie){
     if ($_COOKIE['user_gender'] == 1) {
         $cookie_gender = "男";
     } else {
         $cookie_gender = "女";
     }
 } else {
-    // echo 'なし';
     $is_cookie = false;
-};
+}
 
 function post_check($post){
     
@@ -539,14 +536,18 @@ function post_check($post){
         return $post;
     } else {
         return '';
-    };
-};
+    }
+}
+
 
 // DB登録されたものと入力されたものを比較
+// はじめの一件目が消せない
 function comparison($db_array, $inp_array, string $db_key, string $inp_key){
     // 分ける
+    // echo 'db';
     // print_r($db_array);
     // echo '<br>';
+    // echo 'inp';
     // print_r($inp_array);
     // echo '<br>';
     
@@ -558,38 +559,41 @@ function comparison($db_array, $inp_array, string $db_key, string $inp_key){
 
     // keyが存在するか
     if (!empty($inp_array)) {
-        echo 'aru';
-        if (!empty($db_array) || array_key_exists($db_key, $db_array[0]) && array_key_exists($inp_key, $inp_array[0])) {
-            // データの書き換え
-            foreach ($db_array as $db_key_num => $db_value) {
+        // echo 'aru';
+        if (!empty($db_array)) {
+            // echo 'aru';
+            if (array_key_exists($db_key, $db_array[0]) && array_key_exists($inp_key, $inp_array[0])) {
                 // データの書き換え
-                // 入力データがあるか and データベースのデータと入力データが一致するか
-                if (isset($inp_array[$db_key_num]) && $db_array[$db_key_num][$db_key] == $inp_array[$db_key_num][$inp_key]) {
-                    $db_array[$db_key_num][$db_key] = $inp_array[$db_key_num][$inp_key];
-                    // print_r($db_array[$db_key_num]);
-                    // echo '<br>';
-                } else {
-                    // echo 'test';
-                    array_push($drop_index_db, $db_array[$db_key_num]["id"]);
-                }
-            }
-    
-            foreach ($db_array as $db_key_num => $db_value) {
-                // print_r($db_value);
-                // echo '<br>';
-                foreach ($inp_array as $key => $value) {
-                // 登録している名前が一致していたら配列に追加
-                    if (strcmp($db_value[$db_key], $value[$inp_key]) == 0) {
-                        // print_r($key);
+                foreach ($db_array as $db_key_num => $db_value) {
+                    // データの書き換え
+                    // 入力データがあるか and データベースのデータと入力データが一致するか
+                    if (isset($inp_array[$db_key_num]) && $db_array[$db_key_num][$db_key] == $inp_array[$db_key_num][$inp_key]) {
+                        $db_array[$db_key_num][$db_key] = $inp_array[$db_key_num][$inp_key];
+                        // print_r($db_array[$db_key_num]);
                         // echo '<br>';
-                        array_push($drop_index, $key);
+                    } else {
+                        // echo 'test';
+                        array_push($drop_index_db, $db_array[$db_key_num]["id"]);
                     }
                 }
-            }
-
-            // 一致していた名前のインデックスを消去
-            foreach ($drop_index as $dr) {
-                unset($inp_array[$dr]);
+        
+                foreach ($db_array as $db_key_num => $db_value) {
+                    // print_r($db_value);
+                    // echo '<br>';
+                    foreach ($inp_array as $key => $value) {
+                    // 登録している名前が一致していたら配列に追加
+                        if (strcmp($db_value[$db_key], $value[$inp_key]) == 0) {
+                            // print_r($key);
+                            // echo '<br>';
+                            array_push($drop_index, $key);
+                        }
+                    }
+                }
+    
+                // 一致していた名前のインデックスを消去
+                foreach ($drop_index as $dr) {
+                    unset($inp_array[$dr]);
+                }
             }
         }
         // print_r($drop_index_db);
@@ -603,7 +607,6 @@ function comparison($db_array, $inp_array, string $db_key, string $inp_key){
     }
 }
 
-
 // 二重送信対策
 list($session_token, $new_token) = generate_token();
 
@@ -611,27 +614,36 @@ $resumes = new Resumes(); // 履歴書
 $historys = new Historys(); // 学歴
 $careers_model = new Careers(); // 職歴
 $userAbilites = new UserAbilites(); // ユーザ資格免許
+$abilite_list = new Abilites(); // 資格一覧
+$skillItems_list = new SkillItems(); // スキル
 
+// ログインしていたら保存データ取得
 if ($is_cookie) {
+    // 履歴書のデータ
     $resume_list = $resumes->select($_COOKIE['user_id'], $resumes::sqlSelect);
+    // var_dump($resume_list);
+    if ($resume_list) {
+        // 資格
+        $userAbilites_list = $userAbilites->selectAll($userAbilites::sqlSelectAll. ' WHERE resume_id = '. $resume_list['id']);
+        // 学歴
+        $historys_list = $historys->selectAll($historys::sqlSelectAll. ' WHERE resume_id = '. $resume_list['id']);
+    
+        $career_list = $careers_model->selectAll($careers_model::sqlSelectAll. ' WHERE resume_id = '. $resume_list['id']);
+        $is_resume = true;
+    } else {
+        $is_resume = false;
+    }
+    
 } else {
     $resume_list = '';
-}
-if ($resume_list) {
-    // 資格
-    $userAbilites_list = $userAbilites->selectAll($userAbilites::sqlSelectAll. ' WHERE resume_id = '. $resume_list['id']);
-    // 学歴
-    $historys_list = $historys->selectAll($historys::sqlSelectAll. ' WHERE resume_id = '. $resume_list['id']);
-
-    $career_list = $careers_model->selectAll($careers_model::sqlSelectAll. ' WHERE resume_id = '. $resume_list['id']);
-    $is_resume = true;
-} else {
     $userAbilites_list ='';
     $historys_list = '';
     $is_resume = false;
 }
-// print_r($userAbilites_list);
-// print_r($historys_list);
+
+
+
+// print_r($resume_list);
 
 
 // 保存処理
@@ -804,14 +816,14 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
     }
 
     if($is_academic && $is_career) {
-        // $academic_career = array_map(null, $career, $academic);
-        $academic_career = array_merge_recursive($academic, $career);
+        echo 'aaa';
+        $career_academic = array_map(null, $career, $academic);
     } elseif ($is_academic) {
-        $academic_career = $academic;
+        $career_academic = $academic;
     } elseif ($is_career) {
-        $academic_career = $career;
+        $career_academic = $career;
     } else {
-        $academic_career = [];
+        $career_academic = [];
     }
     
     // 時期資格免許 資格免許
@@ -848,19 +860,13 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
     }
 
     $img = [];
-    $img_path = '';
+    
     if (isset($_FILES['ver-img'])) {
         if (isset($_FILES['ver-img']['name'])) {
-            // print_r($_FILES['file']);
-            // ファイルの名前にランダムの文字列の結合
-            // s3 にアップできるように
-            // https://tech.gootablog.com/article/s3-php/
-            
-            // $save_db_name = uploaded_file($_FILES['gazou']);
-            $img_path = '';
             $pdf_img = $_FILES['ver-img']['tmp_name'];
         }
     }
+    
     // PDF出力処理
     if(isset($_POST['pdf'])) {
         pdf($pdf_img, $name, $name_frigana, $creation, $birthday, $gender
@@ -868,50 +874,64 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
         , $tel_home, $tel_mobile, $email, $emergency_address, $emergency_address_furigana, $emergency_tel
         , $desired, $department, $major, $motivatio, $publicity, $character, $hobby
         , $os, $language, $db, $office, $network, $other
-        , $academic_career, $qualification);
+        , $career_academic, $qualification);
     }
 
     // db登録
     if(isset($_POST['save']) && $is_cookie) {
+        $mod = new AwsS3();
+        $img_path = $mod->s3_one_upload('imgs', $_FILES['ver-img']);
+        
         if (!$is_resume){
+            // echo '登録できません';
             // 二重送信対策確認
-            if ( is_token_valid($session_token) ){
-                echo '登録できません';
+            // if ( is_token_valid($session_token) ){
+                // echo '登録できません';
                 // 保存は確認済み
-                //$resume_id = $resumes->create($birthday[0], $birthday[1], $birthday[2], 
-                //     $postalcode, $address, $address_furigana, 
-                //     $tel_home, $tel_mobile, $email, 
-                //     $emergency_address, $emergency_address_furigana, $emergency_tel, 
-                //     $nearest_line, $nearest_station, $img_path,
-                //     $desired, $motivatio, $publicity, $character, $hobby,
-                //     $other, $_COOKIE['user_id'],
-                //     $os, $language, $db, $office, $network, 
-                // );
+                $resume_id = $resumes->create($birthday[0], $birthday[1], $birthday[2], 
+                    $postalcode, $address, $address_furigana, 
+                    $tel_home, $tel_mobile, $email, 
+                    $emergency_address, $emergency_address_furigana, $emergency_tel, 
+                    $nearest_line, $nearest_station, $img_path,
+                    $desired, $motivatio, $publicity, $character, $hobby,
+                    $other, $_COOKIE['user_id'],
+                    $os, $language, $db, $office, $network );
+                    
+                // echo '登録';
+                // var_dump($resume_id);
                 // 学歴
-                if (!empty($academic_career)) {
-                    foreach ($academic_career as $value) {
+                if (empty($academic)) {
+                    foreach ($academic as $value) {
                         $historys->create($value['year'], $value['month'], $value['data'], $resume_id);
                     }
                 }
-                
-                // 資格
-                if (!empty($qualification)) {
+
+                if (empty($career)) {
+                    // 職歴
+                    foreach ($career as $value) {
+                        $historys->create($value['year'], $value['month'], $value['data'], $resume_id);
+                    }
+                }
+                if (empty($academic)) {
+                    // 資格
                     foreach ($qualification as $value) {
                         $userAbilites->create($value['year'], $value['month'], $value['data'], $resume_id);
                     }
                 }
-            }
+                
+            // }
         } else {
             // 学歴
             list($new_academic, $academic_drops_id) = comparison($historys_list, $academic, 'history', 'data');
+            
             // 職歴
             list($new_career, $career_drops_id) = comparison($career_list, $career, 'job', 'data');
-        
+            
             // 資格免許
-            list($new_user_abilites, $abilites_drops_id) = comparison($userAbilites, $qualification, 'ability', 'data');
+            list($new_user_abilites, $abilites_drops_id) = comparison($userAbilites_list, $qualification, 'ability', 'data');
             // print_r($new_academic);
             // echo '更新';
-
+            
             $resumes->update($resume_list['id'], $birthday[0], $birthday[1], $birthday[2], 
                 $postalcode, $address, $address_furigana, 
                 $tel_home, $tel_mobile, $email, 
@@ -920,32 +940,49 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
                 $desired, $motivatio, $publicity, $character, $hobby,
                 $other, $_COOKIE['user_id'],
                 $os, $language, $db, $office, $network);
+            // ユーザ資格免許あれば処理
             // https://qiita.com/y-encore/items/40ba694a8899ad1e9416
-            // 関数に出来そう
-            if ($new_academic != false) {
-                foreach ($new_academic as $value) {
-                    if (array_key_exists('id', $value)) {
-                        $historys->createUpdate($value['id'], $value['year'], $value['month'], $value['history'], $resume_list['id']);
-                    } else if (array_key_exists('data', $value)) {
-                        // echo "<br>";
-                        $historys->createUpdate('', $value['year'], $value['month'], $value['data'], $resume_list['id']);
-                    } else {
-                        // echo 'aru';
+            // ないデータがあれば追加する処理を追加する
+            
+            // 登録処理
+            function create_update($mai_array, string $key_name, $resume_id, $model, $drops_id_array, $db_datas) {
+                /**
+                 * $mai_array : 登録データ
+                 * $key_name : 登録時のdbのkey名
+                 * $resume_id : 履歴書のid
+                 * $model : 保存モデル
+                 * $drops_id_array : 履歴書内の重複削除
+                 */
+                if ($mai_array != false || !is_null($mai_array)) {
+                    foreach ($mai_array as $value) {
+                        if (array_key_exists('id', $value)) {
+                            $model->createUpdate($value['id'], $value['year'], $value['month'], $value[$key_name], $resume_id);
+                        } else if (array_key_exists('data', $value)) {
+                            // echo "<br>";
+                            $model->createUpdate('', $value['year'], $value['month'], $value['data'], $resume_id);
+                        } else {
+                            // echo 'aru';
+                        }
+                    }
+                } else {
+                    // 全削除したら動く
+                    // echo 'ない';
+                    foreach ($db_datas as $value) {
+                        $model->delete($value['id']);
                     }
                 }
-            } else {
-                // 全削除したら動く
-                // echo 'ない';
-                foreach ($historys_list as $value) {
-                    $historys->delete($value['id']);
+                // 一件ずつ削除
+                if (!empty($drops_id_array)) {
+                    foreach ($drops_id_array as $value) {
+                        $model->delete($value);
+                    }
                 }
             }
-            // 一件ずつ削除
-            if (!empty($academic_drops_id)) {
-                foreach ($academic_drops_id as $value) {
-                    $historys->delete($value);
-                }
-            }
+            
+            create_update($new_academic, 'history', $resume_list['id'], $historys, $academic_drops_id, $historys_list);
+            create_update($new_career, 'job', $resume_list['id'], $careers_model, $career_drops_id, $career_list);
+            create_update($new_user_abilites, 'ability', $resume_list['id'], $userAbilites, $abilites_drops_id, $userAbilites_list);
+
         }
     } else {
         // ①$alertにjavascriptのalert関数を代入する。
@@ -957,6 +994,22 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
     // phpの確認のとき削除
     header('Location:/resume');
 }
+
+$abilite_list = $abilite_list->selectAll($abilite_list::sqlSelectAll);
+
+$sql_skil = 'SELECT t1.id, t1.name, t1.skill_sortings_id, t2.sorting_name 
+FROM skill_items as t1
+INNER JOIN skill_sortings as t2
+ON t2.id = t1.skill_sortings_id';
+
+$skillItems_list = $skillItems_list->selectAll($sql_skil);
+
+// javaScriptに渡す(オートコンプリート用)
+$json_array_abilite = json_encode($abilite_list, JSON_UNESCAPED_UNICODE);
+$json_array_skillItems = json_encode($skillItems_list, JSON_UNESCAPED_UNICODE);
+
+// var_dump($json_array_abilite);
+// var_dump($json_array_skillItems);
 
 // 現在の日付
 $now_date = date('Y-m-d');

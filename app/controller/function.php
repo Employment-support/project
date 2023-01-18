@@ -1,5 +1,10 @@
 <?php
 
+require_once __DIR__ . '/./../../vendor/autoload.php';
+
+use Aws\S3\S3Client;  
+use Aws\Exception\AwsException;
+
 // 二重送信対遺作
 // sessionトークンの生成
 function generate_token()
@@ -32,7 +37,7 @@ function is_token_valid($session_token){
 function is_admin($admin)
 {
     // 管理者権限があれば入れる
-    if ($admin != 0){
+    if ($admin == 1){
         return true;
     } else {
         // echo '管理者ではない';
@@ -106,7 +111,7 @@ function pagination($db_data, $max_display_num, $get_page)
     
 }
 
-// ログインのチェック
+
 // ログイン状態で担任か管理者か判断
 function is_editor()
 {
@@ -117,6 +122,20 @@ function is_editor()
     } else {
         return false;
     }
+}
+
+// ログインのチェック
+function is_login() {
+    $is_cookie = false;
+    // $_COOKIE['user_id'] があるか
+    if(isset($_COOKIE['user_id'])){
+        // echo 'あり';
+        $is_cookie = true;
+    } else {
+        // echo 'なし';
+        $is_cookie = false;
+    }
+    return $is_cookie;
 }
 
 // ファイル保存処理
@@ -138,3 +157,103 @@ function uploaded_file($files)
     return $save_db_name;
 }
 
+
+class AwsS3 
+{
+    protected $s3Client = '';
+    
+    // S3Clientインスタンスの作成
+    function __construct() {
+        $array_ini_file = parse_ini_file(__DIR__. '/./../credentials.ini', true);
+    
+        $this->s3Client = new S3Client([
+            'credentials' => [
+                    'key' => $array_ini_file['AWS_ACCESS_KEY_ID'],
+                    'secret' => $array_ini_file['AWS_SECRET_ACCESS_KEY'],
+                ],
+            // 'profile' => 'default',
+            'region' => 'ap-northeast-1',
+            'version' => 'latest'
+        ]); 
+    }
+    
+    // 単発ファイルアップロード
+    function s3_one_upload($dir, $file) {
+        // print_r(isset($file));
+        // print_r($file);
+        // print_r(count($file['name']));
+        // print_r($file['error']);
+        if ($file['error'] == 0) {
+            $save_name = uniqid(mt_rand(), false). '-'. $file["name"];
+            // echo $save_name;
+            
+            try {
+                $result = $this->s3Client->putObject([
+                    // 'ACL'           => 'public-read',   // ACLを指定する場合、ブロックパブリックアクセスはすべてオフにする
+                    'Bucket'        => 'support-medias',
+                    'Key'           => $dir. '/'. $save_name,
+                    'SourceFile'    => $file["tmp_name"],
+                    // 'ContentType'   => mime_content_type($file["type"]),
+                ]);
+                // var_dump($result);
+                // 登録URL
+                return $result["ObjectURL"];
+                
+            } catch (AwsException $e) {
+        		print_r($e->getMessage());
+        	}
+        } else {
+            return '';
+        }
+    }
+    
+    // 複数ファイルアップロード
+    function s3_multiple_upload($dir, $file) {
+        // print_r(isset($file));
+        // var_dump($file);
+        // print_r(count($file['name']));
+        var_dump($file['error'][0] == 0);
+        if ($file['error'][0] == 0) {
+            $urls = array();
+            
+            // echo 'aru';
+            foreach ((array)$file['error'] as $key => $error) {
+                // echo $key;
+                $save_name = uniqid(mt_rand(), false). '-'. $file["name"][$key];
+                // echo $save_name;
+                
+                try {
+                    $result = $this->s3Client->putObject([
+                        // 'ACL'           => 'public-read',   // ACLを指定する場合、ブロックパブリックアクセスはすべてオフにする
+                        'Bucket'        => 'support-medias',
+                        'Key'           => $dir. '/'. $save_name,
+                        'SourceFile'    => $file["tmp_name"][$key],
+                        // 'ContentType'   => mime_content_type($file["type"]),
+                    ]);
+                    // var_dump($result);
+                    array_push($urls, $result["ObjectURL"]);
+                    
+                } catch (AwsException $e) {
+            		print_r($e->getMessage());
+            	}
+            }
+            // 登録URL
+            // return $result["ObjectURL"];
+            
+            // var_dump($urls);
+            // // var_dump(count($urls));
+            if (count($urls) > 1) {
+                // 複数の場合
+                return $urls;
+            } else {
+                // 単品の場合
+                // var_dump($urls);
+                return $urls[0];
+            }
+            
+        	
+        } else {
+            return '';
+        }
+    }
+}

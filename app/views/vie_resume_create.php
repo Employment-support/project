@@ -4,16 +4,20 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>履歴書</title>
-    <link rel="stylesheet" href="../app/static/css/log.css">
-    <link rel="stylesheet" href="../app/static/css/navi.css">
-    <link rel="stylesheet" href="../app/static/css/footer.css"> 
+    <title>学生就職サポート</title>
+    <?php include ( __DIR__ . "/../template/tmp_static.main.html"); ?>
     <link rel="stylesheet" href="../app/static/css/resume.css">
-    <link rel="stylesheet" href="../app/static/css/butto.css">
-    <link rel="stylesheet" href="../app/static/css/back.css">
+    <!--<link rel="stylesheet" href="../app/static/css/style.create_editp.css">-->
+    <!--<link rel="stylesheet" href="../app/static/css/log.css">-->
+    <!--<link rel="stylesheet" href="../app/static/css/navi.css">-->
+    <!--<link rel="stylesheet" href="../app/static/css/footer.css"> -->
+    <!--<link rel="stylesheet" href="../app/static/css/butto.css">-->
+    <!--<link rel="stylesheet" href="../app/static/css/back.css">-->
+    <!--<link rel="stylesheet" href="../app/static/css/base.css">-->
 </head>
 <body>
     <?php include ( __DIR__ . "/../template/navi.php"); ?>
+    <h1 class="text-align-center">履歴書</h1>
     <form action="" method="POST" enctype="multipart/form-data">
         <?php if(!$is_cookie):?>
             <p>ログインすると記入内容を保存ができます</p>
@@ -179,7 +183,7 @@
             </tr>
         </table>
         <br>
-        <table border="1">
+        <table border="1" id="career_academic">
             <tr><th colspan="2"><p>学歴</p></th></tr>
             <?php if($is_resume):?>
                 <?php foreach($historys_list as $value): ?>
@@ -202,7 +206,7 @@
                 </tr>
             <?php else: ?>
                 <tr>
-                    <td><p><input type="month" name="academic_month[]"></p></td>
+                    <td class="td20" ><p><input type="month" name="academic_month[]"></p></td>
                     <td><p><input type="text" name="academic[]" placeholder="○○○○中学校卒業"></p></td>
                 </tr>
                 <tr>
@@ -222,10 +226,11 @@
                     <td><p><input type="text" name="academic[]"></p></td>
                 </tr>
             <?php endif ?>
-                <tr><td colspan="2"><p><input type="button" value="行を追加"></p></td></tr>
+                <!--<tr><td colspan="2"><p><input type="button" value="行を追加"></p></td></tr>-->
         </table>
+        <p><input type="button" value="行を追加" onclick="newTd(1)"></p>
         <br>
-        <table border="1">
+        <table border="1" id="career_month">
             <tr><th colspan="2"><p>職歴</p></th></tr>
             <?php if($is_resume):?>
                 <?php foreach($career_list as $value): ?>
@@ -260,16 +265,17 @@
                     <td><p><input type="text" name="career[]"></p></td>
                 </tr>
             <?php endif ?>
-            <tr><td colspan="2"><p><input type="button" value="行を追加"></p></td></tr>
+            <!--<tr><td colspan="2"><p><input type="button" value="行を追加"></p></td></tr>-->
         </table>
+        <p><input type="button" value="行を追加" onclick="newTd(2)"></p>
         <br>
-        <table border="1">
+        <table border="1" id="career_qualification">
             <tr><th colspan="2"><p>資格・免許</p></th></tr>
             <?php if($is_resume):?>
                 <?php foreach($userAbilites_list as $value): ?>
                     <tr>
-                        <td class="td20"><p><input type="month" name="academic_month[]" value="<?= $value['year']. '-'. $value['month'] ?>"></p></td>
-                        <td><p><input type="text" name="academic[]" value="<?= $value['ability']?>"></p></td>
+                        <td class="td20"><p><input type="month" name="qualification_month[]" value="<?= $value['year']. '-'. $value['month'] ?>"></p></td>
+                        <td><p><input type="text" name="qualification[]" value="<?= $value['ability']?>"></p></td>
                     </tr>
                     <?php endforeach ?>
                 <tr>
@@ -302,8 +308,9 @@
                     <td><p><input type="text" name="qualification[]"></p></td>
                 </tr>
             <?php endif ?>
-            <tr><td colspan="2"><p><input type="button" value="行を追加"></p></td></tr>
+            <!--<tr><td colspan="2"><p><input type="button" value="行を追加"></p></td></tr>-->
         </table>
+        <p><input type="button" value="行を追加" onclick="newTd(3)"></p>
         <br>
         <table border="1">
             <tr><th colspan="6"><p>希望職種</p></th></tr>
@@ -471,163 +478,11 @@
         </table>
         <table>
             <tr>
-                <td class="td50"><p><input class="yellow" type="submit" name="pdf" value="PDF保存"></p></td>
-                <td><p><input class="blue" type="submit" name="save" value="保存"></p></td>
+                <td class="td50"><p><input class="but-color-yellow" type="submit" name="pdf" value="PDF保存"></p></td>
+                <td><p><input class="but-color-blue" type="submit" name="save" value="保存"></p></td>
             </tr>
         </table>
     </form>
     <?php include (__DIR__ . "/../template/footer.html"); ?>
-
-    <script>
-    
-        // 現在の年齢
-        let birthday = document.getElementById('birthday');
-        birthday.onchange = function (){
-            /* 
-            現在の年齢取得関数
-            */
-
-            // 今日
-            let today = new Date();
-
-            // html type:date　を扱いやすくする
-            let regex = /-/;
-            let result = birthday.value.split(regex);
-            // console.log(result);
-
-            //今年の誕生日
-            let thisYearsBirthday = new Date(today.getFullYear(), Number(result[1]) - 1, Number(result[2]));
-            // console.log(thisYearsBirthday);
-
-            // 年齢
-            let age = today.getFullYear() - Number(result[0]);
-
-            if(today < thisYearsBirthday){
-                //今年まだ誕生日が来ていない
-                age--;
-            };
-
-            // console.log(age);
-
-            // 書き換え
-            document.querySelector('#age').textContent = '（満' + age + '歳）';
-
-        };
-        
-        // 名前の書き込み
-        function inp_writing(id, change_id){
-            console.log(id);
-            let inp = document.getElementById(id).value;
-            document.getElementById(change_id).textContent = inp;
-
-        };
-
-
-        let button = document.getElementById('but-postalcode');
-
-        // ボタンがクリックされた時の処理
-        button.addEventListener('click', function() {
-            // 住所APIのURL
-            let url = "https://zipcloud.ibsnet.co.jp/api/search?zipcode="
-            
-            // 入力された郵便番号のidから取得
-            let number = document.getElementById("postalcode").value;
-            // url変数に入植されたnumberを結合
-            url += number;
-            // console.log(url); // 確認用
-            
-            // 入力するinputタグのidの所得
-            let element_address =  document.getElementById("address");
-            let element_hiragana =  document.getElementById("address_furigana");
-            
-            // https://cheat.co.jp/blog/archives/2691
-            // urlが存在するか fetch
-            fetch(url).then(function(response) {
-                console.log('存在しない');
-                return response.text();
-            }).then(function(text) {
-                // 取得したデータをjson型に変換
-                let text_json = JSON.parse(text)
-                console.log(text_json.results); // 確認用
-
-                // テスト用表示
-                // https://www.weed.nagoya/entry/2016/05/11/105145
-                let kana = ""; // カタカナの連結
-                let address = ""; // 住所の連結
-
-                for (var i = 0; i < text_json.results.length; i++) {
-
-                console.log(text_json.results[i]); // 確認用
-
-                //
-                for (let key in text_json.results[i]) {
-
-                    // addressとkanaを文字列連結をする
-                    if (key.match(/address/)) {
-                    address += text_json.results[i][key];
-                    } else if (key.match(/kana/)) {
-                    kana += text_json.results[i][key];
-                    }
-
-                    console.log(key + ': ' + text_json.results[i][key]); // 確認用
-                }
-                }
-                
-                console.log(address); // 確認用
-                console.log(replaceKanaToHira(hankakuToZenkaku(kana))); // 確認用
-
-                // タグに入力
-                if (text_json.results !== null) {
-                element_hiragana.value = replaceKanaToHira(hankakuToZenkaku(kana));
-                element_address.value = address;
-                } else {
-                element.textContent = "エラー";
-                }
-
-            });
-        });
-
-        // カタカナ半角からカタカナ全角
-        function hankakuToZenkaku(str) {
-            let kanaMap = {
-                'ｶﾞ': 'ガ', 'ｷﾞ': 'ギ', 'ｸﾞ': 'グ', 'ｹﾞ': 'ゲ', 'ｺﾞ': 'ゴ',
-                'ｻﾞ': 'ザ', 'ｼﾞ': 'ジ', 'ｽﾞ': 'ズ', 'ｾﾞ': 'ゼ', 'ｿﾞ': 'ゾ',
-                'ﾀﾞ': 'ダ', 'ﾁﾞ': 'ヂ', 'ﾂﾞ': 'ヅ', 'ﾃﾞ': 'デ', 'ﾄﾞ': 'ド',
-                'ﾊﾞ': 'バ', 'ﾋﾞ': 'ビ', 'ﾌﾞ': 'ブ', 'ﾍﾞ': 'ベ', 'ﾎﾞ': 'ボ',
-                'ﾊﾟ': 'パ', 'ﾋﾟ': 'ピ', 'ﾌﾟ': 'プ', 'ﾍﾟ': 'ペ', 'ﾎﾟ': 'ポ',
-                'ｳﾞ': 'ヴ', 'ﾜﾞ': 'ヷ', 'ｦﾞ': 'ヺ',
-                'ｱ': 'ア', 'ｲ': 'イ', 'ｳ': 'ウ', 'ｴ': 'エ', 'ｵ': 'オ',
-                'ｶ': 'カ', 'ｷ': 'キ', 'ｸ': 'ク', 'ｹ': 'ケ', 'ｺ': 'コ',
-                'ｻ': 'サ', 'ｼ': 'シ', 'ｽ': 'ス', 'ｾ': 'セ', 'ｿ': 'ソ',
-                'ﾀ': 'タ', 'ﾁ': 'チ', 'ﾂ': 'ツ', 'ﾃ': 'テ', 'ﾄ': 'ト',
-                'ﾅ': 'ナ', 'ﾆ': 'ニ', 'ﾇ': 'ヌ', 'ﾈ': 'ネ', 'ﾉ': 'ノ',
-                'ﾊ': 'ハ', 'ﾋ': 'ヒ', 'ﾌ': 'フ', 'ﾍ': 'ヘ', 'ﾎ': 'ホ',
-                'ﾏ': 'マ', 'ﾐ': 'ミ', 'ﾑ': 'ム', 'ﾒ': 'メ', 'ﾓ': 'モ',
-                'ﾔ': 'ヤ', 'ﾕ': 'ユ', 'ﾖ': 'ヨ',
-                'ﾗ': 'ラ', 'ﾘ': 'リ', 'ﾙ': 'ル', 'ﾚ': 'レ', 'ﾛ': 'ロ',
-                'ﾜ': 'ワ', 'ｦ': 'ヲ', 'ﾝ': 'ン',
-                'ｧ': 'ァ', 'ｨ': 'ィ', 'ｩ': 'ゥ', 'ｪ': 'ェ', 'ｫ': 'ォ',
-                'ｯ': 'ッ', 'ｬ': 'ャ', 'ｭ': 'ュ', 'ｮ': 'ョ',
-                '｡': '。', '､': '、', 'ｰ': 'ー', '｢': '「', '｣': '」', '･': '・'
-            };
-        
-        let reg = new RegExp('(' + Object.keys(kanaMap).join('|') + ')', 'g');
-            
-            return str
-                    .replace(reg, function (match) {
-                        return kanaMap[match];
-                    })
-                    .replace(/゛/g, 'ﾞ')
-                    .replace(/゜/g, 'ﾟ');
-        
-        };
-
-        // カタカナからひらがな
-        function replaceKanaToHira(str){
-            return str.replace(/[\u30a1-\u30f6]/g, function(s){
-                return String.fromCharCode(s.charCodeAt(0) - 0x60);
-            });
-        };
-
-    </script>
+    <script src="../app/static/js/resume.js"></script>
 </body>

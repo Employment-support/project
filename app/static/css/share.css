@@ -1,9 +1,116 @@
-body {
-    margin: 0;
-    /*text-align: center;*/
+/* 共有情報 */
+
+.a {
+    margin: 0 auto;
+    width: 100%;
+    max-width: 50%;
 }
 
-footer {
-    position: relative;
+.contents-box {
+    padding: 0.5em 1em;
+    margin: 2em 0;
+    font-weight: bold;
+    border: solid 3px #000000;
 }
 
+ul.detail {
+    display: -webkit-inline-box;
+    list-style-type: none;
+    list-style: none;
+    margin: 0 auto;
+    padding: 0;
+}
+
+li.detail {
+    margin-left: 1%;
+    margin-right: 1%;
+}
+
+a {
+    color: black;
+    text-decoration: none;
+}
+
+a.a {
+    color: darkblue;
+    text-decoration: none;
+}
+
+input[type=button] {
+    font-family: inherit;
+    outline: none;
+}
+
+table {
+    margin: 0 auto;
+    width: 100%;
+    max-width: 80%;
+}
+
+.white-space-pre-wrap{
+    /* テキストを入力されたままを出力 */
+    white-space: pre-wrap;
+}
+
+/* 文字の表示数 */
+.ellipsis {
+    width: 300px; /* 省略せずに表示するサイズを指定 */
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+/*https://zero-plus.io/media/flex-wrap-how-to-use/*/
+/*https://www.nowte.net/ui/css-layout-horizontal/*/
+/* ファイル */
+.item-list{
+  display: flex;
+  /*flex-wrap: nowrap;*/
+  justify-content: center; /* 中央寄せ */
+  /*justify-content: space-between;*/
+}
+.item-list .item{
+  box-sizing: border-box;
+  text-overflow: ellipsis;
+  /*justify-content: center;*/
+  padding: 4px 8px;  
+}
+
+.share-box {
+    background: #fff; 
+    border: 1px #ccc solid; 
+    box-shadow: 0 2px 3px 0 #ddd; 
+    font-size: 100%; 
+    padding: 10px;
+    margin: 10px;
+}
+
+/*@media screen and (max-width: 428px) {*/
+/*    body {*/
+/*        max-width: 100%;*/
+/*    }*/
+/*}*/
+
+/*@media screen and (max-width: 834px) {*/
+/*    body {*/
+/*        max-width: 100%;*/
+/*    }*/
+/*}*/
+
+/*@media screen and (min-width: 769px) {*/
+/*    body {*/
+/*        max-width: 80%;*/
+/*    }*/
+/*}*/
+
+/*@media screen and (min-width: 1025px) {*/
+/*    body {*/
+/*        max-width: 60%;*/
+/*    }*/
+/*}*/
+
+/*@media screen and (min-width: 1441px) {*/
+/*    body {*/
+/*        max-width: 50%;*/
+/*    }*/
+/*}*/

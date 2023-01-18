@@ -1,0 +1,17 @@
+/* 作成と編集 */
+
+form {
+    margin: 0 auto;
+    text-align: center;
+    max-width: 80%;
+
+}
+
+p.enterprise{
+    text-align: right;
+    max-width: 90%;
+}
+
+footer {
+    position: relative;
+}

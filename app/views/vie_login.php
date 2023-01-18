@@ -4,16 +4,14 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <?php include ( __DIR__ . "/../template/tmp_static.main.html"); ?>
+    <link rel="stylesheet" href="../app/static/css/style.create_editp.css">
     <link rel="stylesheet" href="../app/static/css/log.css">
-    <link rel="stylesheet" href="../app/static/css/navi.css">
-    <link rel="stylesheet" href="../app/static/css/footer.css">
-    <link rel="stylesheet" href="../app/static/css/butto.css"> 
-    <link rel="stylesheet" href="../app/static/css/back.css">
-
-
-
-
-    <title>ログイン</title>
+    <!--<link rel="stylesheet" href="../app/static/css/navi.css">-->
+    <!--<link rel="stylesheet" href="../app/static/css/footer.css">-->
+    <!--<link rel="stylesheet" href="../app/static/css/butto.css"> -->
+    <!--<link rel="stylesheet" href="../app/static/css/back.css">-->
+    <title>学生就職サポート</title>
 </head>
 <body>
 <?php include (__DIR__ . "/../template/navi.php"); ?>
@@ -34,7 +32,7 @@
             <p class="check">
                 <input type="checkbox" name="checkbox" />ログイン状態を保存する
             </p>
-            <input class="yellow" type="submit" value="ログイン">
+            <input class="but-color-yellow" type="submit" value="ログイン">
 
 
         </form>

@@ -1,3 +1,4 @@
+/* ログイン画面 */
 
 body {
     margin: 0;
@@ -10,6 +11,7 @@ body {
     margin-top: 10%;
     padding: 50px;
     border: 1px solid rgb(12, 11, 11);
+    background-color: #ffffff;
   }
 .email{
     border-radius: 30px;

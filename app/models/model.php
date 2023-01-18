@@ -100,7 +100,7 @@ class Briefings extends DB
             $stmt -> bindValue(":corporation_id", $corporation_id, PDO::PARAM_INT);
             $stmt -> bindValue(":user_id", $user_id, PDO::PARAM_INT);
             $stmt->execute();
-            echo '変更完了'; // テスト用
+            // echo '変更完了'; // テスト用
             return true;
         } catch (PDOException $e) {
             return false;
@@ -119,7 +119,7 @@ class Shares extends DB
     public const sqlDeleteTime = "UPDATE shares SET delete_at = NOW() WHERE id = ?";
 
     // 登録    
-    function create(string $title, string $contents, int $user_id, $file_path)
+    function create(string $title, string $contents, $department_id, $major_id, int $user_id, $file_path)
     {
 
         /*
@@ -128,20 +128,9 @@ class Shares extends DB
         $user_id:int型 ユーザID
         */
         $sql = "INSERT INTO shares(
-                                id,
-                                title, 
-                                contents, 
-                                user_id, 
-                                created_at, 
-                                update_at)
-                            VALUES (
-                                :id,
-                                :title,
-                                :contents,
-                                :user_id,
-                                NOW(), 
-                                NOW()
-                            )";
+            id,title, contents, department_id, major_id, user_id, created_at, update_at
+            )
+            VALUES (:id, :title, :contents, :department_id, :major_id, :user_id, NOW(), NOW())";
 
         // id乱数生成
         $unique_id = 0;
@@ -167,9 +156,12 @@ class Shares extends DB
             $stmt -> bindValue(":id", $unique_id, PDO::PARAM_INT);
             $stmt -> bindValue(":title", $title, PDO::PARAM_STR);
             $stmt -> bindValue(":contents", $contents, PDO::PARAM_STR);
+            $stmt -> bindValue(":department_id", $department_id, PDO::PARAM_INT);
+            $stmt -> bindValue(":major_id", $major_id, PDO::PARAM_INT);
             $stmt -> bindValue(":user_id", $user_id, PDO::PARAM_STR);
             $stmt->execute();
             // echo '登録完了'; // テスト用
+            return true;
         } catch (PDOException $e) {
             print('Error:'.$e->getMessage());
             return false;
@@ -208,12 +200,13 @@ class Shares extends DB
             echo '登録完了'; // テスト用
             return true;
         } catch (PDOException $e) {
+            print('Error:'.$e->getMessage());
             return false;
         }
     }
 
     // 変更
-    function update($title, $contents, $id, $user_id, $file_path)
+    function update($title, $contents, $id, $department_id, $major_id, $user_id, $file_path)
     {
         /*
         $title:string タイトル
@@ -224,18 +217,23 @@ class Shares extends DB
         $sql = "UPDATE shares
                     SET title=:title,
                         contents=:contents,
+                        department_id=:department_id,
+                        major_id=:major_id,
                         update_at=NOW()
-                    WHERE id=:id, AND user_id=:user_id";
+                    WHERE id=:id AND user_id=:user_id";
         try {
             $stmt = $this->pdo->prepare($sql);
             $stmt -> bindValue(":title", $title, PDO::PARAM_STR);
             $stmt -> bindValue(":contents", $contents, PDO::PARAM_STR);
             $stmt -> bindValue(":id", $id, PDO::PARAM_INT);
+            $stmt -> bindValue(":department_id", $department_id, PDO::PARAM_INT);
+            $stmt -> bindValue(":major_id", $major_id, PDO::PARAM_INT);
             $stmt -> bindValue(":user_id", $user_id, PDO::PARAM_INT);
             $stmt->execute();
             echo '変更完了'; // テスト用
             return true;
         } catch (PDOException $e) {
+            print('Error:'.$e->getMessage());
             return false;
         }
     }
@@ -293,7 +291,7 @@ class Historys extends DB
             return false;
         }
     }
-
+    
     // 登録&更新
     function createUpdate($id, $year, $month, $history, int $resume_id) 
     {
@@ -765,7 +763,7 @@ class Portfolio extends DB
     public const sqlSelectAll = "SELECT * FROM portfolio";
     public const sqlDeleteTime = "UPDATE portfolio SET delete_at = NOW() WHERE id = ?";
     // 登録    
-    function create($title, $contents, $item_url, $img_path, $user_id)
+    function create($title, $contents, $item_url, $img_path, $top, $user_id)
     {
         /*
         $title: タイトル
@@ -779,6 +777,7 @@ class Portfolio extends DB
                             contents,
                             item_url,
                             img_path,
+                            top,
                             user_id,
                             created_at,
                             update_at)
@@ -787,6 +786,7 @@ class Portfolio extends DB
                             :contents,
                             :item_url,
                             :img_path,
+                            :top,
                             :user_id,
                             NOW(),
                             NOW()
@@ -795,11 +795,11 @@ class Portfolio extends DB
         try {
             $stmt = $this->pdo->prepare($sql);
             // ファイルが複数の処理を考える
-            // foreach ($file_path as $file_path) {}
             $stmt -> bindValue(":title", $title, PDO::PARAM_STR);
             $stmt -> bindValue(":contents", $contents, PDO::PARAM_STR);
             $stmt -> bindValue(":item_url", $item_url, PDO::PARAM_STR);
             $stmt -> bindValue(":img_path", $img_path, PDO::PARAM_STR);
+            $stmt -> bindValue(":top", $top, PDO::PARAM_BOOL);
             $stmt -> bindValue(":user_id", $user_id, PDO::PARAM_INT);
             $stmt->execute();
             echo '登録完了'; // テスト用
@@ -810,16 +810,17 @@ class Portfolio extends DB
         }
     }
     // 変更
-    function update($id, $title, $contents, $item_url, $img_path, $user_id)
+    function update($id, $title, $contents, $item_url, $img_path, $user_id, $is_up_img)
     {
+        
         $sql = "UPDATE portfolio 
                     SET title = :title,
                         contents = :contents,
                         item_url = :item_url,
                         img_path = :img_path,
                         update_at = NOW()
-                    WHERE id = :id ADD user_id = :user_id";
-
+                    WHERE id = :id AND user_id = :user_id";
+        
         try {
             $stmt = $this->pdo->prepare($sql);
             // ファイルが複数の処理を考える
@@ -828,12 +829,14 @@ class Portfolio extends DB
             $stmt -> bindValue(":contents", $contents, PDO::PARAM_STR);
             $stmt -> bindValue(":item_url", $item_url, PDO::PARAM_STR);
             $stmt -> bindValue(":img_path", $img_path, PDO::PARAM_STR);
+            // $stmt -> bindValue(":is_img", $is_up_img, PDO::PARAM_BOOL);
             $stmt -> bindValue(":user_id", $user_id, PDO::PARAM_INT);
             $stmt -> bindValue(":id", $id, PDO::PARAM_INT);
             $stmt->execute();
             echo '登録完了'; // テスト用
             return true;
         } catch (PDOException $e) {
+            print('Error:'.$e->getMessage());
             return false;
         }
     }

@@ -1,13 +1,13 @@
 <? #企業説明会表示 ?>
+<!--<div class="enterprise">-->
 <?php foreach ($disp_data_briefing as $data):?>
     <div class="test">
         <a href="/briefing/inf?id=<?= $data['id'] ?>" class="text-color">
             <? #仮画像 ?>
-            <!--<img class="list_logo" src="../app/static/imgs/log.png">-->
-            <!-- <img class="list_logo" src="<?= $data['img_path']?>"> -->
 			 <?php if ($data['img_path']):?>
 				<img class="card-image" src="<?= $data['img_path'] ?>">
             <?php else: ?>
+				<!--<img class="card-image" src="../app/static/imgs/log_noimg.png">-->
 				<img class="card-image" src="../app/static/imgs/log_noimg.png">
 			<?php endif ?>
             <p class="name"><?= $data['corporate'] ?></p>
@@ -19,5 +19,6 @@
                 </p>
             <?php endif; ?>
         </a>
-    </div>           
+    </div>
 <?php endforeach; ?>
+<!--</div>-->

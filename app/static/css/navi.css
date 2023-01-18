@@ -1,3 +1,5 @@
+/* ナビ */
+
 /* nav{
   display:flex;
   list-style: none;
@@ -66,6 +68,33 @@ li.right {
   border:none
 }
 
+input[type=submit] {
+    /*background: #297CDD;*/
+    border-radius: 30px 30px 30px 30px;
+    color: antiquewhite;
+    border: none;
+    padding: .5em 1.5em;
+}
+
+select {
+  border-radius: 10px;
+  padding: 0.5%;
+  margin: 1%;
+}
+
+input[type=text], textarea {
+    background:#fcfcff;
+    padding:15px;
+    border:1px
+    solid #3b5998;
+    border-radius:10px;
+    word-break:break-all;
+    width: 100%;
+    max-width: 50%;
+    margin: 0 auto;
+    resize: none;
+    font-family: inherit;
+}
 
 @media screen and (max-width: 428px) {
   nav {

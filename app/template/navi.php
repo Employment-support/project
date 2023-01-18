@@ -18,9 +18,9 @@
 		<li><a class="link" href="/portfolio">ポートフォリオ作成</a></li>
 		<? #ログインしたらログアウトに ?>
 		<?php if(!isset($_COOKIE['user_id'])): ?>
-		<li class="right"><a href="/login" class="blue">ログイン</a></li>
+			<li class="right"><a href="/login" class="but-color-blue">ログイン</a></li>
 		<?php else: ?>
-		<li class="right"><a href="/logout" class="blue">ログアウト</a></li>
+			<li class="right"><a href="/logout" class="but-color-blue">ログアウト</a></li>
 		<?php endif ?>
 	</ul>
 	<hr>

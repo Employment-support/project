@@ -1,0 +1,41 @@
+.text-align-center{
+    text-align: center;
+}
+
+.white-space-pre-wrap{
+    /* テキストを入力されたままを出力 */
+    white-space: pre-wrap;
+}
+
+/* 文字の表示数 */
+.ellipsis {
+    width: 300px; /* 省略せずに表示するサイズを指定 */
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+/*https://zero-plus.io/media/flex-wrap-how-to-use/*/
+/*https://www.nowte.net/ui/css-layout-horizontal/*/
+/* ファイル */
+.item-list{
+  display: flex;
+  /*flex-wrap: nowrap;*/
+  justify-content: center; /* 中央寄せ */
+  /*justify-content: space-between;*/
+}
+.item-list .item{
+  box-sizing: border-box;
+  text-overflow: ellipsis;
+  /*justify-content: center;*/
+  padding: 4px 8px;  
+}
+
+.share-box {
+    background: #fff; 
+    border: 1px #ccc solid; 
+    box-shadow: 0 2px 3px 0 #ddd; 
+    font-size: 100%; 
+    padding: 10px;
+    margin: 10px;
+}

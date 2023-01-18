@@ -13,41 +13,35 @@ $shares = new Shares(); // 共有情報
 $departments = new Departments(); // 学科
 $majors = new Majors(); // 専攻
 
+// 選択したものを限定する
+// https://codepen.io/massao000/pen/rNvjPYr?editors=1010
+$json_array_departments = json_encode($departments);
+$json_array_majors = json_encode($majors);
 
 // post送信確認とDB保存処理
 if($_SERVER["REQUEST_METHOD"] == "POST"){
-    $save_name_list = [];
-    // if (isset($_FILES['file'])) {
-    if ($_FILES['file']['error'][0] == 0) {
-        // print_r($_FILES['file']);
-        // ファイルの名前にランダムの文字列の結合
-        // s3 にアップできるように
-        // https://tech.gootablog.com/article/s3-php/
-        foreach ($_FILES['file']['error'] as $key => $error) {
-            $save_db_name = "../media/imgs/". uniqid(mt_rand(), true). '-'. $_FILES["file"]["name"][$key];
-            $savefile = __DIR__ . '/' . $save_db_name;
-            move_uploaded_file($_FILES["file"]["tmp_name"][$key], $savefile);
 
-            array_push($save_name_list, $save_db_name);
-        }
-
-    } else {
-        $save_name_list = [];
-    }
+    // var_dump($_POST);
+    
+    $mod = new AwsS3();
+    $url = $mod->s3_multiple_upload('file', $_FILES['file']);
+    
     $title = $_POST['title'];
     $contents = $_POST['text'];
+    $department_id = $_POST['department'];
+    $major_id = $_POST['major'];
     $user_id = $_COOKIE['user_id'];
-    $file_path = $save_name_list;
+    $file_path = $url;
     
-    print_r($file_path);
+    // print_r($file_path);
 
     // 登録
-    $return_type = $shares->create($title, $contents, $user_id, $file_path);
+    $return_type = $shares->create($title, $contents, $department_id, $major_id, $user_id, $file_path);
     // 画像名が登録できない
     
     // print_r($return_type);
 
-    if ($return_type !== true) {
+    if ($return_type == true) {
         // print_r($save_name_list);
         foreach ($save_name_list as $save_name) {
             // echo $save_name;
@@ -56,8 +50,8 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
     }
 
     if ($return_type || $shares) {
-        echo '投稿成功';
-        // header('Location:/share');
+        // echo '投稿成功';
+        header('Location:/share');
     } else {
         echo '投稿できていない';
     }

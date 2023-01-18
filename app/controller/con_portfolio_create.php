@@ -11,17 +11,28 @@ $portfolio = new Portfolio(); // ポートフォリオ
 
 
 // post送信確認とDB保存処理
+$mod = new AwsS3();
 if($_SERVER["REQUEST_METHOD"] == "POST"){
-    $save_db_name = uploaded_file($_FILES['image']);
+    // var_dump($_FILES['image']);
+    
+    $url = $mod->s3_one_upload('imgs', $_FILES['image']);
+    
+    var_dump($url);
+    
 
     $title = $_POST['title'];
     $contents = $_POST['text'];
     $item_url = $_POST['url'];
-    $img_path = $save_db_name;
+    $img_path = $url;
     $user_id = $_COOKIE['user_id'];
 
+    if ($_GET['top'] == 1) {
+        $top = true;
+    } else {
+        $top = false;
+    }
     // 登録
-    $return_type = $portfolio->create($title, $contents, $item_url, $img_path, $user_id);
+    $return_type = $portfolio->create($title, $contents, $item_url, $img_path, $top, $user_id);
 
     if ($return_type) {
         header('Location:/portfolio');
@@ -31,7 +42,8 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
 }
 
 // 担任以外だけが入れる処理
-if (is_admin($_COOKIE['user_admin']) || is_student($_COOKIE['user_type_id'])){
+// if (is_admin($_COOKIE['user_admin']) || is_student($_COOKIE['user_type_id'])){
+if (is_login()){
     $date = date('Y-m-d');
 
     require_once __DIR__ . "/../views/vie_portfolio_create.php";

@@ -4,9 +4,12 @@ define('DATABASE', 'mydatabase');
 define('USERNAME', 'root');
 define('PASSWORD', '');
 
-$dns = "mysql:host=employment-support.cluster-cn3srovxz5ja.ap-northeast-1.rds.amazonaws.com; port=3306; dbname=support; charset=utf8";
-$USER = "admin";
-$PASS = "T5p3zcjw";
+// $dns = "mysql:host=employment-support.cluster-cn3srovxz5ja.ap-northeast-1.rds.amazonaws.com; port=3306; dbname=support; charset=utf8";
+// $USER = "admin";
+// $PASS = "T5p3zcjw";
+$dns = "mysql:host=localhost:3306; dbname=support2; charset=utf8mb4";
+$USER = "root";
+$PASS = "";
 try {
   /// DB接続を試みる
   $db  = new PDO($dns, $USER, $PASS);
