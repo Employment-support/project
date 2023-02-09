@@ -503,6 +503,9 @@ ALTER TABLE `users`
 ALTER TABLE `user_abilities`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
+
+ALTER TABLE `user_abilities` DROP INDEX `ability`;
+
 --
 -- ダンプしたテーブルの制約
 --
@@ -578,6 +581,45 @@ ALTER TABLE `users`
 ALTER TABLE `user_abilities`
   ADD CONSTRAINT `user_abilities_ibfk_1` FOREIGN KEY (`resume_id`) REFERENCES `resumes` (`id`);
 COMMIT;
+
+ALTER TABLE `shares` 
+ADD `department_id` INT NOT NULL 
+AFTER `user_id`, 
+ADD `major_id` INT NOT NULL 
+AFTER `department_id`;
+
+ALTER TABLE `shares` 
+ADD FOREIGN KEY (`department_id`) REFERENCES `departments`(`id`) ON DELETE RESTRICT ON UPDATE RESTRICT; 
+
+ALTER TABLE `shares` 
+ADD FOREIGN KEY (`major_id`) REFERENCES `majors`(`id`) ON DELETE RESTRICT ON UPDATE RESTRICT;
+
+CREATE TABLE `careers` (
+  `id` int(11) NOT NULL,
+  `year` varchar(4) NOT NULL,
+  `month` varchar(2) NOT NULL,
+  `job` varchar(256) NOT NULL,
+  `resume_id` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- テーブルのインデックス `careers`
+--
+ALTER TABLE `careers`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `resume_id` (`resume_id`);
+
+--
+-- テーブルの AUTO_INCREMENT `careers`
+--
+ALTER TABLE `careers`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- テーブルの制約 `careers`
+--
+ALTER TABLE `careers`
+  ADD CONSTRAINT `careers_ibfk_1` FOREIGN KEY (`resume_id`) REFERENCES `resumes` (`id`);
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;

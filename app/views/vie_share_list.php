@@ -15,11 +15,11 @@
     <!--<link rel="stylesheet" href="../app/static/css/butto.css">-->
     <!--<link rel="stylesheet" href="../app/static/css/pagination.css">-->
     <!--<link rel="stylesheet" href="../app/static/css/base.css">-->
-    <style type="text/css">
+    <!-- <style type="text/css">
         body {
             font-family:"MS Pゴシック",sans-serif;
             }
-    </style>
+    </style> -->
 </head>
 <body>
     <?php include (__DIR__ . "/../template/navi.php"); ?>

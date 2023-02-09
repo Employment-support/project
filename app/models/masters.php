@@ -132,15 +132,15 @@ class Majors extends DB
 // 資格一覧
 class Abilites extends DB
 {
-    public const sqlSelect = "SELECT * FROM abilites WHERE id = ?";
-    public const sqlSelectAll = "SELECT * FROM abilites ORDER BY id ASC";
-    public const sqlDeleteBoole = "UPDATE abilites SET ability = ?, draft_flag = ? WHERE id = ?";
+    public const sqlSelect = "SELECT * FROM abilities WHERE id = ?";
+    public const sqlSelectAll = "SELECT * FROM abilities ORDER BY id ASC";
+    public const sqlDeleteBoole = "UPDATE abilities SET ability = ?, draft_flag = ? WHERE id = ?";
 
     // 登録
     function create($value)
     {
         try {
-            $stmt = $this->pdo->prepare("INSERT INTO abilites(ability) VALUES (?)");
+            $stmt = $this->pdo->prepare("INSERT INTO abilities(ability) VALUES (?)");
         
             $stmt -> bindValue(1, $value, PDO::PARAM_STR);
             $stmt->execute();
@@ -158,7 +158,7 @@ class Abilites extends DB
         $id: コンテンツID
         */
         try {
-            $stmt = $this->pdo->prepare("UPDATE abilites SET ability = ? WHERE id = ?");
+            $stmt = $this->pdo->prepare("UPDATE abilities SET ability = ? WHERE id = ?");
         
             $stmt -> bindValue(1, $value, PDO::PARAM_STR);
             $stmt -> bindValue(2, $id, PDO::PARAM_INT);

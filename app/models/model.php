@@ -57,7 +57,7 @@ class Briefings extends DB
             $stmt -> bindValue(":corporation_id", $corporation_id, PDO::PARAM_INT);
             $stmt -> bindValue(":user_id", $user_id, PDO::PARAM_INT);
             $stmt->execute();
-            echo '登録完了'; // テスト用
+            // echo '登録完了'; // テスト用
             return true;
         } catch (PDOException $e) {
             print('Error:'.$e->getMessage());
@@ -197,7 +197,7 @@ class Shares extends DB
             $stmt -> bindValue(":file_path", $file_path, PDO::PARAM_STR);
             $stmt -> bindValue(":share_id", $share_id, PDO::PARAM_INT);
             $stmt->execute();
-            echo '登録完了'; // テスト用
+            // echo '登録完了'; // テスト用
             return true;
         } catch (PDOException $e) {
             print('Error:'.$e->getMessage());
@@ -230,7 +230,7 @@ class Shares extends DB
             $stmt -> bindValue(":major_id", $major_id, PDO::PARAM_INT);
             $stmt -> bindValue(":user_id", $user_id, PDO::PARAM_INT);
             $stmt->execute();
-            echo '変更完了'; // テスト用
+            // echo '変更完了'; // テスト用
             return true;
         } catch (PDOException $e) {
             print('Error:'.$e->getMessage());
@@ -259,7 +259,7 @@ class Historys extends DB
             $stmt -> bindValue(":history", $history, PDO::PARAM_STR);
             $stmt -> bindValue(":resume_id", $resume_id, PDO::PARAM_INT);
             $stmt->execute();
-            echo '登録完了'; // テスト用
+            // echo '登録完了'; // テスト用
             return true;
         } catch (PDOException $e) {
             print('Error:'.$e->getMessage());
@@ -284,7 +284,7 @@ class Historys extends DB
             $stmt -> bindValue(":history", $history, PDO::PARAM_STR);
             $stmt -> bindValue(":resume_id", $resume_id, PDO::PARAM_INT);
             $stmt->execute();
-            echo '登録完了'; // テスト用
+            // echo '登録完了'; // テスト用
             return true;
         } catch (PDOException $e) {
             print('Error:'.$e->getMessage());
@@ -316,7 +316,7 @@ class Historys extends DB
             $stmt -> bindValue(":up_month", $month, PDO::PARAM_STR);
             $stmt -> bindValue(":up_history", $history, PDO::PARAM_STR);
             $stmt->execute();
-            echo '登録完了'; // テスト用
+            // echo '登録完了'; // テスト用
             return true;
         } catch (PDOException $e) {
             print('Error:'.$e->getMessage());
@@ -333,7 +333,7 @@ class Historys extends DB
             $stmt = $this->pdo->prepare($sql);
             $stmt -> bindValue(":id", $id, PDO::PARAM_INT);
             $stmt->execute();
-            echo '登録完了'; // テスト用
+            // echo '登録完了'; // テスト用
             return true;
         } catch (PDOException $e) {
             print('Error:'.$e->getMessage());
@@ -361,7 +361,7 @@ class Careers extends DB
             $stmt -> bindValue(":job", $job, PDO::PARAM_STR);
             $stmt -> bindValue(":resume_id", $resume_id, PDO::PARAM_INT);
             $stmt->execute();
-            echo '登録完了'; // テスト用
+            // echo '登録完了'; // テスト用
             return true;
         } catch (PDOException $e) {
             print('Error:'.$e->getMessage());
@@ -386,7 +386,7 @@ class Careers extends DB
             $stmt -> bindValue(":job", $job, PDO::PARAM_STR);
             $stmt -> bindValue(":resume_id", $resume_id, PDO::PARAM_INT);
             $stmt->execute();
-            echo '登録完了'; // テスト用
+            // echo '登録完了'; // テスト用
             return true;
         } catch (PDOException $e) {
             print('Error:'.$e->getMessage());
@@ -418,7 +418,7 @@ class Careers extends DB
             $stmt -> bindValue(":up_month", $month, PDO::PARAM_STR);
             $stmt -> bindValue(":up_job", $job, PDO::PARAM_STR);
             $stmt->execute();
-            echo '登録完了'; // テスト用
+            // echo '登録完了'; // テスト用
             return true;
         } catch (PDOException $e) {
             print('Error:'.$e->getMessage());
@@ -436,7 +436,7 @@ class Careers extends DB
             $stmt = $this->pdo->prepare($sql);
             $stmt -> bindValue(":id", $id, PDO::PARAM_INT);
             $stmt->execute();
-            echo '登録完了'; // テスト用
+            // echo '登録完了'; // テスト用
             return true;
         } catch (PDOException $e) {
             print('Error:'.$e->getMessage());
@@ -479,7 +479,7 @@ class UserAbilites extends DB
             $stmt -> bindValue(":ability", $ability, PDO::PARAM_STR);
             $stmt -> bindValue(":resume_id", $resume_id, PDO::PARAM_INT);
             $stmt->execute();
-            echo '登録完了'; // テスト用
+            // echo '登録完了'; // テスト用
             return true;
         } catch (PDOException $e) {
             print('Error:'.$e->getMessage());
@@ -505,7 +505,7 @@ class UserAbilites extends DB
             $stmt -> bindValue(":ability", $ability, PDO::PARAM_STR);
             $stmt -> bindValue(":resume_id", $resume_id, PDO::PARAM_INT);
             $stmt->execute();
-            echo '登録完了'; // テスト用
+            // echo '登録完了'; // テスト用
             return true;
         } catch (PDOException $e) {
             print('Error:'.$e->getMessage());
@@ -536,7 +536,7 @@ class UserAbilites extends DB
             $stmt -> bindValue(":up_month", $month, PDO::PARAM_STR);
             $stmt -> bindValue(":up_ability", $ability, PDO::PARAM_STR);
             $stmt->execute();
-            echo '登録完了'; // テスト用
+            // echo '登録完了'; // テスト用
             return true;
         } catch (PDOException $e) {
             print('Error:'.$e->getMessage());
@@ -554,7 +554,7 @@ class UserAbilites extends DB
             $stmt = $this->pdo->prepare($sql);
             $stmt -> bindValue(":id", $id, PDO::PARAM_INT);
             $stmt->execute();
-            echo '登録完了'; // テスト用
+            // echo '登録完了'; // テスト用
             return true;
         } catch (PDOException $e) {
             print('Error:'.$e->getMessage());
@@ -660,7 +660,7 @@ class Resumes extends DB
             $stmt -> bindValue(":other", $other, PDO::PARAM_STR);
             $stmt -> bindValue(":user_id", $user_id, PDO::PARAM_INT);
             $stmt->execute();
-            echo '変更完了'; // テスト用
+            // echo '変更完了'; // テスト用
 
             // 最後に登録されたIDの取得
             $id = $this->pdo->lastInsertId();
@@ -745,7 +745,7 @@ class Resumes extends DB
             $stmt -> bindValue(":net", $network, PDO::PARAM_STR);
             $stmt -> bindValue(":other", $other, PDO::PARAM_STR);
             $stmt->execute();
-            echo '変更完了'; // テスト用
+            // echo '変更完了'; // テスト用
 
             return true;
         } catch (PDOException $e) {
@@ -801,7 +801,7 @@ class Portfolio extends DB
             $stmt -> bindValue(":top", $top, PDO::PARAM_BOOL);
             $stmt -> bindValue(":user_id", $user_id, PDO::PARAM_INT);
             $stmt->execute();
-            echo '登録完了'; // テスト用
+            // echo '登録完了'; // テスト用
             return true;
         } catch (PDOException $e) {
             print('Error:'.$e->getMessage());
@@ -832,7 +832,7 @@ class Portfolio extends DB
             $stmt -> bindValue(":user_id", $user_id, PDO::PARAM_INT);
             $stmt -> bindValue(":id", $id, PDO::PARAM_INT);
             $stmt->execute();
-            echo '登録完了'; // テスト用
+            // echo '登録完了'; // テスト用
             return true;
         } catch (PDOException $e) {
             print('Error:'.$e->getMessage());

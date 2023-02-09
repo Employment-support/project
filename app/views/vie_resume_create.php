@@ -236,7 +236,7 @@
                 <?php foreach($career_list as $value): ?>
                     <tr>
                         <td class="td20"><p><input type="month" name="career_month[]" value="<?= $value['year']. '-'. $value['month'] ?>"></p></td>
-                        <td><p><input type="text" placeholder="なし" name="career[]" value="<?= $value['history']?>"></p></td>
+                        <td><p><input type="text" placeholder="なし" name="career[]" value="<?= $value['job']?>"></p></td>
                     </tr>
                 <?php endforeach ?>
                     <tr>
@@ -270,6 +270,7 @@
         <p><input type="button" value="行を追加" onclick="newTd(2)"></p>
         <br>
         <table border="1" id="career_qualification">
+            <datalist id="ability-list"></datalist>
             <tr><th colspan="2"><p>資格・免許</p></th></tr>
             <?php if($is_resume):?>
                 <?php foreach($userAbilites_list as $value): ?>
@@ -280,32 +281,32 @@
                     <?php endforeach ?>
                 <tr>
                     <td class="td20"><p><input type="month" name="qualification_month[]"></p></td>
-                    <td><p><input type="text" name="qualification[]" placeholder="ITパスポート"></p></td>
+                    <td><p><input type="text" name="qualification[]" placeholder="ITパスポート" autocomplete="on" list="ability-list"></p></td>
                 </tr>
                 <tr>
                     <td><p><input type="month" name="qualification_month[]"></p></td>
-                    <td><p><input type="text" name="qualification[]" placeholder="基本情報"></p></td>
+                    <td><p><input type="text" name="qualification[]" placeholder="基本情報" autocomplete="on" list="ability-list"></p></td>
                 </tr>
             <?php else: ?>
                 <tr>
                     <td class="td20"><p><input type="month" name="qualification_month[]"></p></td>
-                    <td><p><input type="text" name="qualification[]" placeholder="ITパスポート"></p></td>
+                    <td><p><input type="text" name="qualification[]" placeholder="ITパスポート" autocomplete="on" list="ability-list"></p></td>
                 </tr>
                 <tr>
                     <td><p><input type="month" name="qualification_month[]"></p></td>
-                    <td><p><input type="text" name="qualification[]" placeholder="基本情報"></p></td>
+                    <td><p><input type="text" name="qualification[]" placeholder="基本情報" autocomplete="on" list="ability-list"></p></td>
                 </tr>
                 <tr>
                     <td><p><input type="month" name="qualification_month[]"></p></td>
-                    <td><p><input type="text" name="qualification[]"></p></td>
+                    <td><p><input type="text" name="qualification[]" autocomplete="on" list="ability-list"></p></td>
                 </tr>
                 <tr>
                     <td><p><input type="month" name="qualification_month[]"></p></td>
-                    <td><p><input type="text" name="qualification[]"></p></td>
+                    <td><p><input type="text" name="qualification[]" autocomplete="on" list="ability-list"></p></td>
                 </tr>
                 <tr>
                     <td><p><input type="month" name="qualification_month[]"></p></td>
-                    <td><p><input type="text" name="qualification[]"></p></td>
+                    <td><p><input type="text" name="qualification[]" autocomplete="on" list="ability-list"></p></td>
                 </tr>
             <?php endif ?>
             <!--<tr><td colspan="2"><p><input type="button" value="行を追加"></p></td></tr>-->
@@ -484,5 +485,22 @@
         </table>
     </form>
     <?php include (__DIR__ . "/../template/footer.html"); ?>
+    <script>
+        // phpから資格一覧の取得
+        let text = <?= $json_array_abilite ?>;
+        let list = []
+        for (let i = 0; i < text.length; i++) {
+            list.push(text[i]['ability'])
+            // console.log(text[i]['ability']);
+        }
+        // console.log(list);
+        window.addEventListener('load', function() {
+            list.forEach(function(item) {
+                let option = document.createElement("option");
+                option.value = item;
+                document.getElementById("ability-list").appendChild(option);
+            });
+        });
+    </script>
     <script src="../app/static/js/resume.js"></script>
 </body>

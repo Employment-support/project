@@ -280,38 +280,47 @@ function pdf($img, $name, $name_frigana, $creation, $birthday, $gender, $postalc
     // foreachで回す
     $cou = 0;
     $coordinate_t = 123;
-    foreach ($career_academic as $value) {
-        if ($cou <= 1) {
-            $coordinate_t += 7.5;
+    foreach ($career_academic as $values) {
+        foreach($values as $value) {
+            var_dump($value["month"]);
+
         }
-        // 年
-        // $pdf->Text(21, 130.5, "2021");
-        $pdf->SetXY(19.5, $coordinate_t);
-        $pdf->MultiCell(13.5, 5, $value['year'], 0, "C");
         
-        // 月
-        // $pdf->Text(34, 130.5, "12");
-        $pdf->SetXY(33.2, $coordinate_t);
-        $pdf->MultiCell(7.5, 5, $value['month'], 0, "C");
-        
-        // 学歴(職歴)
-        $pdf->Text(43, $coordinate_t, $value['data']);
-        
-    // // +7.5
-    // // 年
-    // // $pdf->Text(21, 138, "2021");
-    // $pdf->SetXY(19.5, 138);
-    // $pdf->MultiCell(13.5, 5, "2021", 0, "C");
-    
-    // // 月
-    // // $pdf->Text(34, 138, "12");
-    // $pdf->SetXY(33.2, 138);
-    // $pdf->MultiCell(7.5, 5, "12", 0, "C");
-    
-    // // // 学歴(職歴)
-    // $pdf->Text(43, 138, "○○○○高等学校卒業");
     }
-    
+    if (!empty($career_academic)) {
+        foreach ($career_academic as $values) {
+            foreach($values as $value) {
+                if ($cou <= 1) {
+                    $coordinate_t += 7.5;
+                }
+                // 年
+                // $pdf->Text(21, 130.5, "2021");
+                $pdf->SetXY(19.5, $coordinate_t);
+                $pdf->MultiCell(13.5, 5, $value['year'], 0, "C");
+                
+                // 月
+                // $pdf->Text(34, 130.5, "12");
+                $pdf->SetXY(33.2, $coordinate_t);
+                $pdf->MultiCell(7.5, 5, $value['month'], 0, "C");
+                
+                // 学歴(職歴)
+                $pdf->Text(43, $coordinate_t, $value['data']);
+            }
+        // // +7.5
+        // // 年
+        // // $pdf->Text(21, 138, "2021");
+        // $pdf->SetXY(19.5, 138);
+        // $pdf->MultiCell(13.5, 5, "2021", 0, "C");
+        
+        // // 月
+        // // $pdf->Text(34, 138, "12");
+        // $pdf->SetXY(33.2, 138);
+        // $pdf->MultiCell(7.5, 5, "12", 0, "C");
+        
+        // // // 学歴(職歴)
+        // $pdf->Text(43, 138, "○○○○高等学校卒業");
+        }
+    }
     /* 資格・免許 */
     $pdf->SetFont($default_font_style, '', $default_font_size);
     
@@ -816,12 +825,15 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
     }
 
     if($is_academic && $is_career) {
-        echo 'aaa';
-        $career_academic = array_map(null, $career, $academic);
+        $career_academic = [];
+        // echo 'aaa';
+        $career_academic[] = $academic;
+        $career_academic[] = $career;
+        // $career_academic = array_map(null, $career, $academic);
     } elseif ($is_academic) {
-        $career_academic = $academic;
+        $career_academic[] = $academic;
     } elseif ($is_career) {
-        $career_academic = $career;
+        $career_academic[] = $career;
     } else {
         $career_academic = [];
     }
@@ -936,13 +948,16 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
             
             // 学歴
             // list($new_academic, $academic_drops_id) = comparison($historys_list, $academic, 'history', 'data');
+            $sql = "DELETE FROM histories WHERE resume_id = :id";
             $historys->delete($resume_list['id']);
             // // 職歴
             // list($new_career, $career_drops_id) = comparison($career_list, $career, 'job', 'data');
+            $sql = "DELETE FROM careers WHERE resume_id = :id";
             $careers_model->delete($resume_list['id']);
             
             // // 資格免許
             // list($new_user_abilites, $abilites_drops_id) = comparison($userAbilites_list, $qualification, 'ability', 'data');
+            $sql = "DELETE FROM user_abilities WHERE resume_id = :id";
             $userAbilites->delete($resume_list['id']);
             
             // ユーザ資格免許あれば処理
@@ -979,7 +994,8 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
             }
             
             // 登録処理の変更
-            print_r($academic);
+            // print_r($academic);
+
             // create_update($new_academic, 'history', $resume_list['id'], $historys, $academic_drops_id, $historys_list);
             // create_update($new_career, 'job', $resume_list['id'], $careers_model, $career_drops_id, $career_list);
             // create_update($new_user_abilites, 'ability', $resume_list['id'], $userAbilites, $abilites_drops_id, $userAbilites_list);
@@ -993,11 +1009,13 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
         $alert = "<script type='text/javascript'>alert('ログインしてください');</script>";
         
         // ②echoで①を表示する
-        echo $alert;
+        // echo $alert;
     }
     // phpの確認のとき削除
+    // var_dump($career_academic);
     // header('Location:/resume');
 }
+
 
 $abilite_list = $abilite_list->selectAll($abilite_list::sqlSelectAll);
 

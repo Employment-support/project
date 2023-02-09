@@ -25,6 +25,8 @@
                     <li class="detail"><?= $data['major'] ?></li>
                 </ul>
                 <h3><?= $data['title'] ?></h3>
+                <details>
+                <summary>詳細確認</summary>
                 <div class="white-space-pre-wrap"><?= $data['contents'] ?></div>
                 <!-- ファイルダウンロード -->
                     <?php foreach($data['path'] as $d):?>
@@ -39,6 +41,7 @@
                     <a class="item" href="<?= $d ?>" download>ダウンロード</a>
                     </div>
                     <?php endforeach?>
+                </details>
                 <!-- 作ったユーザだけで編集可能 -->
                 <?php if ($type && $_COOKIE['user_id'] == $data['user_id']): ?>
                     <p><a href="/share/edit?id=<?= $data['id'] ?>" class="blue">編集</a></p>
