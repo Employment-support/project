@@ -25,6 +25,9 @@ body {
     margin: 0;
 }
 
+html, body {
+    height: 100%;
+}
 /* ボタンの形 */
 /* 左右が丸いもの */
 
@@ -84,3 +87,4 @@ body {
 .text-align-center{
     text-align: center;
 }
+

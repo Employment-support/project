@@ -1,19 +1,35 @@
 /* パージネーション */
 
 .pagination {
-    /* display: flex; */
-    /*align-items: center; */
-    text-align: center
+    margin-top: 4rem;
+    text-align: center;
 }
 
-/*.now_page_number,*/
-/*.page_number {*/
-/*    padding: 0.5rem 1rem;*/
-    /* background-color: red; */
-/*    font-size: 20px;*/
-/*    border: solid 2px;*/
-/*    border-radius: 2rem;*/
-/*}*/
-/*.page_number {*/
-/*    background-color: blue;*/
-/*}*/
+.first_last_page,
+.now_page_number,
+.page_number,
+.page_feed {
+    padding: 0.5rem 1rem;
+    margin: 0.5rem;
+    font-size: 20px;
+    border: solid 2px;
+    border-radius: 2rem;
+    border-color: black;
+    color: black;
+    text-decoration: none;
+}
+
+.now_page_number {
+    background-color: black;
+    color: white;
+
+}
+
+.page_number {
+    text-decoration: none;
+    /* background-color: blue; */
+}
+
+.page_feed {
+    text-decoration: none;
+}

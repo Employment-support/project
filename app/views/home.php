@@ -22,14 +22,14 @@
             <p>就活を丁寧且つ効率的に支援</p>
         </div>
         <div class="gazo">
-            <img src="../app/static/imgs/syukatsu_shigoto_sagashi.png">
+            <img src="../app/static/imgs/23236056.png">
 
         </div>
     </div>
 
-    <form action="" method="POST" enctype="multipart/form-data">
+    <!--<form action="" method="POST" enctype="multipart/form-data">-->
 
-    <hr size="20" color="#0000ff" noshade>
+    <hr size="20" color="#297cdd" noshade>
     <div class="center">
         <h1>共有情報</h1>
     </div>
@@ -37,7 +37,7 @@
 
     <!--<h1>企業説明会</h1>-->
 
-    <hr size="20" color="#0000ff" noshade>
+    <hr size="20" color="#297cdd" noshade>
     <div class="center">
         <h1>企業説明会</h1>
     </div>
@@ -100,7 +100,7 @@
     <!--</div>-->
 </div>
 <?php endforeach;?>
-</body>
 <?php include ( __DIR__ . "/../template/footer.html"); ?>
+</body>
 
 </html>
